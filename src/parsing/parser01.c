@@ -5,9 +5,9 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/25 17:58:05 by fgroo             #+#    #+#             */
-/*   Updated: 2026/02/25 19:11:01 by fgroo            ###   ########.fr       */
-/*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            *//*                                                                            */01010101/*                                                                            */
+/*   Created: 2026/02/25 19:41:45 by fgroo             #+#    #+#             */
+/*   Updated: 2026/02/25 19:47:28 by fgroo            ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 // return (printf("Error\n"), 1);
@@ -24,7 +24,7 @@
 
 int validate_format(int fd, t_mapdata *mapdata)
 {
-	static char format[7][3] = {"NO ", "SO ", "WE ", "EA ", "F \0", "C \0", {0}};
+	static char format[7][4] = {"NO ", "SO ", "WE ", "EA ", "F ", "C ", {0}};
 	char		*tmp;
 	int			i;
 
@@ -33,7 +33,10 @@ int validate_format(int fd, t_mapdata *mapdata)
 	{
 		tmp = get_next_line(fd);
 		if (!tmp)
+			pr_error("GNL\n");
+		if (ft_strncmp(tmp, format[i], 3))
 			pr_error("Wrong Format\n");
+		mapdata->tex[i++] = tmp;
 	}
 	tmp = get_next_line(fd);
 
@@ -45,12 +48,12 @@ int parser(t_mapdata *map, char *argv[])
 	int fd;
 
 	if (!map)
-		return (printf("Error\n"), 1);
+		return (pr_error(""), 1);
 	if (ft_strcmp(argv[1], ".cub"))
-		return (printf("Error\nWrong file extension\n"), 1);
+		return (pr_error("Wrong file extension\n"), 1);
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
-		return (printf("Error\nopen()\n"), 1);
+		return (pr_error("open()\n"), 1);
 	if (validate_format(fd, map))
 		return (1);
 	return (0);
