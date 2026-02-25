@@ -5,6 +5,8 @@ SRC_DIR		:= src
 OBJ_DIR		:= obj
 LIBFT_DIR	:= libft
 LIBFT		:= libft.a
+MLX42_DIR	:= MLX42
+MLX42		:= libmlx42.a
 
 CFLAGS	:=
 CFLAGS	+= -O2
@@ -29,10 +31,12 @@ CPPFLAGS	+= -I$(SRC_DIR)/parsing
 
 LDFLAGS	:=
 LDFLAGS += -L$(LIBFT_DIR)
+LDFLAGS += -L$(MLX42_DIR)
 
 
 LDLIBS	:=
 LDLIBS	+= -lft
+LDLIBS	+= -lmlx42
 
 ifeq ($(DEBUG), 1)
 	CFLAGS	+= -ggdb3 -O0
@@ -78,7 +82,11 @@ all: $(NAME)
 $(LIBFT_DIR)/$(LIBFT):
 	@make -C $(LIBFT_DIR)
 
-$(NAME): $(LIBFT_DIR)/$(LIBFT) $(OBJ)
+$(MLX42_DIR)/$(MLX42):
+	@cmake -S $(MLX42_DIR) -B $(MLX42_DIR)/build
+	@make -C $(MLX42_DIR)/build -j4
+
+$(NAME): $(LIBFT_DIR)/$(LIBFT) $(MLX42_DIR)/$(MLX42) $(OBJ)
 	$(CC) $(OBJ) $(LDFLAGS) $(LDLIBS) -o $@
 
 $(OBJ_DIR)/%.o:%.c | $(OBJ_DIR)
@@ -95,6 +103,7 @@ clean:
 fclean: clean
 	rm -f $(NAME)
 	make -C $(LIBFT_DIR) fclean
+	rm -rf $(MLX42_DIR)/build
 
 re:
 	@make fclean
