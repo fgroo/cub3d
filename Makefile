@@ -1,0 +1,107 @@
+# config
+NAME		:= cub3d
+CC			:= cc
+SRC_DIR		:= src
+OBJ_DIR		:= obj
+LIBFT_DIR	:= libft
+LIBFT		:= libft.a
+
+CFLAGS	:=
+CFLAGS	+= -O2
+CFLAGS	+= -Wall
+CFLAGS	+= -Wextra
+CFLAGS	+= -Werror
+CFLAGS	+= -Wno-unused-result
+CFLAGS	+= -pedantic
+CFLAGS	+= -Wconversion
+CFLAGS	+= $(ADDFLAGS)
+
+CPPFLAGS	:=
+CPPFLAGS	+= -I$(LIBFT_DIR)
+CPPFLAGS	+= -I$(SRC_DIR)
+
+#********** Add the path to your headers here ***********#
+# e.g: CPPFLAGS	+= -I$(SRC_DIR)/module/path
+
+CPPFLAGS	+= -I$(SRC_DIR)/parsing
+
+#********************************************************#
+
+LDFLAGS	:=
+LDFLAGS += -L$(LIBFT_DIR)
+
+
+LDLIBS	:=
+LDLIBS	+= -lft
+
+ifeq ($(DEBUG), 1)
+	CFLAGS	+= -ggdb3 -O0
+	LDFLAGS	+= -ggdb3 -O0
+endif
+
+ifeq ($(TSAN), 1)
+	CFLAGS	+= -fsanitize=thread
+	LDFLAGS	+= -fsanitize=thread
+endif
+
+ifeq ($(LSAN), 1)
+	CFLAGS	+= -fsanitize=leak
+	LDFLAGS	+= -fsanitize=leak
+endif
+
+ifeq ($(ASAN), 1)
+	CFLAGS	+= -fsanitize=address
+	LDFLAGS	+= -fsanitize=address
+endif
+
+
+
+#******* Add your module and your .c files here ********#
+# e.g: vpath %.c $(SRC_DIR)/module/path
+
+# Sources
+SRC		:=
+
+vpath %.c $(SRC_DIR)
+SRC		+= main.c
+
+vpath %.c $(SRC_DIR)/parsing
+SRC		+= parser01.c
+
+#*******************************************************#
+
+OBJ		:= $(SRC:.c=.o)
+OBJ		:= $(addprefix $(OBJ_DIR)/, $(OBJ))
+
+all: $(NAME)
+
+$(LIBFT_DIR)/$(LIBFT):
+	@make -C $(LIBFT_DIR)
+
+$(NAME): $(LIBFT_DIR)/$(LIBFT) $(OBJ)
+	$(CC) $(OBJ) $(LDFLAGS) $(LDLIBS) -o $@
+
+$(OBJ_DIR)/%.o:%.c | $(OBJ_DIR)
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
+
+$(OBJ_DIR):
+	mkdir -p $@
+
+clean:
+	make -C $(LIBFT_DIR) clean
+	rm -f $(OBJ)
+	rm -rf $(OBJ_DIR)
+
+fclean: clean
+	rm -f $(NAME)
+	make -C $(LIBFT_DIR) fclean
+
+re:
+	@make fclean
+	@make all
+
+valtest:
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes ./$(NAME) $(ARGS)
+
+.PHONY: all clean fclean re
+.PHONY: valtest
