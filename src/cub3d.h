@@ -25,6 +25,8 @@ typedef struct s_mapdata {
 	char	*map[];
 }	t_mapdata;
 
+typedef struct 
+
 typedef struct s_data {
 	t_mapdata	*map;
 }	t_data;
