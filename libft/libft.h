@@ -14,7 +14,29 @@
 # define LIBFT_H
 
 # include <stddef.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <sys/types.h>
 # include "ft_printf.h"
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 100000
+# endif
+
+typedef struct s_vars
+{
+	char	buf[100000];
+	char	tmp[1024][100000];
+	ssize_t	p[1024];
+	ssize_t	r[1024];
+}	t_vars;
+
+typedef struct s_tmp
+{
+	ssize_t	len;
+	ssize_t	i;
+	char	*res;
+}	t_tmp;
 
 typedef struct s_list
 {
@@ -27,6 +49,7 @@ int			ft_putchar_fd(unsigned char c, int fd);
 int			ft_putstr_fd(char *s, int fd);
 int			ft_putendl_fd(char *s, int fd);
 int			ft_putnbr_fd(int n, int fd);
+char		*get_next_line(int fd);
 
 // string
 int			ft_atoi(const char *nptr);

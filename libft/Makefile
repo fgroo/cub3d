@@ -80,6 +80,7 @@ SRC			+= ft_putendl_fd.c
 SRC			+= ft_putnbr_fd.c
 SRC			+= ft_putstr_fd.c
 SRC			+= ft_printf.c
+SRC			+= get_next_line.c
 
 # list
 vpath %.c list/

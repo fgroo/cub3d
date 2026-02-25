@@ -25,18 +25,25 @@ CPPFLAGS	+= -I$(SRC_DIR)
 #********** Add the path to your headers here ***********#
 # e.g: CPPFLAGS	+= -I$(SRC_DIR)/module/path
 
+CPPFLAGS	+= -I$(SRC_DIR)/error
 CPPFLAGS	+= -I$(SRC_DIR)/parsing
 
 #********************************************************#
 
 LDFLAGS	:=
 LDFLAGS += -L$(LIBFT_DIR)
-LDFLAGS += -L$(MLX42_DIR)
+LDFLAGS	+= -L$(MLX42_DIR)/build
+LDFLAGS	+= -L$(MLX42_DIR)/build/_deps/glfw-build/src
 
 
 LDLIBS	:=
 LDLIBS	+= -lft
 LDLIBS	+= -lmlx42
+LDLIBS	+= -lglfw2
+LDLIBS	+= -lm
+LDLIBS	+= -ldl
+LDLIBS	+= -lpthread
+
 
 ifeq ($(DEBUG), 1)
 	CFLAGS	+= -ggdb3 -O0
@@ -68,6 +75,9 @@ SRC		:=
 
 vpath %.c $(SRC_DIR)
 SRC		+= main.c
+
+vpath %.c $(SRC_DIR)/error
+SRC		+= error.c
 
 vpath %.c $(SRC_DIR)/parsing
 SRC		+= parser01.c
