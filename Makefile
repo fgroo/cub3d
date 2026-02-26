@@ -16,6 +16,8 @@ CFLAGS	+= -Werror
 CFLAGS	+= -Wno-unused-result
 CFLAGS	+= -pedantic
 CFLAGS	+= -Wconversion
+CFLAGS	+= -fPIE
+# CFLAGS	+= -no-pie
 CFLAGS	+= $(ADDFLAGS)
 
 CPPFLAGS	:=
@@ -33,7 +35,7 @@ CPPFLAGS	+= -I$(SRC_DIR)/parsing
 LDFLAGS	:=
 LDFLAGS += -L$(LIBFT_DIR)
 LDFLAGS	+= -L$(MLX42_DIR)/build
-LDFLAGS	+= -L$(MLX42_DIR)/build/_deps/glfw-build/src
+# LDFLAGS	+= -L$(MLX42_DIR)/build/_deps/glfw-build/src
 
 
 LDLIBS	:=
