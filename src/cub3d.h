@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 19:41:22 by fgroo             #+#    #+#             */
-/*   Updated: 2026/02/25 19:41:23 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/02/26 15:57:39 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,20 @@ typedef struct s_mapdata {
 typedef struct s_data {
 	t_mapdata	*map;
 }	t_data;
+
+
+/*
+----------------------------PARSING----------------------------
+*/
+
+int parser(t_mapdata *map, char *argv[]);
+int validate_format(int fd, t_mapdata *mapdata);
+
+/*	
+----------------------------ERROR----------------------------
+*/
+
+void	pr_error(const char *err);
+
 
 #endif // !CUB3D_H
