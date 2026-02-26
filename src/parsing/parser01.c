@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 19:41:45 by fgroo             #+#    #+#             */
-/*   Updated: 2026/02/26 20:48:37 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/02/26 22:20:01 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,30 +17,31 @@
 #include "error.h"
 #include "libft.h"
 
+
 #include <stdio.h>
 #include <fcntl.h>
 
-static int	check_texture_file(char *tex, char *line, char *identifier)
+static int	check_texture_file(char **tex, char *line, char *identifier)
 {
-	tex = fetch_texture_file(line, identifier);
-	if (!tex && (free(line), 1))
+	*tex = fetch_texture_file(line, identifier);
+	if (!(*tex) && (free(line), 1))
 		return (pr_error("failed fetching texture file\n"), 1);
 	return (0);
 }
 
-static int	check_fetch_color(t_mapdata *mapdata, char *line,
+static int	check_fetch_color(t_mapdata **mapdata, char *line,
 	char *identifier, int i)
 {
-	if (i == 5)
+	if (i == 4)
 	{
-		mapdata->floor_color = fetch_color(line, identifier);
-		if (mapdata->floor_color == -1)
+		(*mapdata)->floor_color = fetch_color(line, identifier);
+		if ((*mapdata)->floor_color == -1)
 			return (pr_error("failed fetching color"), 1);
 	}
-	else if (i == 6)
+	else if (i == 5)
 	{
-		mapdata->ceiling_color = fetch_color(line, identifier);
-		if (mapdata->ceiling_color == -1)
+		(*mapdata)->ceiling_color = fetch_color(line, identifier);
+		if ((*mapdata)->ceiling_color == -1)
 			return (pr_error("failed fetching color"), 1);
 	}
 	return (0);
@@ -52,9 +53,10 @@ int	validate_format(int fd, t_mapdata *mapdata)
 	char		*tmp;
 	int			i;
 
-	i = -1;
-	while (++i < 6)
+	i = 0;
+	while (i < 6)
 	{
+		tmp = NULL;
 		tmp = get_next_line(fd);
 		if (!tmp)
 			return (pr_error("GNL\n"), 1);
@@ -62,10 +64,11 @@ int	validate_format(int fd, t_mapdata *mapdata)
 			continue ;
 		if (ft_strncmp(tmp, format[i], ft_strlen(format[i])) && (free(tmp), 1))
 			return (pr_error("Wrong Format\n"), 1);
-		if (i < 4 && check_texture_file(mapdata->tex[i], tmp, format[i]))
+		if (i < 4 && check_texture_file(&mapdata->tex[i], tmp, format[i]))
 			return (1);
-		else if (i >= 4 && check_fetch_color(mapdata, tmp, format[i], i))
+		else if (i >= 4 && check_fetch_color(&mapdata, tmp, format[i], i))
 			return (1);
+		++i;
 	}
 	return (0);
 }

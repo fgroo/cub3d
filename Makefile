@@ -86,6 +86,7 @@ SRC		+= error.c
 
 vpath %.c $(SRC_DIR)/parsing
 SRC		+= parser01.c
+SRC		+= parser02.c
 
 #*******************************************************#
 
