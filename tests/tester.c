@@ -16,6 +16,7 @@ void test_fetch_texture_file_should_return_file_name(void)
 		(char*[]){ "N ./texture-file", "NO", NULL },
 		(char*[]){ "./texture-file", "NO", NULL },
 		(char*[]){ "NO ./texture-file  ", "NO", "./texture-file" },
+		(char*[]){ "NO ./texture-file  a", "NO", NULL },
 		NULL,
 	};
 
@@ -28,9 +29,48 @@ void test_fetch_texture_file_should_return_file_name(void)
 	}
 }
 
+
+void test_fetch_color(void)
+{
+	// cases
+	// F 11a, 1, 1
+	// F 11a   ,1, 1
+	// F 11   a,1, 1
+	// F 11,1,1a
+	// F a, 1, 1
+	char **testcase[] = {
+		(char*[]){ "F 255,255,255", "F" },
+		(char*[]){ "F     255  , 255, 255   ", "F" },
+		(char*[]){ "F a,255,255", "F" },
+		(char*[]){ "F 255a,255,255", "F" },
+		(char*[]){ "F 255a   ,255,255", "F" },
+		(char*[]){ "F 255   a,255,255", "F" },
+		(char*[]){ "F 255,255,255a", "F" },
+		(char*[]){ "F 255,255,255    a", "F" },
+		NULL,
+	};
+	int solution[] = {
+		0xFFFFFF,
+		0xFFFFFF,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+	};
+	for (int i = 0; testcase[i]; i++) {
+		int color = fetch_color(testcase[i][0], testcase[i][1]);
+		printf("TEST %d: \"%s\"\n", i + 1, testcase[i][0]);
+		printf("\texpected: 0x%x\n\tactual: 0x%x\n\n", solution[i], color);
+		TEST_ASSERT_EQUAL_INT(solution[i], color);
+	}
+}
+
 int main(void)
 {
 	UNITY_BEGIN();
 	RUN_TEST(test_fetch_texture_file_should_return_file_name);
+	RUN_TEST(test_fetch_color);
 	return UNITY_END();
 }
