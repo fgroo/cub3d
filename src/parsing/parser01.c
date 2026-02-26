@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 19:41:45 by fgroo             #+#    #+#             */
-/*   Updated: 2026/02/26 15:38:39 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/02/26 16:27:17 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,32 @@ int validate_format(int fd, t_mapdata *mapdata)
 	return (0);
 }
 
+char **hardcoded(char ***argv)
+{
+	char **hardcode;
+	int	i;
+
+	i = 0;
+	while (*argv[i])
+		argv[i++] = NULL;
+	hardcode = malloc(sizeof(char *) * 2);
+	if (!hardcode)
+		return (pr_error("malloc\n"), NULL);
+	hardcode[0] = "../maps/example.cub";
+	hardcode[1] = NULL;
+	return (hardcode);
+}
+
 int parser(t_mapdata *map, char *argv[])
 {
 	int fd;
-
+	
 	if (!map)
 		return (pr_error(""), 1);
-	if (ft_strcmp(argv[1], ".cub"))
+	argv = hardcoded(&argv);
+	if ((ft_strcmp(argv[0] + (ft_strlen(argv[0]) - 4), ".cub")) != 0) // hardcoded for testing
 		return (pr_error("Wrong file extension\n"), 1);
-	fd = open(argv[1], O_RDONLY);
+	fd = open(argv[0], O_RDONLY); // is 0, which is wrong for real use case
 	if (fd == -1)
 		return (pr_error("open()\n"), 1);
 	if (validate_format(fd, map))
