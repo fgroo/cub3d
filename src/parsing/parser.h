@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 19:39:36 by fgroo             #+#    #+#             */
-/*   Updated: 2026/02/25 19:39:37 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/02/26 20:29:38 by rtwobie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@
 
 int		parser(t_mapdata *map, char *argv[]);
 char	*fetch_texture_file(const char *line, const char *identifier);
+int		fetch_color(const char *line, const char *identifier);
 
 #endif // !PARSER_H
