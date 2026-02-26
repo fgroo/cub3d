@@ -83,6 +83,7 @@ char		*ft_strjoin(const char *s1, const char *s2);
 char		*ft_strtrim(const char *s, const char *set);
 char		**ft_split(const char *s, char delimiter);
 char		*ft_strmapi(const char *s, char (*f)(unsigned int, char));
+char		*ft_strndup(const char *src, size_t n);
 void		ft_striteri(char *s, void (*f)(unsigned int, char *));
 
 // memory

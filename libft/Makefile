@@ -60,6 +60,7 @@ SRC			+= ft_substr.c
 SRC			+= ft_strjoin.c
 SRC			+= ft_strtrim.c
 SRC			+= ft_strmapi.c
+SRC			+= ft_strndup.c
 SRC			+= ft_striteri.c
 
 # memory
