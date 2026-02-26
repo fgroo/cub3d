@@ -8,6 +8,9 @@ LIBFT		:= libft.a
 MLX42_DIR	:= MLX42
 MLX42		:= libmlx42.a
 
+TESTS_DIR	:= tests
+UNITY_DIR	:= $(TESTS_DIR)/unity
+
 CFLAGS	:=
 CFLAGS	+= -O2
 CFLAGS	+= -Wall
@@ -120,6 +123,12 @@ fclean: clean
 re:
 	@make fclean
 	@make all
+
+# Example use:
+# $ make utest CFILES="test1.c test2.c"
+utest:
+	@make
+	$(CC) $(UNITY_DIR)/unity.c $(CFILES) $(CPPFLAGS) -I$(UNITY_DIR) $(LDFLAGS) $(LDLIBS) -o unit-test
 
 valtest:
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes ./$(NAME) $(ARGS)
