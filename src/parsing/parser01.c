@@ -81,8 +81,9 @@ int	parser(t_mapdata *map, char *file)
     if (fd == -1)
         return (pr_error("open()\n"), 1);
     if (validate_format(fd, map))
-        return (1);
+        return (close(fd), 1);
     // if (validate_map(fd, &map->map))
     //     return (1);
+	close(fd);
     return (0);
 }

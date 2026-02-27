@@ -25,7 +25,7 @@
 
 int 	parser(t_mapdata *map, char *file);
 int 	validate_format(int fd, t_mapdata *mapdata);
-int		fetch_color(const char *line, const char *identifier);
+int		fetch_color(char *line, const char *identifier);
 char	*fetch_texture_file(const char *line, const char *identifier);
 int		validate_map(int fd, char ***map);
 int		to_hex_color(long r, long g, long b);
