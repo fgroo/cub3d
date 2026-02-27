@@ -62,7 +62,7 @@ int	to_hex_color(long r, long g, long b)
 	return ((int)((r << 16) | (g << 8) | b));
 }
 
-int	fetch_color(const char *line, const char *identifier)
+int	fetch_color(char *line, const char *identifier)
 {
 	long	rgb[3];
 	size_t	i;
@@ -77,14 +77,14 @@ int	fetch_color(const char *line, const char *identifier)
 	i = 0;
 	while (*line && i < 3)
 	{
-		rgb[i++] = ft_strtol(line, &endptr, 10);
+		rgb[i++] = ft_strtol(line + (*line == ','), &endptr, 10);
 		if (endptr == line)
 			return (-1);
 		while (*endptr && ft_isspace(*endptr))
 			++endptr;
 		if (*endptr != ',' && i != 3)
 			return (-1);
-		line = endptr + 1;
+		line = endptr;
 	}
 	if (i != 3 || *endptr)
 		return (-1);
