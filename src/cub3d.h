@@ -24,7 +24,7 @@ typedef struct s_mapdata {
 	char	*tex[4];
 	int		floor_color;
 	int		ceiling_color;
-	char	**map; // whyyyyy array? *map[] got removed by me
+	char	**map;
 }	t_mapdata;
 
 typedef struct s_data {
@@ -35,11 +35,15 @@ typedef struct s_data {
 /*
 ----------------------------PARSING----------------------------
 */
-# include "parser.h"
-/*	
+// # include "parser.h"
+
+// int parser(t_mapdata *map, char *argv[]);
+// int validate_format(int fd, t_mapdata *mapdata);
+
+/*
 ----------------------------ERROR----------------------------
 */
-# include "error.h"
+// # include "error.h"
 
 
 #endif // !CUB3D_H
