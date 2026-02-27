@@ -21,7 +21,7 @@ CFLAGS	+= -pedantic
 CFLAGS	+= -Wconversion
 CFLAGS	+= -fPIE
 # CFLAGS	+= -no-pie
-CFLAGS	+= $(ADDFLAGS)
+CFLAGS	+= $(ADDCFLAGS)
 
 CPPFLAGS	:=
 CPPFLAGS	+= -I$(LIBFT_DIR)
@@ -33,6 +33,7 @@ CPPFLAGS	+= -I$(SRC_DIR)
 CPPFLAGS	+= -I$(SRC_DIR)/error
 CPPFLAGS	+= -I$(SRC_DIR)/gnl
 CPPFLAGS	+= -I$(SRC_DIR)/parsing
+CPPFLAGS	+= $(ADDCPPFLAGS)
 
 #********************************************************#
 
@@ -71,6 +72,18 @@ ifeq ($(ASAN), 1)
 	LDFLAGS	+= -fsanitize=address
 endif
 
+# 1. Check if the first argument passed to make is "utest"
+ifeq (utest,$(firstword $(MAKECMDGOALS)))
+
+  # 2. Grab everything after "utest" and store it in CFILES
+  # (Note: Make ignores "DEBUG=1" here because it's a variable assignment, which is perfect)
+  CFILES := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+
+  # 3. Turn the extracted C files into empty "do-nothing" targets
+  # This prevents Make from throwing a "No rule to make target" error
+  $(eval $(CFILES):;@:)
+
+endif
 
 
 #******* Add your module and your .c files here ********#
@@ -127,13 +140,16 @@ fclean: clean
 	rm -rf $(MLX42_DIR)/build
 
 re:
+	rm unit-test
 	@make fclean
 	@make all
 
 # Example use:
-# $ make utest CFILES="test1.c test2.c"
+# $ make utest file_to_test1.c file_to_test2.c test_file.c
+utest: CFLAGS += -ggdb3 -O0
+utest: LDFLAGS += -ggdb3 -O0
 utest:
-	@make
+	@echo "Compiling files: " $(CFILES)
 	$(CC) $(UNITY_DIR)/unity.c $(CFILES) $(CPPFLAGS) -I$(UNITY_DIR) $(LDFLAGS) $(LDLIBS) -o unit-test
 
 valtest:
