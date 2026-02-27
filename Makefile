@@ -104,7 +104,7 @@ SRC		+= get_next_line.c
 vpath %.c $(SRC_DIR)/parsing
 SRC		+= parser01.c
 SRC		+= parser02.c
-SRC		+= parser03.c
+# SRC		+= parser03.c
 
 #*******************************************************#
 
@@ -140,7 +140,6 @@ fclean: clean
 	rm -rf $(MLX42_DIR)/build
 
 re:
-	rm unit-test
 	@make fclean
 	@make all
 
