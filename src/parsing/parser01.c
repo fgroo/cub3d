@@ -14,8 +14,10 @@
 // return (printf("Error\nWrong Format\n"), 1);
 
 #include "parser.h"
+
 #include "error.h"
 #include "libft.h"
+#include "get_next_line.h"
 
 
 #include <stdio.h>

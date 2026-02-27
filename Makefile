@@ -31,6 +31,7 @@ CPPFLAGS	+= -I$(SRC_DIR)
 # e.g: CPPFLAGS	+= -I$(SRC_DIR)/module/path
 
 CPPFLAGS	+= -I$(SRC_DIR)/error
+CPPFLAGS	+= -I$(SRC_DIR)/gnl
 CPPFLAGS	+= -I$(SRC_DIR)/parsing
 
 #********************************************************#
@@ -83,6 +84,9 @@ SRC		+= main.c
 
 vpath %.c $(SRC_DIR)/error
 SRC		+= error.c
+
+vpath %.c $(SRC_DIR)/gnl
+SRC		+= get_next_line.c
 
 vpath %.c $(SRC_DIR)/parsing
 SRC		+= parser01.c
