@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 19:41:22 by fgroo             #+#    #+#             */
-/*   Updated: 2026/02/26 15:57:39 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/02/27 17:22:54 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef struct s_mapdata {
 	char	*tex[4];
 	int		floor_color;
 	int		ceiling_color;
-	char	*map[];
+	char	**map; // whyyyyy array? *map[] got removed by me
 }	t_mapdata;
 
 typedef struct s_data {
@@ -35,15 +35,11 @@ typedef struct s_data {
 /*
 ----------------------------PARSING----------------------------
 */
-
-int parser(t_mapdata *map, char *argv[]);
-int validate_format(int fd, t_mapdata *mapdata);
-
+# include "parser.h"
 /*	
 ----------------------------ERROR----------------------------
 */
-
-void	pr_error(const char *err);
+# include "error.h"
 
 
 #endif // !CUB3D_H

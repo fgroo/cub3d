@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 19:39:36 by fgroo             #+#    #+#             */
-/*   Updated: 2026/02/26 20:29:38 by rtwobie          ###   ########.fr       */
+/*   Updated: 2026/02/27 17:23:07 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PARSER_H
 
 # include "cub3d.h"
+# include "libft.h" // is getting used everywhere
 
 # define NORTH_ID "NO"
 # define SOUTH_ID "SO"
@@ -22,8 +23,10 @@
 # define FLOOR_ID "F"
 # define CEILING_ID "C"
 
-int		parser(t_mapdata *map, char *argv[]);
-char	*fetch_texture_file(const char *line, const char *identifier);
+int 	parser(t_mapdata *map, char *argv[]);
+int 	validate_format(int fd, t_mapdata *mapdata);
 int		fetch_color(const char *line, const char *identifier);
+char	*fetch_texture_file(const char *line, const char *identifier);
+int		validate_map(int fd, char ***map);
 
 #endif // !PARSER_H

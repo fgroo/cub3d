@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parser02.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rtwobie <student@42>                       +#+  +:+       +#+        */
+/*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 19:52:36 by rtwobie           #+#    #+#             */
-/*   Updated: 2026/02/26 22:01:02 by rtwobie          ###   ########.fr       */
+/*   Updated: 2026/02/27 16:12:24 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "parser.h"
-#include "libft.h"
+#include "parser.h"
+#include "error.h"
 
 /*  Pass a line from the .cub file to extract the path of the texturefile.
  *

@@ -6,21 +6,14 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 19:41:45 by fgroo             #+#    #+#             */
-/*   Updated: 2026/02/26 22:20:01 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/02/27 17:08:22 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// return (printf("Error\n"), 1);
-// return (printf("Error\nWrong Format\n"), 1);
-
 #include "parser.h"
-
-#include "error.h"
-#include "libft.h"
 #include "get_next_line.h"
-
-
-#include <stdio.h>
+#include "error.h"
+#include <stdlib.h>
 #include <fcntl.h>
 
 static int	check_texture_file(char **tex, char *line, char *identifier)
@@ -75,7 +68,7 @@ int	validate_format(int fd, t_mapdata *mapdata)
 	return (0);
 }
 
-char	**hardcoded(char ***argv)
+static char	**hardcoded(char ***argv)
 {
 	char		**hardcode;
 	static char	arg[] = "./maps/example.cub";
@@ -105,9 +98,11 @@ int	parser(t_mapdata *map, char *argv[])
 	if ((ft_strcmp(argv[0] + (ft_strlen(argv[0]) - 4), ".cub")) != 0) // hardcoded for testing
 		return (pr_error("Wrong file extension\n"), 1);
 	fd = open(argv[0], O_RDONLY); // is 0, which is wrong for real use case
-	if (fd == -1)
-		return (pr_error("open()\n"), 1);
-	if (validate_format(fd, map))
-		return (1);
-	return (0);
+    if (fd == -1)
+        return (pr_error("open()\n"), 1);
+    if (validate_format(fd, map))
+        return (1);
+    if (validate_map(fd, &map->map))
+        return (1);
+    return (0);
 }
