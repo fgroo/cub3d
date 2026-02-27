@@ -23,8 +23,16 @@
 # define FLOOR_ID "F"
 # define CEILING_ID "C"
 
-int 	parser(t_mapdata *map, char *file);
-int 	validate_format(int fd, t_mapdata *mapdata);
+typedef struct s_chunkheader
+{
+	size_t					size;
+	int						is_free;
+	int						pedding;
+	struct s_chunkheader	*next;
+}										t_chunkheader;
+
+int		parser(t_mapdata *map, char *file);
+int		validate_format(int fd, t_mapdata *mapdata);
 int		fetch_color(char *line, const char *identifier);
 char	*fetch_texture_file(const char *line, const char *identifier);
 int		validate_map(int fd, char ***map);

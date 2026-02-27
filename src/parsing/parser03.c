@@ -15,11 +15,19 @@
 #include "get_next_line.h"
 #include <stdlib.h>
 
-void	*ft_realloc(void *p, size_t size)__attribute__((nonnull(1)))
+static size_t	align(size_t size)
+{
+	static size_t	alignment = 8;
+
+	return (((size) + (alignment - 1)) & ~(alignment - 1));
+}
+
+void	*ft_realloc(void *ptr, size_t size) __attribute__((nonnull(1)));
+
+void	*ft_realloc(void *p, size_t size)
 {
 	return (NULL);
 }
-
 
 int	check_chars(int	*spawnp, const char *line)
 {
@@ -29,8 +37,9 @@ int	check_chars(int	*spawnp, const char *line)
 	while (line[i])
 	{
 		if (line[i] == '\n' && !line[i + 1])
-			break;
-		if (line[i] == 'N' || line[i] == 'S' || line[i] == 'E' || line[i] == 'W')
+			break ;
+		if (line[i] == 'N' || line[i] == 'S'
+			|| line[i] == 'E' || line[i] == 'W')
 			*spawnp++;
 		if (!ft_isspace(line[i]) || line[i] != 'N' || line[i] != 'S'
 			|| line[i] != 'E' || line[i] != 'W'
