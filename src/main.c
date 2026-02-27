@@ -12,6 +12,9 @@
 
 
 #include "cub3d.h"
+#include "error.h"
+#include "parser.h"
+
 #include <stddef.h>
 #include <stdlib.h>
 
@@ -19,10 +22,13 @@ int	main(int argc, char *argv[])
 {
 	t_data	data;
 
-	data.map = malloc(sizeof(t_mapdata));
+	if (argc != 2 || !argv || !argv[1] || !argv[1][0])
+		return (pr_error("Please enter a .cub file\n"), 1);
+	data.map = malloc(sizeof(*data.map));
 	if (!data.map)
 		return (pr_error("malloc\n"), 1);
-	parser(data.map, argv);
+	if (parser(data.map, argv[1]))
+		return (1);
 	(void)argc;
 	(void)argv;
 	return (0);

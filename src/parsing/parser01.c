@@ -64,45 +64,25 @@ int	validate_format(int fd, t_mapdata *mapdata)
 		else if (i >= 4 && check_fetch_color(&mapdata, tmp, format[i], i))
 			return (1);
 		++i;
+		free(tmp);
 	}
 	return (0);
 }
 
-static char	**hardcoded(char ***argv)
-{
-	char		**hardcode;
-	static char	arg[] = "./maps/example.cub";
-	int			i;
-
-	i = 0;
-	while (*argv[i])
-		*argv[i++] = NULL;
-	hardcode = malloc(sizeof(char *) * 2);
-	if (!hardcode)
-		return (pr_error("malloc\n"), NULL);
-	hardcode[0] = malloc(sizeof(ft_strlen(arg)) + 1);
-	if (!hardcode[0])
-		return (pr_error("malloc\n"), NULL);
-	hardcode[0] = arg;
-	hardcode[1] = NULL;
-	return (hardcode);
-}
-
-int	parser(t_mapdata *map, char *argv[])
+int	parser(t_mapdata *map, char *file)
 {
 	int	fd;
 
 	if (!map)
 		return (pr_error(""), 1);
-	argv = hardcoded(&argv);
-	if ((ft_strcmp(argv[0] + (ft_strlen(argv[0]) - 4), ".cub")) != 0) // hardcoded for testing
+	if ((ft_strcmp(file + (ft_strlen(file) - 4), ".cub")) != 0)
 		return (pr_error("Wrong file extension\n"), 1);
-	fd = open(argv[0], O_RDONLY); // is 0, which is wrong for real use case
+	fd = open(file, O_RDONLY);
     if (fd == -1)
         return (pr_error("open()\n"), 1);
     if (validate_format(fd, map))
         return (1);
-    if (validate_map(fd, &map->map))
-        return (1);
+    // if (validate_map(fd, &map->map))
+    //     return (1);
     return (0);
 }

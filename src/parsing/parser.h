@@ -23,7 +23,7 @@
 # define FLOOR_ID "F"
 # define CEILING_ID "C"
 
-int 	parser(t_mapdata *map, char *argv[]);
+int 	parser(t_mapdata *map, char *file);
 int 	validate_format(int fd, t_mapdata *mapdata);
 int		fetch_color(const char *line, const char *identifier);
 char	*fetch_texture_file(const char *line, const char *identifier);
