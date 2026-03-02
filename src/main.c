@@ -6,17 +6,31 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 15:47:23 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/02 20:11:57 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/02 20:49:43 by rtwobie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "cub3d.h"
+#include "draw.h"
 #include "error.h"
 #include "parser.h"
+#include "MLX42.h"
 
 #include <stddef.h>
 #include <stdlib.h>
+#include <stdio.h>
+
+int	init_mlx(t_data *data)
+{
+	data->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "cub3d", false);
+	if (!data->mlx)
+		return (1);
+	mlx_loop_hook(data->mlx, render_minimap, data);
+	mlx_key_hook(data->mlx, key_hook, data);
+	mlx_loop(data->mlx);
+	mlx_terminate(data->mlx);
+	return (0);
+}
 
 int	main(int argc, char *argv[])
 {
@@ -29,7 +43,7 @@ int	main(int argc, char *argv[])
 		return (pr_error("malloc\n"), 1);
 	if (parser(data.map, argv[1]))
 		return (1);
-	(void)argc;
-	(void)argv;
+	if (init_mlx(&data))
+		return (1);
 	return (0);
 }
