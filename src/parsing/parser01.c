@@ -6,13 +6,15 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 19:41:45 by fgroo             #+#    #+#             */
-/*   Updated: 2026/02/27 17:08:22 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/02 20:19:47 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "get_next_line.h"
 #include "error.h"
+#include "cleanup.h"
+#include "debug.h"
 #include <stdlib.h>
 #include <fcntl.h>
 
@@ -78,12 +80,14 @@ int	parser(t_mapdata *map, char *file)
 	if ((ft_strcmp(file + (ft_strlen(file) - 4), ".cub")) != 0)
 		return (pr_error("Wrong file extension\n"), 1);
 	fd = open(file, O_RDONLY);
-    if (fd == -1)
-        return (pr_error("open()\n"), 1);
-    if (validate_format(fd, map))
-        return (close(fd), 1);
-    // if (validate_map(fd, &map->map))
-    //     return (1);
+	if (fd == -1)
+		return (pr_error("open()\n"), 1);
+	if (validate_format(fd, map))
+		return (close(fd), 1);
+	if (validate_map(fd, &map->map))
+		return (1);
+	print_mapdata(map);
+	free_mapdata(map);
 	close(fd);
-    return (0);
+	return (0);
 }

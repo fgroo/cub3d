@@ -1,35 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   free_mapdata.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/26 15:47:23 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/02 20:11:57 by fgroo            ###   ########.fr       */
+/*   Created: 2026/03/02 20:20:00 by fgroo             #+#    #+#             */
+/*   Updated: 2026/03/02 20:24:25 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "cub3d.h"
-#include "error.h"
-#include "parser.h"
-
-#include <stddef.h>
+#include "ft_malloc_lite.h"
 #include <stdlib.h>
 
-int	main(int argc, char *argv[])
+static void	free_map_rows(t_mapdata *map)
 {
-	t_data	data;
+	int	i;
 
-	if (argc != 2 || !argv || !argv[1] || !argv[1][0])
-		return (pr_error("Please enter a .cub file\n"), 1);
-	data.map = ft_calloc(1, sizeof(*data.map));
-	if (!data.map)
-		return (pr_error("malloc\n"), 1);
-	if (parser(data.map, argv[1]))
-		return (1);
-	(void)argc;
-	(void)argv;
-	return (0);
+	if (!map->map)
+		return ;
+	i = 0;
+	while (map->map[i])
+	{
+		free(map->map[i]);
+		i++;
+	}
+	ft_free(map->map);
+}
+
+void	free_mapdata(t_mapdata *map)
+{
+	int	i;
+
+	if (!map)
+		return ;
+	i = 0;
+	while (i < 4)
+	{
+		if (map->tex[i])
+			free(map->tex[i]);
+		i++;
+	}
+	free_map_rows(map);
+	free(map);
 }

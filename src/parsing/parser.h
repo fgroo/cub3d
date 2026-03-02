@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 19:39:36 by fgroo             #+#    #+#             */
-/*   Updated: 2026/02/27 17:23:07 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/02 18:27:06 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,6 @@
 # define EAST_ID "EA"
 # define FLOOR_ID "F"
 # define CEILING_ID "C"
-
-typedef struct s_chunkheader
-{
-	size_t					size;
-	int						is_free;
-	int						pedding;
-	struct s_chunkheader	*next;
-}										t_chunkheader;
 
 int		parser(t_mapdata *map, char *file);
 int		validate_format(int fd, t_mapdata *mapdata);

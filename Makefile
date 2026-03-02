@@ -33,6 +33,9 @@ CPPFLAGS	+= -I$(SRC_DIR)
 CPPFLAGS	+= -I$(SRC_DIR)/error
 CPPFLAGS	+= -I$(SRC_DIR)/gnl
 CPPFLAGS	+= -I$(SRC_DIR)/parsing
+CPPFLAGS	+= -I$(SRC_DIR)/malloc
+CPPFLAGS	+= -I$(SRC_DIR)/cleanup
+CPPFLAGS	+= -I$(SRC_DIR)/debug
 CPPFLAGS	+= $(ADDCPPFLAGS)
 
 #********************************************************#
@@ -104,7 +107,17 @@ SRC		+= get_next_line.c
 vpath %.c $(SRC_DIR)/parsing
 SRC		+= parser01.c
 SRC		+= parser02.c
-# SRC		+= parser03.c
+SRC		+= parser03.c
+
+vpath %.c $(SRC_DIR)/malloc
+SRC		+= ft_malloc_lite.c
+
+vpath %.c $(SRC_DIR)/cleanup
+SRC		+= free_double_array.c
+SRC		+= free_mapdata.c
+
+vpath %.c $(SRC_DIR)/debug
+SRC		+= print_mapdata.c
 
 #*******************************************************#
 

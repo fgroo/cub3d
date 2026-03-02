@@ -6,30 +6,17 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 15:42:01 by fgroo             #+#    #+#             */
-/*   Updated: 2026/02/27 17:26:51 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/02 19:50:59 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "error.h"
 #include "get_next_line.h"
+#include "ft_malloc_lite.h"
 #include <stdlib.h>
 
-static size_t	align(size_t size)
-{
-	static size_t	alignment = 8;
-
-	return (((size) + (alignment - 1)) & ~(alignment - 1));
-}
-
-void	*ft_realloc(void *ptr, size_t size) __attribute__((nonnull(1)));
-
-void	*ft_realloc(void *p, size_t size)
-{
-	return (NULL);
-}
-
-int	check_chars(int	*spawnp, const char *line)
+int	check_chars(int *spawnp, const char *line)
 {
 	int	i;
 
@@ -40,35 +27,41 @@ int	check_chars(int	*spawnp, const char *line)
 			break ;
 		if (line[i] == 'N' || line[i] == 'S'
 			|| line[i] == 'E' || line[i] == 'W')
-			*spawnp++;
-		if (!ft_isspace(line[i]) || line[i] != 'N' || line[i] != 'S'
-			|| line[i] != 'E' || line[i] != 'W'
-			|| line[i] != '0' || line[i] != '1')
+			(*spawnp)++;
+		if (!ft_isspace(line[i]) && line[i] != 'N' && line[i] != 'S'
+			&& line[i] != 'E' && line[i] != 'W'
+			&& line[i] != '0' && line[i] != '1')
 			return (pr_error("invalid map char\n"), 1);
 		++i;
 	}
-	if (*spawnp > 1)
-		return (pr_error("too many spawn points\n"), 1);
 	return (0);
 }
 
 int	validate_map(int fd, char ***map)
 {
-	char			*tmp;
-	static int		spawnp;
+	char	*tmp;
+	size_t	rows;
+	int		spawnp;
 
-	(void)map;
+	rows = 0;
+	spawnp = 0;
 	tmp = get_next_line(fd);
 	while (tmp && *tmp == '\n' && (free(tmp), 1))
 		tmp = get_next_line(fd);
-	if (!tmp)
-		return (pr_error("GNL\n"), 1);
-	while (tmp)
+	while (tmp && tmp[0] != '\n')
 	{
 		if (check_chars(&spawnp, tmp))
-			return (1);
+			return (free(tmp), 1);
+		*map = ft_realloc_lite(*map, sizeof(char *) * (rows + 1));
+		if (!*map)
+			return (free(tmp), pr_error("realloc failed\n"), 1);
+		(*map)[rows++] = tmp;
+		tmp = get_next_line(fd);
 	}
-	if (!spawnp)
-		return (pr_error("no spawn point\n"), 1);
-	return (0);
+	*map = ft_realloc_lite(*map, sizeof(char *) * (rows + 1));
+	if (!*map)
+		return (pr_error("realloc failed\n"), 1);
+	if (spawnp != 1)
+		return (pr_error("map must have exactly one spawn point\n"), 1);
+	return ((*map)[rows] = NULL, (tmp && (free(tmp), 1)), 0);
 }
