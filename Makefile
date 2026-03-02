@@ -25,11 +25,13 @@ CFLAGS	+= $(ADDCFLAGS)
 
 CPPFLAGS	:=
 CPPFLAGS	+= -I$(LIBFT_DIR)
+CPPFLAGS	+= -I$(MLX42_DIR)/include/MLX42
 CPPFLAGS	+= -I$(SRC_DIR)
 
 #********** Add the path to your headers here ***********#
 # e.g: CPPFLAGS	+= -I$(SRC_DIR)/module/path
 
+CPPFLAGS	+= -I$(SRC_DIR)/draw
 CPPFLAGS	+= -I$(SRC_DIR)/error
 CPPFLAGS	+= -I$(SRC_DIR)/gnl
 CPPFLAGS	+= -I$(SRC_DIR)/parsing
@@ -97,6 +99,11 @@ SRC		:=
 
 vpath %.c $(SRC_DIR)
 SRC		+= main.c
+SRC		+= input.c
+
+vpath %.c $(SRC_DIR)/draw
+SRC		+= draw.c
+SRC		+= render_minimap.c
 
 vpath %.c $(SRC_DIR)/error
 SRC		+= error.c
@@ -129,11 +136,11 @@ all: $(NAME)
 $(LIBFT_DIR)/$(LIBFT):
 	@make -C $(LIBFT_DIR)
 
-$(MLX42_DIR)/$(MLX42):
+$(MLX42_DIR)/build/$(MLX42):
 	@cmake -S $(MLX42_DIR) -B $(MLX42_DIR)/build
 	@make -C $(MLX42_DIR)/build -j4
 
-$(NAME): $(LIBFT_DIR)/$(LIBFT) $(MLX42_DIR)/$(MLX42) $(OBJ)
+$(NAME): $(LIBFT_DIR)/$(LIBFT) $(MLX42_DIR)/build/$(MLX42) $(OBJ)
 	$(CC) $(OBJ) $(LDFLAGS) $(LDLIBS) -o $@
 
 $(OBJ_DIR)/%.o:%.c | $(OBJ_DIR)
@@ -168,4 +175,4 @@ valtest:
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes ./$(NAME) $(ARGS)
 
 .PHONY: all clean fclean re
-.PHONY: valtest
+.PHONY: valtest utest
