@@ -38,3 +38,4 @@ typedef struct s_tmp
 char	*get_next_line(int fd);
 
 #endif
+
