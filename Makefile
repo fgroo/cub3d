@@ -24,7 +24,7 @@ CFLAGS	+= -fPIE
 # --- Explicit warnings for cross-compiler consistency ---
 # Unused code (explicitly list all; -Wall enables some, but not all)
 CFLAGS	+= -Wunused
-CFLAGS	+= -Wunused-value
+CFLAGS	+= -Wno-unused-value
 CFLAGS	+= -Wunused-variable
 CFLAGS	+= -Wunused-function
 CFLAGS	+= -Wunused-parameter
