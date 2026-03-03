@@ -99,11 +99,6 @@ SRC		:=
 
 vpath %.c $(SRC_DIR)
 SRC		+= main.c
-SRC		+= input.c
-
-vpath %.c $(SRC_DIR)/draw
-SRC		+= draw.c
-SRC		+= render_minimap.c
 
 vpath %.c $(SRC_DIR)/error
 SRC		+= error.c
