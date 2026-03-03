@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rtwobie <student@42>                       +#+  +:+       +#+        */
+/*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 18:09:07 by rtwobie           #+#    #+#             */
-/*   Updated: 2026/02/25 19:07:54 by rtwobie          ###   ########.fr       */
+/*   Updated: 2026/03/03 18:30:26 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ERROR_H
 # define ERROR_H
 
-void pr_error(const char *err);
+void	pr_error(const char *err);
 
 #endif // !ERROR_H

@@ -154,6 +154,7 @@ vpath %.c $(SRC_DIR)/parsing
 SRC		+= parser01.c
 SRC		+= parser02.c
 SRC		+= parser03.c
+SRC		+= parser04.c
 
 vpath %.c $(SRC_DIR)/malloc
 SRC		+= ft_malloc_lite.c
