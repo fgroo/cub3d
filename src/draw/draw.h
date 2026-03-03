@@ -18,7 +18,9 @@
 
 # include <stdint.h>
 
-void	_draw_pixel(mlx_image_t* image, uint32_t x, uint32_t y, uint32_t color);
+# define BPP sizeof(uint32_t)
+
+void	draw_pixel(mlx_image_t* image, uint32_t x, uint32_t y, uint32_t color);
 void	render_minimap(void *param);
 
 #endif

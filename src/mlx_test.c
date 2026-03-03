@@ -1,4 +1,5 @@
 #include "MLX42.h"
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -32,9 +33,15 @@ int32_t	main(void)
     mlx_image_t* img = mlx_new_image(mlx, 128, 128);
 
     // Set the channels of each pixel in our image to the maximum byte value of 255.
-    memset(img->pixels, 255, img->width * img->height * BPP);
-	put_square(img, 0, 0, 0xFF000000, 50);
+    // memset(img->pixels, 255, img->width * img->height * BPP);
+	// put_square(img, 0, 0, 0xFF0000FF, 50);
+	uint32_t *pixel = (uint32_t*)img->pixels;
+	printf("pixel: 0x%x\n", *pixel);
+	*pixel = 0xFF00FF00;
 
+	// mlx_put_pixel(img, 0, 0, 0xFF00FF00);
+
+	printf("pixel: 0x%x\n", *pixel);
     // Draw the image at coordinate (0, 0).
     mlx_image_to_window(mlx, img, 0, 0);
 

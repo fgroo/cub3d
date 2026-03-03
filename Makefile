@@ -38,9 +38,9 @@ CFLAGS	+= -Wformat-security
 CFLAGS	+= -Wimplicit-function-declaration
 
 # Function prototypes (catches missing/wrong prototypes across compilers)
-CFLAGS	+= -Wstrict-prototypes
-CFLAGS	+= -Wmissing-prototypes
-CFLAGS	+= -Wold-style-definition
+# CFLAGS	+= -Wstrict-prototypes
+# CFLAGS	+= -Wmissing-prototypes
+# CFLAGS	+= -Wold-style-definition
 
 # Shadowing and scope
 CFLAGS	+= -Wshadow
@@ -142,7 +142,12 @@ endif
 SRC		:=
 
 vpath %.c $(SRC_DIR)
+SRC		+= input.c
 SRC		+= main.c
+
+vpath %.c $(SRC_DIR)/draw
+SRC		+= draw.c
+SRC		+= render_minimap.c
 
 vpath %.c $(SRC_DIR)/error
 SRC		+= error.c

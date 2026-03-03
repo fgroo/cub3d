@@ -10,7 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "draw.h"
+
 #include "MLX42.h"
+#include "error.h"
 
 #include <stdint.h>
 
@@ -21,22 +24,33 @@
 // y / height
 // x % width
 //
-// NOTE: WHAT THE FUCK IS uint8_t *pixels AND HOW DO I USE IT????
-//
 
-void _draw_pixel(mlx_image_t* image, uint32_t x, uint32_t y, uint32_t color)
+static void	_draw_pixel(uint8_t *pixel, uint32_t color)
 {
-	uint32_t	i;
+	*(pixel++) = (uint8_t)(color >> 24);
+	*(pixel++) = (uint8_t)(color >> 16);
+	*(pixel++) = (uint8_t)(color >> 8);
+	*(pixel++) = (uint8_t)(color & 0xFF);
+}
 
+void	put_pixel(mlx_image_t *image, uint32_t x, uint32_t y, uint32_t color)
+{
+	uint8_t	*pixelstart;
+
+	if (!image)
+	{
+		pr_error("put_pixel(): Image is NULL");
+		return ;
+	}
 	if (x >= image->width)
 		x %= image->width;
 	if (y >= image->height)
 		y %= image->height;
-	i = x + image->height * y;
-	image->pixels[i] = (uint8_t)(color & 0x11111111);
+	pixelstart = &image->pixels[(y * image->width + x) * BPP];
+	_draw_pixel(pixelstart, color);
 }
 
-void _draw_line()
+void	draw_line(mlx_image_t *image, t_point *p1, t_point *p2)
 {
 	// Bresenham's Line Algorithm
 	// or something like that

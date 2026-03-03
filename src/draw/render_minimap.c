@@ -21,7 +21,7 @@ void render_minimap(void *param)
 	static mlx_image_t	*image_buf;
 
 	image_buf = mlx_new_image(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	_draw_pixel(image_buf, 250, 250, 0xFFFFFFFF);
+	draw_pixel(image_buf, 250, 250, 0xFFFFFFFF);
 	mlx_image_to_window(data->mlx, image_buf, 0, 0);
 	mlx_delete_image(data->mlx, image_buf);
 }
