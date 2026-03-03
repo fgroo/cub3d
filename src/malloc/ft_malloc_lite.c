@@ -20,8 +20,6 @@ static size_t	align(size_t size)
 	return ((size + (size_t)7) & ~(size_t)7);
 }
 
-void	*ft_malloc_lite(size_t size)__attribute__((nonnull()));
-
 void	*ft_malloc_lite(size_t size)
 {
 	t_chunkheader	*ptr;
