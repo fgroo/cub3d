@@ -6,11 +6,11 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 20:20:00 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/02 20:24:25 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/03 15:23:04 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cleanup.h"
 #include "ft_malloc_lite.h"
 #include <stdlib.h>
 

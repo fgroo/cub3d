@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 15:42:01 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/03 14:58:57 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/03 15:19:13 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "ft_malloc_lite.h"
 #include <stdlib.h>
 
-int	check_chars(int *spawnp, const char *line)
+static int	check_chars(int *spawnp, const char *line)
 {
 	int	i;
 

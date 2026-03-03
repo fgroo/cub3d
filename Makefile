@@ -12,15 +12,59 @@ TESTS_DIR	:= tests
 UNITY_DIR	:= $(TESTS_DIR)/unity
 
 CFLAGS	:=
+CFLAGS	+= -std=c11
 CFLAGS	+= -O2
 CFLAGS	+= -Wall
 CFLAGS	+= -Wextra
 CFLAGS	+= -Werror
-CFLAGS	+= -Wno-unused-result
 CFLAGS	+= -pedantic
 CFLAGS	+= -Wconversion
 CFLAGS	+= -fPIE
-# CFLAGS	+= -no-pie
+
+# --- Explicit warnings for cross-compiler consistency ---
+# Unused code (explicitly list all; -Wall enables some, but not all)
+CFLAGS	+= -Wunused
+CFLAGS	+= -Wunused-value
+CFLAGS	+= -Wunused-variable
+CFLAGS	+= -Wunused-function
+CFLAGS	+= -Wunused-parameter
+CFLAGS	+= -Wno-unused-result
+
+# Type safety and implicit conversions
+CFLAGS	+= -Wsign-compare
+CFLAGS	+= -Wtype-limits
+CFLAGS	+= -Wformat=2
+CFLAGS	+= -Wformat-security
+CFLAGS	+= -Wimplicit-function-declaration
+
+# Function prototypes (catches missing/wrong prototypes across compilers)
+CFLAGS	+= -Wstrict-prototypes
+CFLAGS	+= -Wmissing-prototypes
+CFLAGS	+= -Wold-style-definition
+
+# Shadowing and scope
+CFLAGS	+= -Wshadow
+
+# Pointer and memory issues
+CFLAGS	+= -Wpointer-arith
+CFLAGS	+= -Wcast-align
+CFLAGS	+= -Wnull-dereference
+CFLAGS	+= -Wwrite-strings
+
+# Initialisation and control flow
+CFLAGS	+= -Wuninitialized
+CFLAGS	+= -Winit-self
+CFLAGS	+= -Wswitch-enum
+CFLAGS	+= -Wswitch-default
+
+# Clang-only flags (GCC ignores unknown -W flags with -Wno-unknown-warning-option)
+# Detect if compiler is Clang to add Clang-specific warnings
+CLANG_CHECK := $(shell $(CC) --version 2>&1 | grep -qi clang && echo 1)
+ifeq ($(CLANG_CHECK),1)
+CFLAGS	+= -Wnewline-eof
+CFLAGS	+= -Wno-unknown-warning-option
+endif
+
 CFLAGS	+= $(ADDCFLAGS)
 
 CPPFLAGS	:=

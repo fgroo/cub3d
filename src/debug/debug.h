@@ -6,14 +6,15 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 19:42:00 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/02 19:43:28 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/03 15:23:06 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DEBUG_H
 # define DEBUG_H
 
-void	print_textures_and_colors(t_mapdata *map);
+# include "cub3d.h"
+
 void	print_mapdata(t_mapdata *map);
 
 #endif

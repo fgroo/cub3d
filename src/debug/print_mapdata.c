@@ -2,7 +2,7 @@
 #include "debug.h"
 #include <stdio.h>
 
-void	print_textures_and_colors(t_mapdata *map)
+static void	print_textures_and_colors(t_mapdata *map)
 {
 	int	i;
 
