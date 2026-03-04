@@ -18,9 +18,17 @@
 
 # include <stdint.h>
 
-# define BPP sizeof(uint32_t)
+# ifndef BPP
+#  define BPP sizeof(uint32_t)
+# endif // !BPP
 
-void	draw_pixel(mlx_image_t* image, uint32_t x, uint32_t y, uint32_t color);
+typedef struct s_point {
+	int	x;
+	int	y;
+} t_point;
+
+void	put_pixel(mlx_image_t* image, uint32_t x, uint32_t y, uint32_t color);
+void	put_line(mlx_image_t *image, t_point p1, t_point p2, uint32_t color);
 void	render_minimap(void *param);
 
 #endif
