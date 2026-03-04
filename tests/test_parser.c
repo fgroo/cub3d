@@ -1,9 +1,13 @@
 #include "unity.h"
 #include "parser.h"
+#include "get_next_line.h"
 
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include "ft_malloc_lite.h"
 
 void setUp(void) {}
 void tearDown(void) {}
@@ -112,6 +116,112 @@ void TEST_fetch_color(void)
 	}
 }
 
+void	TEST_map_validation(void)
+{
+	typedef struct s_testcase
+	{
+		char	*input;
+		int		returnvalue;
+		char	**expected;
+	}			t_testcase;
+
+	t_testcase testcase[] =
+	{
+		{
+			"maps/debug/leaking-map1.cub", 0, (char *[]){
+				"        1111111111110111111111111\n",
+				"        1000000000110000000000001\n",
+				"        1011000001110000000000001\n",
+				"        1001000000000000000000001\n",
+				"111111111011000001110000000000001\n",
+				"100000000011000001110111110111111\n",
+				"11110111111111011100000010001\n",
+				"11110111111111011101010010001\n",
+				"11000000110101011100000010001\n",
+				"10000000000000001100000010001\n",
+				"10000000000000001101010010001\n",
+				"11000001110101011111011110N0111\n",
+				"11110111 1110101 101111010001\n",
+				"11111111 1111111 111111111111",
+				NULL
+			}
+		},
+		{
+			"maps/debug/two-maps-with-spawn.cub", 0, (char *[]){
+				"        1111111111111111111111111\n",
+				"        1000000000110000000000001\n",
+				"        1011000001110000000000001\n",
+				"        1001000000000000N00000001\n",
+				"111111111011000001110000000000001\n",
+				"100000000011000001110111111111111\n",
+				"111111111111111111\n",
+				NULL
+			}
+		},
+		{
+			"maps/debug/two-maps.cub", 1, NULL
+		},
+		{
+			"maps/debug/newline-between-map.cub", 1, NULL
+		},
+		{
+			"maps/debug/missing-map.cub", 1, NULL
+		}
+	};
+
+	typedef struct s_mapdata
+	{
+		char	*tex[4];
+		int		floor_color;
+		int		ceiling_color;
+		char	**map;
+	}	t_mapdata;
+
+
+	t_mapdata	map = {0}; // [] for more testcases
+
+	int	i = 0;
+	int	fd = 0;
+
+	int num_maps = sizeof(testcase) / sizeof(testcase[0]);
+
+	while (i < num_maps) // loop through all testcases
+	{
+		map.map = NULL;
+		fd = open(testcase[i].input, O_RDONLY);
+		TEST_ASSERT_NOT_EQUAL_MESSAGE(-1, fd, "Could not open map file");
+		for (int skip = 0; skip < 8; skip++)
+		{
+            char *line;
+			line = get_next_line(fd);
+            free(line);
+        }
+		TEST_ASSERT_EQUAL_INT(testcase[i].returnvalue, validate_map(fd, &map.map));
+		int j = 0;
+		if (testcase[i].returnvalue == 0 && map.map != NULL) {
+			while (testcase[i].expected[j] != NULL && map.map[j] != NULL)
+			{
+				TEST_ASSERT_EQUAL_STRING(testcase[i].expected[j], map.map[j]);
+				++j;
+			}
+			TEST_ASSERT_NULL(testcase[i].expected[j]);
+			TEST_ASSERT_NULL(map.map[j]);
+		}
+		
+		// Map needs to be freed to avoid leaky tests!
+		if (map.map) {
+			if (testcase[i].returnvalue == 0) { // Only NULL-terminated if successful
+				for (int k = 0; map.map[k] != NULL; k++)
+					free(map.map[k]);
+			}
+			ft_free(map.map);
+		}
+
+		close(fd);
+		++i;
+	}
+}
+
 // WARN: This test case doesn't work properly, whenever parser() closes an fd.
 //		 get_next_line will keep reading the next line from fd = 3 even though,
 //		 the open file has already changed!
@@ -138,6 +248,11 @@ void TEST_parser(void)
 		{ 1, "./maps/debug/invalid-order.cub" },
 		{ 1, "./maps/debug/invalid-texture-order.cub" },
 		{ 1, "./maps/debug/invalid-color-order.cub" },
+
+		{ 1, "./maps/debug/leaking-map1.cub"},
+		{ 1, "./maps/debug/leaking-map2.cub"},
+		{ 1, "./maps/debug/leaking-map3.cub"},
+		{ 1, "./maps/debug/leaking-map4.cub"},
 
 		{ 0, "./maps/debug/random-newlines.cub" },
 		{ 0, "./maps/debug/always-newlines.cub" },
@@ -199,6 +314,6 @@ int main(void)
 	// RUN_TEST(TEST_fetch_texture_file);
 	// RUN_TEST(TEST_to_hex_color);
 	// RUN_TEST(TEST_fetch_color);
-	RUN_TEST(TEST_parser);
+	RUN_TEST(TEST_map_validation);
 	return UNITY_END();
 }
