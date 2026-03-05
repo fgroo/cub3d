@@ -1,34 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/26 15:47:23 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/03 18:31:00 by fgroo            ###   ########.fr       */
+/*   Created: 2026/03/03 18:30:31 by fgroo             #+#    #+#             */
+/*   Updated: 2026/03/03 18:30:44 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
 #include "error.h"
-#include "parser.h"
+#include "libft.h"
 
-#include <stddef.h>
-#include <stdlib.h>
+#include <unistd.h>
 
-int	main(int argc, char *argv[])
+void	pr_error(const char *err)
 {
-	t_data	data;
-
-	if (argc != 2 || !argv || !argv[1] || !argv[1][0])
-		return (pr_error("Please enter a .cub file\n"), 1);
-	data.map = ft_calloc(1, sizeof(*data.map));
-	if (!data.map)
-		return (pr_error("malloc\n"), 1);
-	if (parser(data.map, argv[1]))
-		return (1);
-	(void)argc;
-	(void)argv;
-	return (0);
+	write(2, "Error\n", 6);
+	if (err)
+		write(2, err, ft_strlen(err));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rtwobie <student@42>                       +#+  +:+       +#+        */
+/*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/25 16:26:24 by rtwobie           #+#    #+#             */
-/*   Updated: 2026/02/25 16:26:51 by rtwobie          ###   ########.fr       */
+/*   Created: 2026/02/25 19:41:22 by fgroo             #+#    #+#             */
+/*   Updated: 2026/03/05 15:19:58 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,38 @@
  * char *tex[4] = { ./path-of-north-tex, ./path-of-south-tex,
  *					./path-of-east-tex, ./path-of-west-tex }
  */
-typedef struct s_mapdata {
+typedef struct s_point
+{
+	int	x;
+	int	y;
+}		t_point;
+
+typedef struct s_mapdata
+{
 	char	*tex[4];
 	int		floor_color;
 	int		ceiling_color;
-	char	*map[];
+	char	spawn_orientation;
+	t_point	spawn_coordinates;
+	char	**map;
 }	t_mapdata;
 
-typedef struct 
-
-typedef struct s_data {
+typedef struct s_data
+{
 	t_mapdata	*map;
 }	t_data;
+
+/*
+----------------------------PARSING----------------------------
+*/
+// # include "parser.h"
+
+// int parser(t_mapdata *map, char *argv[]);
+// int validate_format(int fd, t_mapdata *mapdata);
+
+/*
+----------------------------ERROR----------------------------
+*/
+// # include "error.h"
 
 #endif // !CUB3D_H
