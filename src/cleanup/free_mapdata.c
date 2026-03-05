@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 20:20:00 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/03 18:51:23 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/05 15:23:38 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	free_map_rows(t_mapdata *map)
 	while (map->map && map->map[i])
 	{
 		free(map->map[i]);
-		map->map[i]= NULL;
+		map->map[i] = NULL;
 		i++;
 	}
 	ft_free(map->map);

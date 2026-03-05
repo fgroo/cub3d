@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 15:37:00 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/03 20:12:26 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/05 15:24:02 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,13 @@ static int	floodfill(char ***map, size_t row, size_t column, int *err)
 	return (*err);
 }
 
-int	flood_map(char ***map)
+int	flood_map(t_mapdata *mapdata)
 {
 	size_t	row;
 	size_t	column;
+	char	***map;
 
+	map = &mapdata->map;
 	row = 0;
 	column = 0;
 	while ((*map)[row] && (*map)[row][column] != 'N'
@@ -50,9 +52,9 @@ int	flood_map(char ***map)
 			&& (*map)[row][column] != 'W')
 			++column;
 	}
-	if ((*map)[row][column] == '0' || (*map)[row][column] == '1'
-		|| ft_isspace((*map)[row][column]))
-		return (pr_error("wtf?\n"), 1);
+	mapdata->spawn_orientation = (*map)[row][column];
+	mapdata->spawn_coordinates.x = (int)column;
+	mapdata->spawn_coordinates.y = (int)row;
 	if (floodfill(map, row, column, &(int){0}))
 		return (pr_error("failed floodfill\n"), 1);
 	return (0);

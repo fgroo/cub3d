@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 19:39:36 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/03 16:45:24 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/05 15:18:54 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ int		fetch_color(char *line, const char *identifier);
 char	*fetch_texture_file(const char *line, const char *identifier);
 int		validate_map(int fd, char ***map);
 int		to_hex_color(long r, long g, long b);
-int		flood_map(char ***map);
+int		flood_map(t_mapdata *mapdata);
 
 #endif // !PARSER_H
