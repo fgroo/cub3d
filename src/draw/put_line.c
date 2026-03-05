@@ -1,57 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw.c                                             :+:      :+:    :+:   */
+/*   put_line.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rtwobie <student@42>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/02 18:47:45 by rtwobie           #+#    #+#             */
-/*   Updated: 2026/03/02 20:08:43 by rtwobie          ###   ########.fr       */
+/*   Created: 2026/03/05 17:03:48 by rtwobie           #+#    #+#             */
+/*   Updated: 2026/03/05 19:31:01 by rtwobie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "draw.h"
 
-#include "MLX42.h"
-#include "error.h"
+#include "libft.h"
 
 #include <stdint.h>
 
-// 11111
-// 11111
-// 11111
-// i = x + height*y
-// y / height
-// x % width
-//
-
-static void	_draw_pixel(uint8_t *pixel, uint32_t color)
-{
-	*(pixel++) = (uint8_t)(color >> 24);
-	*(pixel++) = (uint8_t)(color >> 16);
-	*(pixel++) = (uint8_t)(color >> 8);
-	*(pixel++) = (uint8_t)(color & 0xFF);
-}
-
-void	put_pixel(mlx_image_t *image, uint32_t x, uint32_t y, uint32_t color)
-{
-	uint8_t	*pixelstart;
-
-	if (!image)
-	{
-		pr_error("put_pixel(): Image is NULL");
-		return ;
-	}
-	if (x >= image->width || y >= image->height)
-	{
-		pr_error("put_pixel(): Pixel is out of bounds");
-		return ;
-	}
-	pixelstart = &image->pixels[(y * image->width + x) * BPP];
-	_draw_pixel(pixelstart, color);
-}
-
-static void	_draw_line_h(mlx_image_t *image, t_point p1, t_point p2, uint32_t color)
+static void	_draw_line_h(mlx_image_t *image, t_vertex2i p1, t_vertex2i p2, uint32_t color)
 {
 	int	big_d;
 	int	dx;
@@ -78,7 +43,7 @@ static void	_draw_line_h(mlx_image_t *image, t_point p1, t_point p2, uint32_t co
 	}
 }
 
-static void	_draw_line_v(mlx_image_t *image, t_point p1, t_point p2, uint32_t color)
+static void	_draw_line_v(mlx_image_t *image, t_vertex2i p1, t_vertex2i p2, uint32_t color)
 {
 	int	big_d;
 	int	dx;
@@ -105,13 +70,10 @@ static void	_draw_line_v(mlx_image_t *image, t_point p1, t_point p2, uint32_t co
 	}
 }
 
-int ft_abs(int n)
+// TODO: clamp if out of bounds
+void put_line(mlx_image_t *image, t_vertex2i p1, t_vertex2i p2, uint32_t color)
 {
-	return (+n);
-}
 
-void put_line(mlx_image_t *image, t_point p1, t_point p2, uint32_t color)
-{
 	if (ft_abs(p2.x - p1.x) > ft_abs(p2.y - p1.y))
 	{
 		if (p1.x > p2.x)
@@ -124,5 +86,4 @@ void put_line(mlx_image_t *image, t_point p1, t_point p2, uint32_t color)
 			_draw_line_v(image, p2, p1, color);
 		_draw_line_v(image, p1, p2, color);
 	}
-
 }

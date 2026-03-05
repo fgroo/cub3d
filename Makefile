@@ -146,7 +146,10 @@ SRC		+= input.c
 SRC		+= main.c
 
 vpath %.c $(SRC_DIR)/draw
-SRC		+= draw.c
+SRC		+= put_pixel.c
+SRC		+= put_line.c
+SRC		+= put_point.c
+SRC		+= put_square.c
 SRC		+= render_minimap.c
 
 vpath %.c $(SRC_DIR)/error
