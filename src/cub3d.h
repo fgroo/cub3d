@@ -17,6 +17,8 @@
 # define WINDOW_WIDTH 960
 # define WINDOW_HEIGHT 720
 
+# include "MLX42.h"
+
 /*
  * Texture files are saved in char *tex[] in this exact order:
  * char *tex[4] = { ./path-of-north-tex, ./path-of-south-tex,
@@ -30,7 +32,7 @@ typedef struct s_mapdata {
 }	t_mapdata;
 
 typedef struct s_data {
-	void		*mlx;
+	mlx_t		*mlx;
 	t_mapdata	*map;
 }	t_data;
 
