@@ -13,7 +13,6 @@
 #include "draw.h"
 
 #include "error.h"
-#include "libft.h"
 
 #include <stdint.h>
 

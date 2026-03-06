@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_minimap.c                                   :+:      :+:    :+:   */
+/*   clamp.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rtwobie <student@42>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/02 18:43:49 by rtwobie           #+#    #+#             */
-/*   Updated: 2026/03/02 20:07:11 by rtwobie          ###   ########.fr       */
+/*   Created: 2026/03/06 15:15:41 by rtwobie           #+#    #+#             */
+/*   Updated: 2026/03/06 15:37:22 by rtwobie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
 #include "draw.h"
 
-void render_minimap(void *param)
+int	clamp(int n, int lo, int hi)
 {
-	t_data *data;
+	if (n < lo)
+		return (lo);
+	if (n > hi)
+		return (hi);
+	return (n);
+}
 
-	data = (t_data*)param;
-	static mlx_image_t	*image_buf;
+t_vertex2i	clamp_vertex_to_img(t_vertex2i p, uint32_t width, uint32_t height)
+{
+	t_vertex2i	ret;
 
-	image_buf = mlx_new_image(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	// draw_pixel(image_buf, 250, 250, 0xFFFFFFFF);
-	mlx_image_to_window(data->mlx, image_buf, 0, 0);
-	mlx_delete_image(data->mlx, image_buf);
+	ret.x = clamp(p.x, 0, (int)width - 1);
+	ret.y = clamp(p.y, 0, (int)height - 1);
+	return (ret);
 }

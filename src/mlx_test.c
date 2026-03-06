@@ -7,22 +7,6 @@
 // Bytes Per Pixel. Since each pixel is represented as an integer, it will be four bytes for four channels.
 // #define BPP sizeof(int32_t)
 
-void put_square(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color, uint32_t size)
-{
-	uint32_t i = 0;
-	uint32_t j = 0;
-	while (i < size)
-	{
-		j = 0;
-		while (j < size)
-		{
-			put_pixel(img, i + x, j + y, color);
-			++j;
-		}
-		++i;
-	}
-}
-
 t_vertex2i p[8] = {
 	{255,128},
 	{255,255},

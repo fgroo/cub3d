@@ -150,7 +150,7 @@ SRC		+= put_pixel.c
 SRC		+= put_line.c
 SRC		+= put_point.c
 SRC		+= put_square.c
-SRC		+= render_minimap.c
+SRC		+= clamp.c
 
 vpath %.c $(SRC_DIR)/error
 SRC		+= error.c
