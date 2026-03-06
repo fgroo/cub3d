@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -24,10 +23,19 @@
  * char *tex[4] = { ./path-of-north-tex, ./path-of-south-tex,
  *					./path-of-east-tex, ./path-of-west-tex }
  */
-typedef struct s_mapdata {
+typedef struct s_point
+{
+	int	x;
+	int	y;
+}		t_point;
+
+typedef struct s_mapdata
+{
 	char	*tex[4];
 	int		floor_color;
 	int		ceiling_color;
+	char	spawn_orientation;
+	t_point	spawn_coordinates;
 	char	**map;
 }	t_mapdata;
 
@@ -51,6 +59,5 @@ void	key_hook(mlx_key_data_t keycode, void *data);
 ----------------------------ERROR----------------------------
 */
 // # include "error.h"
-
 
 #endif // !CUB3D_H

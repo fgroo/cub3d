@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 15:42:01 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/03 15:19:13 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/03 18:28:47 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,13 @@ int	validate_map(int fd, char ***map)
 		*map = ft_realloc_lite(*map, sizeof(char *) * (rows + 1));
 		if (!*map)
 			return (free(tmp), pr_error("realloc failed\n"), 1);
-		(*map)[rows++] = tmp;
-		tmp = get_next_line(fd);
+		(free(0), (*map)[rows++] = tmp, tmp = get_next_line(fd));
 	}
 	*map = ft_realloc_lite(*map, sizeof(char *) * (rows + 1));
 	if (!*map)
-		return (pr_error("realloc failed\n"), 1);
+		return (pr_error("realloc failed\n"), (tmp && (free(tmp), 1), 1));
+	(*map)[rows] = NULL;
 	if (spawnp != 1)
-		return (pr_error("map must have exactly one spawn point\n"), 1);
-	return ((*map)[rows] = NULL, (tmp != 0 && (free(tmp), 1)), 0);
+		return (pr_error("not one spawn point\n"), (tmp && (free(tmp), 1)), 1);
+	return ((tmp && (free(tmp), 1)), 0);
 }

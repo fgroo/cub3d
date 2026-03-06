@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 19:41:45 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/02 20:19:47 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/05 15:15:28 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,14 +78,16 @@ int	parser(t_mapdata *map, char *file)
 	if (!map)
 		return (pr_error(""), 1);
 	if ((ft_strcmp(file + (ft_strlen(file) - 4), ".cub")) != 0)
-		return (pr_error("Wrong file extension\n"), 1);
+		return (free_mapdata(map), pr_error("Wrong file extension\n"), 1);
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
-		return (pr_error("open()\n"), 1);
+		return (free_mapdata(map), pr_error("open()\n"), 1);
 	if (validate_format(fd, map))
-		return (close(fd), 1);
+		return (free_mapdata(map), close(fd), 1);
 	if (validate_map(fd, &map->map))
-		return (1);
+		return (free_mapdata(map), close(fd), 1);
+	if (flood_map(map))
+		return (free_mapdata(map), close(fd), 1);
 	print_mapdata(map);
 	free_mapdata(map);
 	close(fd);
