@@ -82,6 +82,7 @@ CPPFLAGS	+= -I$(SRC_DIR)/parsing
 CPPFLAGS	+= -I$(SRC_DIR)/malloc
 CPPFLAGS	+= -I$(SRC_DIR)/cleanup
 CPPFLAGS	+= -I$(SRC_DIR)/debug
+CPPFLAGS	+= -I$(SRC_DIR)/rotation
 CPPFLAGS	+= $(ADDCPPFLAGS)
 
 #********************************************************#
@@ -163,6 +164,9 @@ SRC		+= parser01.c
 SRC		+= parser02.c
 SRC		+= parser03.c
 SRC		+= parser04.c
+
+vpath %.c $(SRC_DIR)/rotation
+SRC		+= rotate01.c
 
 vpath %.c $(SRC_DIR)/malloc
 SRC		+= ft_malloc_lite.c

@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 15:47:23 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/05 19:31:18 by rtwobie          ###   ########.fr       */
+/*   Updated: 2026/03/06 19:46:56 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "error.h"
 #include "parser.h"
 #include "MLX42.h"
+#include "rotate.h"
 
 #include <stddef.h>
 #include <stdlib.h>

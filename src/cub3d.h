@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 19:41:22 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/02 17:18:17 by rtwobie          ###   ########.fr       */
+/*   Updated: 2026/03/06 19:43:08 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,25 @@
  * char *tex[4] = { ./path-of-north-tex, ./path-of-south-tex,
  *					./path-of-east-tex, ./path-of-west-tex }
  */
-typedef struct s_point
+
+typedef struct s_vector
 {
-	int	x;
-	int	y;
-}		t_point;
+	double	x;
+	double	y;
+}			t_vector;
 
 typedef struct s_mapdata
 {
-	char	*tex[4];
-	int		floor_color;
-	int		ceiling_color;
-	char	spawn_orientation;
-	t_point	spawn_coordinates;
-	char	**map;
+	char		*tex[4];
+	int			floor_color;
+	int			ceiling_color;
+	char		spawn_orientation;
+	t_vector	spawn_coordinates;
+	t_vector	player_pos;
+	t_vector	player_view;
+	t_vector	cam_plane;
+	double		rotspeed;
+	char		**map;
 }	t_mapdata;
 
 typedef struct s_data {
@@ -44,7 +49,6 @@ typedef struct s_data {
 	t_mapdata	*map;
 }	t_data;
 
-#include "MLX42.h"
 void	key_hook(mlx_key_data_t keycode, void *data);
 
 /*
