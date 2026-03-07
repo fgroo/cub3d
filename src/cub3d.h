@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 19:41:22 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/06 20:39:33 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/07 18:53:52 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ typedef struct s_mapdata
 typedef struct s_data {
 	mlx_t		*mlx;
 	t_mapdata	*map;
+	void		*mlx;
+	void		*img;
 }	t_data;
 
 void	key_hook(mlx_key_data_t keycode, void *data);

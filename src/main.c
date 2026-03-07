@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 15:47:23 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/06 19:46:56 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/07 20:52:30 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "parser.h"
 #include "MLX42.h"
 #include "rotate.h"
+#include "MLX42.h"
 
 #include <stddef.h>
 #include <stdlib.h>
@@ -35,7 +36,9 @@ int	init_mlx(t_data *data)
 
 int	main(int argc, char *argv[])
 {
-	t_data	data;
+	t_data		data;
+	mlx_t		*mlx;
+	mlx_image_t* img;
 
 	if (argc != 2 || !argv || !argv[1] || !argv[1][0])
 		return (pr_error("Please enter a .cub file\n"), 1);
