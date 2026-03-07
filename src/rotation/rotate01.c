@@ -29,7 +29,7 @@ void	moving(t_mapdata *map, char direction)
 {
 	double	movespeed; // i dont know where i get this;
 
-	movespeed = 0.2;
+	movespeed = 1.0;
 	if (!map || !map->map)
 		return ;
 	if (direction == 'W')
@@ -56,7 +56,7 @@ void	moving(t_mapdata *map, char direction)
 
 void	init_values(t_mapdata *m)
 {
-	m->rotspeed = 0.02; // i dont know where this value should come from
+	m->rotspeed = 0.06; // i dont know where this value should come from
 	if (m->spawn_orientation == 'N')
 		(free(0), m->player_pos.x = m->spawn_coordinates.x + 0.5,
 		m->player_pos.y = m->spawn_coordinates.y + 0.5, m->player_view.x = 0,

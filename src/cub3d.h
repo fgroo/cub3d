@@ -44,11 +44,10 @@ typedef struct s_mapdata
 	char		**map;
 }	t_mapdata;
 
-typedef struct s_data {
+typedef struct s_data
+{
 	mlx_t		*mlx;
 	t_mapdata	*map;
-	void		*mlx;
-	void		*img;
 }	t_data;
 
 void	key_hook(mlx_key_data_t keycode, void *data);
