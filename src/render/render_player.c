@@ -16,6 +16,8 @@
 #include "cub3d.h"
 #include "draw.h"
 
+#include <math.h>
+
 void	render_player(void *param)
 {
 	t_data		*data;
@@ -29,8 +31,8 @@ void	render_player(void *param)
 	p2.y = (int)data->img->player->height - 1;
 	put_square(data->img->player, p1, p2, PLAYER_COLOR);
 	mlx_image_to_window(data->mlx, data->img->player,
-		data->map->spawn_coordinates.x * TILESIZE * SCALE,
-		data->map->spawn_coordinates.y * TILESIZE * SCALE);
+		(int)round(data->map->spawn_coordinates.x) * TILESIZE * SCALE,
+		(int)round(data->map->spawn_coordinates.y) * TILESIZE * SCALE);
 }
 
 void	render_player_pos(void *param)
@@ -43,8 +45,8 @@ void	render_player_pos(void *param)
 	player = data->img->player;
 	map = data->map;
 
-	player->instances->x = map->spawn_coordinates.x * TILESIZE * SCALE;
-	player->instances->y = map->spawn_coordinates.y * TILESIZE * SCALE;
+	player->instances->x = (int)round(map->player_pos.x) * TILESIZE * SCALE;
+	player->instances->y = (int)round(map->player_pos.y) * TILESIZE * SCALE;
 }
 
 /* NOTE:
