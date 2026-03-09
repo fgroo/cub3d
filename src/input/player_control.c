@@ -10,7 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rotate.h"
+#include "cub3d.h"
+
+#include "input.h"
+
 #include <math.h>
 #include <stdlib.h>
 
@@ -27,30 +30,27 @@ void	matrix_rotation(double *x, double *y, double rotspeed)
 
 void	moving(t_mapdata *map, char direction)
 {
-	double	movespeed; // i dont know where i get this;
-
-	movespeed = 1.0;
 	if (!map || !map->map)
 		return ;
 	if (direction == 'W')
 	{
-		map->player_pos.x += map->player_view.x * movespeed;
-		map->player_pos.y += map->player_view.y * movespeed;
+		map->player_pos.x += map->player_view.x * MOVEMENT_SPEED;
+		map->player_pos.y += map->player_view.y * MOVEMENT_SPEED;
 	}
 	else if (direction == 'A')
 	{
-		map->player_pos.x += map->player_view.y * movespeed;
-		map->player_pos.y -= map->player_view.x * movespeed;
+		map->player_pos.x += map->player_view.y * MOVEMENT_SPEED;
+		map->player_pos.y -= map->player_view.x * MOVEMENT_SPEED;
 	}
 	else if (direction == 'S')
 	{
-		map->player_pos.x -= map->player_view.x * movespeed;
-		map->player_pos.y -= map->player_view.y * movespeed;
+		map->player_pos.x -= map->player_view.x * MOVEMENT_SPEED;
+		map->player_pos.y -= map->player_view.y * MOVEMENT_SPEED;
 	}
 	else if (direction == 'D')
 	{
-		map->player_pos.x -= map->player_view.y * movespeed;
-		map->player_pos.y += map->player_view.x * movespeed;
+		map->player_pos.x -= map->player_view.y * MOVEMENT_SPEED;
+		map->player_pos.y += map->player_view.x * MOVEMENT_SPEED;
 	}
 }
 

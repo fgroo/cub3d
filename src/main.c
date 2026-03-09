@@ -14,11 +14,10 @@
 
 #include "MLX42.h"
 #include "cleanup.h"
-#include "draw.h"
 #include "error.h"
 #include "parser.h"
 #include "render.h"
-#include "rotate.h"
+#include "input.h"
 
 #include <stddef.h>
 #include <stdlib.h>

@@ -10,40 +10,50 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "input.h"
+
 #include "cub3d.h"
-#include "draw.h"
-#include "rotate.h"
-#include "error.h"
 #include "cleanup.h"
+
+#include "render.h" //delete later
+#include <math.h> //delte later
 
 #include <stdio.h>
 #include <stdlib.h>
 
 void	key_hook(mlx_key_data_t keycode, void *param)
 {
-	mlx_image_t	*img;
 	t_data		*data;
-	int32_t		xy[2];
+	t_mapdata	*map;
 
 	data = (t_data *)param;
-	img = mlx_new_image(data->mlx, 256, 256);
-	if (!img || (mlx_image_to_window(data->mlx, img, 0, 0) < 0))
-		pr_error("error: mlx_image\n");
-	if (keycode.key == MLX_KEY_ESCAPE && (mlx_delete_image(data->mlx, img), 1))
-		(free(0), mlx_terminate(data->mlx), free_mapdata(data->map), exit(0));
+	map = data->map;
+	if (keycode.key == MLX_KEY_ESCAPE)
+	{
+		cleanup(data);
+		mlx_terminate(data->mlx);
+		exit(0);
+	}
 	else if (keycode.key == MLX_KEY_W)
-		(free(0),printf("Keypress: W\n"), moving(data->map, 'W'));
+		moving(map, 'W');
 	else if (keycode.key == MLX_KEY_A)
-		(free(0),printf("Keypress: A\n"), moving(data->map, 'A'));
+		moving(map, 'A');
 	else if (keycode.key == MLX_KEY_S)
-		(free(0),printf("Keypress: S\n"), moving(data->map, 'S'));
+		moving(map, 'S');
 	else if (keycode.key == MLX_KEY_D)
-		(free(0),printf("Keypress: D\n"), moving(data->map, 'D'));
+		moving(map, 'D');
 	else if (keycode.key == MLX_KEY_LEFT)
-		(free(0),printf("Keypress: LEFT\n"), matrix_rotation(&data->map->cam_plane.x, &data->map->cam_plane.y, 0.02), matrix_rotation(&data->map->player_view.x, &data->map->player_view.y, -0.02));
+	{
+		matrix_rotation(&map->cam_plane.x, &map->cam_plane.y, 0.02);
+		matrix_rotation(&map->player_view.x, &map->player_view.y, -0.02);
+	}
 	else if (keycode.key == MLX_KEY_RIGHT)
-		(free(0), printf("Keypress: RIGHT\n"), matrix_rotation(&data->map->cam_plane.x, &data->map->cam_plane.y, -0.02), matrix_rotation(&data->map->player_view.x, &data->map->player_view.y, 0.02));
-	xy[0] = (int32_t)data->map->player_pos.x;
-	xy[1] = (int32_t)data->map->player_pos.y;
-	put_point(img, (t_vertex2i){xy[0], xy[1]}, 5, 0xFF0000FF);
+	{
+		matrix_rotation(&map->cam_plane.x, &map->cam_plane.y, -0.02);
+		matrix_rotation(&map->player_view.x, &map->player_view.y, 0.02);
+	}
+	printf("player x: %d\n", (int)round(map->player_pos.x * TILESIZE * SCALE));
+	printf("player y: %d\n", (int)round(map->player_pos.y * TILESIZE * SCALE));
+	printf("player x: %f\n", map->player_pos.x);
+	printf("player y: %f\n", map->player_pos.y);
 }

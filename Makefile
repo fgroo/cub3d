@@ -82,10 +82,10 @@ CPPFLAGS	+= -I$(SRC_DIR)/debug
 CPPFLAGS	+= -I$(SRC_DIR)/draw
 CPPFLAGS	+= -I$(SRC_DIR)/error
 CPPFLAGS	+= -I$(SRC_DIR)/gnl
+CPPFLAGS	+= -I$(SRC_DIR)/input
 CPPFLAGS	+= -I$(SRC_DIR)/malloc
 CPPFLAGS	+= -I$(SRC_DIR)/parsing
 CPPFLAGS	+= -I$(SRC_DIR)/render
-CPPFLAGS	+= -I$(SRC_DIR)/rotation
 CPPFLAGS	+= $(ADDCPPFLAGS)
 
 #********************************************************#
@@ -146,7 +146,6 @@ endif
 SRC		:=
 
 vpath %.c $(SRC_DIR)
-SRC		+= input.c
 SRC		+= main.c
 
 vpath %.c $(SRC_DIR)/cleanup
@@ -171,6 +170,10 @@ SRC		+= error.c
 vpath %.c $(SRC_DIR)/gnl
 SRC		+= get_next_line.c
 
+vpath %.c $(SRC_DIR)/input
+SRC		+= input.c
+SRC		+= player_control.c
+
 vpath %.c $(SRC_DIR)/malloc
 SRC		+= ft_malloc_lite.c
 
@@ -183,9 +186,6 @@ SRC		+= parser04.c
 vpath %.c $(SRC_DIR)/render
 SRC		+= render_map.c
 SRC		+= render_player.c
-
-vpath %.c $(SRC_DIR)/rotation
-SRC		+= rotate01.c
 
 #*******************************************************#
 

@@ -10,14 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ROTATE_H
-# define ROTATE_H
+#ifndef INPUT_H
+# define INPUT_H
 
 # include "cub3d.h"
-# include "libft.h"
+# include "MLX42.h"
+
+# define MOVEMENT_SPEED 0.1
 
 void	moving(t_mapdata *map, char direction);
 void	matrix_rotation(double *x, double *y, double rotspeed);
 void	init_values(t_mapdata *m);
+void	key_hook(mlx_key_data_t keycode, void *param);
 
 #endif
