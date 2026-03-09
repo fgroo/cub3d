@@ -17,6 +17,7 @@
 #include "draw.h"
 
 #include <math.h>
+#include <stdio.h>
 
 void	render_player(void *param)
 {
@@ -45,8 +46,8 @@ void	render_player_pos(void *param)
 	player = data->img->player;
 	map = data->map;
 
-	player->instances->x = (int)round(map->player_pos.x) * TILESIZE * SCALE;
-	player->instances->y = (int)round(map->player_pos.y) * TILESIZE * SCALE;
+	player->instances->x = (int)round(map->player_pos.x * TILESIZE * SCALE);
+	player->instances->y = (int)round(map->player_pos.y * TILESIZE * SCALE);
 }
 
 /* NOTE:
