@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cleanup.h                                          :+:      :+:    :+:   */
+/*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
+/*   By: rtwobie <student@42>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/02 19:35:09 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/09 17:46:34 by rtwobie          ###   ########.fr       */
+/*   Created: 2026/03/09 17:29:42 by rtwobie           #+#    #+#             */
+/*   Updated: 2026/03/09 17:46:24 by rtwobie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CLEANUP_H
-# define CLEANUP_H
+#include "cleanup.h"
 
-# include "cub3d.h"
+#include "cub3d.h"
 
-void	free_double_array(char **array);
-void	free_mapdata(t_mapdata *map);
-void	free_images(mlx_t *mlx, t_image *image);
-int		cleanup(t_data *data);
-
-#endif
+int	cleanup(t_data *data)
+{
+	if (data->map)
+		free_mapdata(data->map);
+	if (data->img)
+		free_images(data->mlx, data->img);
+	return (0);
+}
