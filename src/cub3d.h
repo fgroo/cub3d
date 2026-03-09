@@ -6,23 +6,19 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 19:41:22 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/07 18:53:52 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/09 17:13:22 by rtwobie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# define WINDOW_WIDTH 960
+# define WINDOW_WIDTH 1280
 # define WINDOW_HEIGHT 720
+# define GAME_WIDTH 960
+# define BLACK_BORDER_WIDTH 160
 
 # include "MLX42.h"
-
-/*
- * Texture files are saved in char *tex[] in this exact order:
- * char *tex[4] = { ./path-of-north-tex, ./path-of-south-tex,
- *					./path-of-east-tex, ./path-of-west-tex }
- */
 
 typedef struct s_vector
 {
@@ -30,6 +26,11 @@ typedef struct s_vector
 	double	y;
 }			t_vector;
 
+/*
+ * Texture files are saved in char *tex[] in this exact order:
+ * char *tex[4] = { ./path-of-north-tex, ./path-of-south-tex,
+ *					./path-of-west-tex, ./path-of-east-tex }
+ */
 typedef struct s_mapdata
 {
 	char		*tex[4];
@@ -44,25 +45,19 @@ typedef struct s_mapdata
 	char		**map;
 }	t_mapdata;
 
+typedef struct s_image
+{
+	mlx_image_t	*player;
+	mlx_image_t	*map;
+}	t_image;
+
 typedef struct s_data
 {
 	mlx_t		*mlx;
 	t_mapdata	*map;
+	t_image		*img;
 }	t_data;
 
 void	key_hook(mlx_key_data_t keycode, void *data);
-
-/*
-----------------------------PARSING----------------------------
-*/
-// # include "parser.h"
-
-// int parser(t_mapdata *map, char *argv[]);
-// int validate_format(int fd, t_mapdata *mapdata);
-
-/*
-----------------------------ERROR----------------------------
-*/
-// # include "error.h"
 
 #endif // !CUB3D_H
