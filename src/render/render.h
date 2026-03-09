@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_minimap.c                                   :+:      :+:    :+:   */
+/*   render.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rtwobie <student@42>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/02 18:43:49 by rtwobie           #+#    #+#             */
-/*   Updated: 2026/03/02 20:07:11 by rtwobie          ###   ########.fr       */
+/*   Created: 2026/03/02 19:37:50 by rtwobie           #+#    #+#             */
+/*   Updated: 2026/03/09 18:17:17 by rtwobie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
-#include "draw.h"
+#ifndef RENDER_H
+# define RENDER_H
 
-void render_minimap(void *param)
-{
-	t_data *data;
+# include <stdint.h>
 
-	data = (t_data*)param;
-	static mlx_image_t	*image_buf;
+# define WALLTILE_COLOR 0xFFFFFFFF
+# define FLOORTILE_COLOR 0x000000FF
+# define PLAYER_COLOR 0xFF0000FF
+# define TILESIZE 8
+# define PLAYERSIZE 2
+# define SCALE 4
 
-	image_buf = mlx_new_image(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	// draw_pixel(image_buf, 250, 250, 0xFFFFFFFF);
-	mlx_image_to_window(data->mlx, image_buf, 0, 0);
-	mlx_delete_image(data->mlx, image_buf);
-}
+void	render_2d_map(void *param);
+void	render_player(void *param);
+void	render_player_pos(void *param);
+
+#endif
