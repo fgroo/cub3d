@@ -19,6 +19,8 @@ CFLAGS	+= -Wextra
 CFLAGS	+= -Werror
 CFLAGS	+= -pedantic
 CFLAGS	+= -Wconversion
+CFLAGS	+= -MMD
+CFLAGS	+= -MP
 CFLAGS	+= -fPIE
 
 # --- Explicit warnings for cross-compiler consistency ---
@@ -75,13 +77,14 @@ CPPFLAGS	+= -I$(SRC_DIR)
 #********** Add the path to your headers here ***********#
 # e.g: CPPFLAGS	+= -I$(SRC_DIR)/module/path
 
+CPPFLAGS	+= -I$(SRC_DIR)/cleanup
+CPPFLAGS	+= -I$(SRC_DIR)/debug
 CPPFLAGS	+= -I$(SRC_DIR)/draw
 CPPFLAGS	+= -I$(SRC_DIR)/error
 CPPFLAGS	+= -I$(SRC_DIR)/gnl
-CPPFLAGS	+= -I$(SRC_DIR)/parsing
 CPPFLAGS	+= -I$(SRC_DIR)/malloc
-CPPFLAGS	+= -I$(SRC_DIR)/cleanup
-CPPFLAGS	+= -I$(SRC_DIR)/debug
+CPPFLAGS	+= -I$(SRC_DIR)/parsing
+CPPFLAGS	+= -I$(SRC_DIR)/render
 CPPFLAGS	+= -I$(SRC_DIR)/rotation
 CPPFLAGS	+= $(ADDCPPFLAGS)
 
@@ -146,6 +149,15 @@ vpath %.c $(SRC_DIR)
 SRC		+= input.c
 SRC		+= main.c
 
+vpath %.c $(SRC_DIR)/cleanup
+SRC		+= free_double_array.c
+SRC		+= free_mapdata.c
+SRC		+= free_images.c
+SRC		+= cleanup.c
+
+vpath %.c $(SRC_DIR)/debug
+SRC		+= print_mapdata.c
+
 vpath %.c $(SRC_DIR)/draw
 SRC		+= put_pixel.c
 SRC		+= put_line.c
@@ -159,29 +171,27 @@ SRC		+= error.c
 vpath %.c $(SRC_DIR)/gnl
 SRC		+= get_next_line.c
 
+vpath %.c $(SRC_DIR)/malloc
+SRC		+= ft_malloc_lite.c
+
 vpath %.c $(SRC_DIR)/parsing
 SRC		+= parser01.c
 SRC		+= parser02.c
 SRC		+= parser03.c
 SRC		+= parser04.c
 
+vpath %.c $(SRC_DIR)/render
+SRC		+= render_map.c
+SRC		+= render_player.c
+
 vpath %.c $(SRC_DIR)/rotation
 SRC		+= rotate01.c
-
-vpath %.c $(SRC_DIR)/malloc
-SRC		+= ft_malloc_lite.c
-
-vpath %.c $(SRC_DIR)/cleanup
-SRC		+= free_double_array.c
-SRC		+= free_mapdata.c
-
-vpath %.c $(SRC_DIR)/debug
-SRC		+= print_mapdata.c
 
 #*******************************************************#
 
 OBJ		:= $(SRC:.c=.o)
 OBJ		:= $(addprefix $(OBJ_DIR)/, $(OBJ))
+DEP		:= $(OBJ:.o=.d)
 
 all: $(NAME)
 
@@ -194,6 +204,8 @@ $(MLX42_DIR)/build/$(MLX42):
 
 $(NAME): $(LIBFT_DIR)/$(LIBFT) $(MLX42_DIR)/build/$(MLX42) $(OBJ)
 	$(CC) $(OBJ) $(LDFLAGS) $(LDLIBS) -o $@
+
+-include $(DEP)
 
 $(OBJ_DIR)/%.o:%.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
