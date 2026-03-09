@@ -45,7 +45,6 @@ void	render_player_pos(void *param)
 	data = (t_data *)param;
 	player = data->img->player;
 	map = data->map;
-
 	player->instances->x = (int)round(map->player_pos.x * TILESIZE * SCALE);
 	player->instances->y = (int)round(map->player_pos.y * TILESIZE * SCALE);
 }
