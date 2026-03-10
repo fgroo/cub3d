@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rotate01.c                                         :+:      :+:    :+:   */
+/*   player_control.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 19:32:16 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/07 20:52:10 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/10 15:09:21 by rtwobie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,40 +17,41 @@
 #include <math.h>
 #include <stdlib.h>
 
-void	matrix_rotation(double *x, double *y, double rotspeed)
+void	matrix_rotation(double *x, double *y, double rot_speed, double delta_t)
 {
 	double	old_x;
 	double	old_y;
 
+	(void)delta_t;
 	old_x = *x;
 	old_y = *y;
-	*x = old_x * cos(rotspeed) - old_y * sin(rotspeed);
-	*y = old_y * cos(rotspeed) + old_x * sin(rotspeed);
+	*x = old_x * cos(rot_speed) - old_y * sin(rot_speed); // * delta_t;
+	*y = old_y * cos(rot_speed) + old_x * sin(rot_speed); // * delta_t;
 }
 
-void	moving(t_mapdata *map, char direction)
+void	moving(t_mapdata *map, double delta_t, char direction)
 {
 	if (!map || !map->map)
 		return ;
 	if (direction == 'W')
 	{
-		map->player_pos.x += map->player_view.x * MOVEMENT_SPEED;
-		map->player_pos.y += map->player_view.y * MOVEMENT_SPEED;
+		map->player_pos.x += map->player_view.x * MOVEMENT_SPEED * delta_t;
+		map->player_pos.y += map->player_view.y * MOVEMENT_SPEED * delta_t;
 	}
 	else if (direction == 'A')
 	{
-		map->player_pos.x += map->player_view.y * MOVEMENT_SPEED;
-		map->player_pos.y -= map->player_view.x * MOVEMENT_SPEED;
+		map->player_pos.x += map->player_view.y * MOVEMENT_SPEED * delta_t;
+		map->player_pos.y -= map->player_view.x * MOVEMENT_SPEED * delta_t;
 	}
 	else if (direction == 'S')
 	{
-		map->player_pos.x -= map->player_view.x * MOVEMENT_SPEED;
-		map->player_pos.y -= map->player_view.y * MOVEMENT_SPEED;
+		map->player_pos.x -= map->player_view.x * MOVEMENT_SPEED * delta_t;
+		map->player_pos.y -= map->player_view.y * MOVEMENT_SPEED * delta_t;
 	}
 	else if (direction == 'D')
 	{
-		map->player_pos.x -= map->player_view.y * MOVEMENT_SPEED;
-		map->player_pos.y += map->player_view.x * MOVEMENT_SPEED;
+		map->player_pos.x -= map->player_view.y * MOVEMENT_SPEED * delta_t;
+		map->player_pos.y += map->player_view.x * MOVEMENT_SPEED * delta_t;
 	}
 }
 
