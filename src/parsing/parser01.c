@@ -88,6 +88,8 @@ int	parser(t_mapdata *map, char *file)
 		return (free_mapdata(map), close(fd), 1);
 	if (flood_map(map))
 		return (free_mapdata(map), close(fd), 1);
+	if (map_size(map, &map->width, &map->height))
+		return (free_mapdata(map), close(fd), 1);
 	print_mapdata(map);
 	close(fd);
 	return (0);

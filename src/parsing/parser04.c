@@ -74,3 +74,24 @@ int	flood_map(t_mapdata *mapdata)
 	rev_floodfill(map, row, column);
 	return (0);
 }
+
+int map_size(t_mapdata *map, int *width, int *height)
+{
+	int	len;
+
+	if (!map || !map->map ||!map->map[0])
+	{
+		pr_error("map_size(): failed to get map size\n");
+		return (1);
+	}
+	*height = 0;
+	*width = 0;
+	while (map->map[*height])
+	{
+		len = (int)ft_strlen(map->map[*height]);
+		if (len > *width)
+			*width = len;
+		++height;
+	}
+	return (0);
+}

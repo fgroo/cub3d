@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 19:41:22 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/09 17:13:22 by rtwobie          ###   ########.fr       */
+/*   Updated: 2026/03/11 18:04:33 by rtwobie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ typedef struct s_mapdata
 	char		*tex[4];
 	int			floor_color;
 	int			ceiling_color;
+	int			height;
+	int			width;
 	char		spawn_orientation;
 	t_vector	spawn_coordinates;
 	t_vector	player_pos;
@@ -47,7 +49,7 @@ typedef struct s_mapdata
 
 typedef struct s_image
 {
-	mlx_image_t	*player;
+	mlx_image_t	*map_buf;
 	mlx_image_t	*map;
 }	t_image;
 

@@ -30,5 +30,6 @@ char	*fetch_texture_file(const char *line, const char *identifier);
 int		validate_map(int fd, char ***map);
 int		to_hex_color(long r, long g, long b);
 int		flood_map(t_mapdata *mapdata);
+int		map_size(t_mapdata *map, int *width, int *height);
 
 #endif // !PARSER_H
