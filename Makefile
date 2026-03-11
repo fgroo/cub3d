@@ -184,6 +184,7 @@ SRC		+= parser03.c
 SRC		+= parser04.c
 
 vpath %.c $(SRC_DIR)/render
+SRC		+= init.c
 SRC		+= render_map.c
 SRC		+= render_player.c
 
