@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:25:10 by rtwobie           #+#    #+#             */
-/*   Updated: 2026/03/08 00:19:54 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/12 15:49:58 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,13 @@ void	rotate_player(t_mapdata *map, const mlx_key_data_t *keycode)
 {
 	if (keycode->key == MLX_KEY_LEFT)
 	{
-		matrix_rotation(&map->cam_plane.x, &map->cam_plane.y, 0.02);
-		matrix_rotation(&map->player_view.x, &map->player_view.y, -0.02);
+		matrix_rotation(&map->cam_plane.x, &map->cam_plane.y, 0.07);
+		matrix_rotation(&map->player_view.x, &map->player_view.y, -0.07);
 	}
 	else if (keycode->key == MLX_KEY_RIGHT)
 	{
-		matrix_rotation(&map->cam_plane.x, &map->cam_plane.y, -0.02);
-		matrix_rotation(&map->player_view.x, &map->player_view.y, 0.02);
+		matrix_rotation(&map->cam_plane.x, &map->cam_plane.y, -0.07);
+		matrix_rotation(&map->player_view.x, &map->player_view.y, 0.07);
 	}
 }
 
