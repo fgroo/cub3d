@@ -75,7 +75,7 @@ int	flood_map(t_mapdata *mapdata)
 	return (0);
 }
 
-int map_size(t_mapdata *map, int *width, int *height)
+int	map_size(t_mapdata *map, int *width, int *height)
 {
 	int	len;
 
