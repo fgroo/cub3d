@@ -91,7 +91,7 @@ int	map_size(t_mapdata *map, int *width, int *height)
 		len = (int)ft_strlen(map->map[*height]);
 		if (len > *width)
 			*width = len;
-		++height;
+		++(*height);
 	}
 	return (0);
 }
