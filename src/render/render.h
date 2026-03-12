@@ -6,7 +6,7 @@
 /*   By: rtwobie <student@42>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 19:37:50 by rtwobie           #+#    #+#             */
-/*   Updated: 2026/03/10 16:50:49 by rtwobie          ###   ########.fr       */
+/*   Updated: 2026/03/11 18:30:11 by rtwobie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,10 @@
 # define PLAYERSIZE 2
 # define SCALE 4
 
-void	render_2d_map(void *param);
-void	render_player(void *param);
-void	render_player_pos(void *param);
+void	draw_map(t_mapdata *map, mlx_image_t *img, double scale);
+void	draw_player(t_mapdata *map, mlx_image_t *img, double scale);
+// void	draw_rays(mlx_image_t *map);
+void	render_map(void *param);
 int		init_images(t_data *data);
 
 #endif

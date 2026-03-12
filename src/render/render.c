@@ -17,16 +17,21 @@
 #include "draw.h"
 #include "libft.h"
 
-// NOTE: This function will be called each frame
-
-// TODO: add draw_rays() and draw_player_orientatio();
+// TODO: add draw_rays()
 void	draw_map_img(t_mapdata *map, mlx_image_t *img)
 {
+	double	scale;
+
+	if (map->width > map->height)
+		scale = (double)img->width / ((double)map->width * TILESIZE);
+	else
+		scale = (double)img->height / ((double)map->height * TILESIZE);
 	ft_memset(img->pixels, 0, img->width * img->height * BPP);
-	draw_map(map, img);
-	draw_player(map, img);
+	draw_map(map, img, scale);
+	draw_player(map, img, scale);
 }
 
+// NOTE: This function will be called each frame
 void	render_map(void *param)
 {
 	t_data		*data;
@@ -40,7 +45,7 @@ void	render_map(void *param)
 }
 
 // TODO: change values of width and height later
-int init_images(t_data *data)
+int	init_images(t_data *data)
 {
 	uint32_t	width;
 	uint32_t	height;
@@ -59,4 +64,3 @@ int init_images(t_data *data)
 	mlx_image_to_window(data->mlx, data->img->map, 0, 0);
 	return (0);
 }
-

@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 15:47:23 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/10 16:28:56 by rtwobie          ###   ########.fr       */
+/*   Updated: 2026/03/11 18:16:16 by rtwobie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,7 @@ int	init_mlx(t_data *data)
 		cleanup(data);
 		exit(1);
 	}
-	render_2d_map(data);
-	// render_player(data);
-	// mlx_loop_hook(data->mlx, render_player_pos, data);
+	mlx_loop_hook(data->mlx, render_map, data);
 	mlx_key_hook(data->mlx, key_hook, data);
 	mlx_loop(data->mlx); // NOTE: is there a function to break the loop?
 	mlx_terminate(data->mlx);
