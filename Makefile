@@ -187,7 +187,8 @@ vpath %.c $(SRC_DIR)/render
 SRC		+= render.c
 SRC		+= draw_map.c
 SRC		+= draw_player.c
-# SRC		+= draw_rays.c
+SRC		+= draw_rays01.c
+SRC		+= draw_rays02.c
 
 #*******************************************************#
 

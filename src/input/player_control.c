@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 19:32:16 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/12 15:12:53 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/13 21:49:33 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,14 @@ void	init_values(t_mapdata *m)
 	m->player_pos.y = m->spawn_coordinates.y + 0.5;
 	if (m->spawn_orientation == 'N')
 		(free(0), m->player_view.x = 0, m->player_view.y = -1,
-		free(0), m->cam_plane.x = 0.66, m->cam_plane.y = 0);
+			free(0), m->cam_plane.x = 0.66, m->cam_plane.y = 0);
 	else if (m->spawn_orientation == 'S')
 		(free(0), m->player_view.x = 0, m->player_view.y = 1,
-		free(0), m->cam_plane.x = -0.66, m->cam_plane.y = 0);
+			free(0), m->cam_plane.x = -0.66, m->cam_plane.y = 0);
 	else if (m->spawn_orientation == 'E')
 		(free(0), m->player_view.x = 1, m->player_view.y = 0,
-		free(0), m->cam_plane.x = 0, m->cam_plane.y = 0.66);
+			free(0), m->cam_plane.x = 0, m->cam_plane.y = 0.66);
 	else if (m->spawn_orientation == 'W')
 		(free(0), m->player_view.x = -1, m->player_view.y = 0,
-		free(0), m->cam_plane.x = 0, m->cam_plane.y = -0.66);
+			free(0), m->cam_plane.x = 0, m->cam_plane.y = -0.66);
 }
-

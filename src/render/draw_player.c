@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   draw_player.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rtwobie <student@42>                       +#+  +:+       +#+        */
+/*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 15:53:58 by rtwobie           #+#    #+#             */
-/*   Updated: 2026/03/11 18:42:49 by rtwobie          ###   ########.fr       */
+/*   Updated: 2026/03/13 22:02:13 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "render.h"
-
 #include "MLX42.h"
 #include "cub3d.h"
 #include "draw.h"

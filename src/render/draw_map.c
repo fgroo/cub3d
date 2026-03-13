@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   draw_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rtwobie <student@42>                       +#+  +:+       +#+        */
+/*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 18:43:49 by rtwobie           #+#    #+#             */
-/*   Updated: 2026/03/11 18:08:41 by rtwobie          ###   ########.fr       */
+/*   Updated: 2026/03/13 22:01:17 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "render.h"
-
 #include "MLX42.h"
 #include "cub3d.h"
 #include "draw.h"

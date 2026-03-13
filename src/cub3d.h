@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 19:41:22 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/11 18:04:33 by rtwobie          ###   ########.fr       */
+/*   Updated: 2026/03/13 17:41:02 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,19 @@ typedef struct s_vector
 	double	y;
 }			t_vector;
 
+typedef struct s_raycast
+{
+	t_vector	hit;
+	double		side_dist_x;
+	double		side_dist_y;
+	double		delta_dist_x;
+	double		delta_dist_y;
+	double		hit_dist;
+	int			map_x;
+	int			map_y;
+	int			step_x;
+	int			step_y;
+}			t_raycast;
 /*
  * Texture files are saved in char *tex[] in this exact order:
  * char *tex[4] = { ./path-of-north-tex, ./path-of-south-tex,
@@ -58,6 +71,7 @@ typedef struct s_data
 	mlx_t		*mlx;
 	t_mapdata	*map;
 	t_image		*img;
+	t_raycast	*raycast;
 }	t_data;
 
 void	key_hook(mlx_key_data_t keycode, void *data);

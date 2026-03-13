@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rtwobie <student@42>                       +#+  +:+       +#+        */
+/*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 15:46:49 by rtwobie           #+#    #+#             */
-/*   Updated: 2026/03/11 18:43:30 by rtwobie          ###   ########.fr       */
+/*   Updated: 2026/03/13 22:00:21 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,19 @@
 #include "draw.h"
 #include "libft.h"
 
+double	get_map_scale(t_mapdata *map, mlx_image_t *img)
+{
+	if (map->width > map->height)
+		return ((double)img->width / ((double)map->width * TILESIZE));
+	return ((double)img->height / ((double)map->height * TILESIZE));
+}
+
 // TODO: add draw_rays()
 void	draw_map_img(t_mapdata *map, mlx_image_t *img)
 {
 	double	scale;
 
-	if (map->width > map->height)
-		scale = (double)img->width / ((double)map->width * TILESIZE);
-	else
-		scale = (double)img->height / ((double)map->height * TILESIZE);
+	scale = get_map_scale(map, img);
 	ft_memset(img->pixels, 0, img->width * img->height * BPP);
 	draw_map(map, img, scale);
 	draw_player(map, img, scale);
@@ -39,6 +43,7 @@ void	render_map(void *param)
 
 	data = (t_data *)param;
 	draw_map_img(data->map, data->img->map_buf);
+	draw_rays(data);
 	tmp = data->img->map;
 	data->img->map = data->img->map_buf;
 	data->img->map_buf = tmp;

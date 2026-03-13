@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 15:47:23 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/11 18:16:16 by rtwobie          ###   ########.fr       */
+/*   Updated: 2026/03/13 17:37:36 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ int	init_data(t_data *data)
 		return (pr_error("malloc\n"), 1);
 	data->img = ft_calloc(1, sizeof(*data->img));
 	if (!data->img)
+		return (pr_error("malloc\n"), 1);
+	data->raycast = ft_calloc(1, sizeof(*data->raycast));
+	if (!data->raycast)
 		return (pr_error("malloc\n"), 1);
 	return (0);
 }

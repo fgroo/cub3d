@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   put_line.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rtwobie <student@42>                       +#+  +:+       +#+        */
+/*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 17:03:48 by rtwobie           #+#    #+#             */
-/*   Updated: 2026/03/06 16:05:45 by rtwobie          ###   ########.fr       */
+/*   Updated: 2026/03/13 21:51:09 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,14 @@
 
 #include <stdint.h>
 
-static void	_draw_line_h(mlx_image_t *img, t_vertex2i p1, t_vertex2i p2, uint32_t color)
+static void	_draw_line_h(mlx_image_t *img, t_vertex2i p1,
+		t_vertex2i p2, uint32_t color)
 {
 	int	big_d;
 	int	dx;
 	int	dy;
 	int	i;
-	int dir;
+	int	dir;
 
 	dx = p2.x - p1.x;
 	dy = p2.y - p1.y;
@@ -44,13 +45,14 @@ static void	_draw_line_h(mlx_image_t *img, t_vertex2i p1, t_vertex2i p2, uint32_
 	}
 }
 
-static void	_draw_line_v(mlx_image_t *img, t_vertex2i p1, t_vertex2i p2, uint32_t color)
+static void	_draw_line_v(mlx_image_t *img, t_vertex2i p1,
+		t_vertex2i p2, uint32_t color)
 {
 	int	big_d;
 	int	dx;
 	int	dy;
 	int	i;
-	int dir;
+	int	dir;
 
 	dx = p2.x - p1.x;
 	dy = p2.y - p1.y;
@@ -71,7 +73,7 @@ static void	_draw_line_v(mlx_image_t *img, t_vertex2i p1, t_vertex2i p2, uint32_
 	}
 }
 
-void put_line(mlx_image_t *img, t_vertex2i p1, t_vertex2i p2, uint32_t color)
+void	put_line(mlx_image_t *img, t_vertex2i p1, t_vertex2i p2, uint32_t color)
 {
 	if (!img)
 	{
