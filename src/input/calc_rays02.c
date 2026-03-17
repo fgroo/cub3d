@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 19:26:04 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/17 17:00:53 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/17 18:01:56 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	dda(t_vector start, t_vector end, mlx_image_t *img)
 	}
 }
 
-int	is_wall(t_mapdata *map, int x, int y)
+int	is_wall(t_mapdata *map, int x, int y, t_raycast *ray)
 {
 	char	*row;
 
@@ -53,7 +53,11 @@ int	is_wall(t_mapdata *map, int x, int y)
 	if (!row || x >= (int)ft_strlen(row))
 		return (1);
 	if (row[x] == '1' || row[x] == ' ')
+	{
+		ray->hit_side_x = ray->step_x;
+		ray->hit_side_y = ray->step_y;
 		return (1);
+	}
 	return (0); // saving the wall side where raycaster hits
 }
 
@@ -62,7 +66,9 @@ t_vector	raycast_wall_hit(t_mapdata *map, t_raycast *ray, t_vector dir)
 	int	i;
 
 	i = 0;
-	while (i++ < map->width * map->height * 2)
+	ray->hit_side_x = 0;
+	ray->hit_side_y = 0;
+	while (i++ < map->width * map->height)
 	{
 		if (ray->side_dist_x < ray->side_dist_y)
 		{
@@ -76,7 +82,7 @@ t_vector	raycast_wall_hit(t_mapdata *map, t_raycast *ray, t_vector dir)
 			ray->map_y += ray->step_y;
 			ray->hit_dist = ray->side_dist_y - ray->delta_dist_y;
 		}
-		if (is_wall(map, ray->map_x, ray->map_y))
+		if (is_wall(map, ray->map_x, ray->map_y, ray))
 			break ;
 	}
 	ray->hit.x = map->player_pos.x + dir.x * ray->hit_dist;

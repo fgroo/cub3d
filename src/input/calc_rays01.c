@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 15:59:52 by rtwobie           #+#    #+#             */
-/*   Updated: 2026/03/17 15:58:33 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/17 17:59:54 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 #include <stdlib.h>
 #include <math.h>
+#include <stdio.h> // remove later
 
 static int	preinit_values(t_data *data, t_vector dir)
 {
@@ -95,6 +96,13 @@ static void	draw_rays_loop(t_data *data, double scale)
 		dir.y = data->map->player_view.y + data->map->cam_plane.y * camera_x;
 		draw_single_ray(data, dir, scale);
 		data->raycast->arraycaster[i] = data->raycast->hit_dist;
+		// if (!i)
+		// {
+		// 		put_line(data->img->map_buf, (t_vertex2i){(int)data->map->player_pos.x, (int)data->map->player_pos.y},
+		// (t_vertex2i){(int)data->map->player_pos.x + (int)data->raycast->hit_dist, (int)data->map->player_pos.y}, 0xFFFF00FF);
+		// }			we need more than hit_dist
+		// if (!i && data->raycast->hit_dir_x != 0)
+		// 	printf("ray_hit x: %d, y: %d\n", data->raycast->hit_dir_x, data->raycast->hit_dir_y);
 		i++;
 	}
 }
