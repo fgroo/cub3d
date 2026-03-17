@@ -6,16 +6,16 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 19:41:22 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/17 14:14:33 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/17 16:42:37 by rtwobie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# define WINDOW_WIDTH 1280
-# define WINDOW_HEIGHT 720
-# define GAME_WIDTH 960
+# define WINDOW_WIDTH 960 
+# define WINDOW_HEIGHT 360
+# define GAME_WIDTH 640
 # define BLACK_BORDER_WIDTH 160
 
 # include "MLX42.h"
@@ -48,8 +48,8 @@ typedef struct s_raycast
 typedef struct s_mapdata
 {
 	char		*tex[4];
-	int			floor_color;
-	int			ceiling_color;
+	uint32_t	floor_color;
+	uint32_t	ceiling_color;
 	int			height;
 	int			width;
 	char		spawn_orientation;
@@ -65,6 +65,8 @@ typedef struct s_image
 {
 	mlx_image_t	*map_buf;
 	mlx_image_t	*map;
+	mlx_image_t	*game_buf;
+	mlx_image_t	*game;
 }	t_image;
 
 typedef struct s_data
