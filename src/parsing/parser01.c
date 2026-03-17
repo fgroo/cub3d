@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 19:41:45 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/07 19:35:39 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/17 16:11:10 by rtwobie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,12 @@ static int	check_fetch_color(t_mapdata **mapdata, char *line,
 {
 	if (i == 4)
 	{
-		(*mapdata)->floor_color = fetch_color(line, identifier);
-		if ((*mapdata)->floor_color == -1)
+		if (fetch_color(line, identifier, &(*mapdata)->floor_color) == 1)
 			return (pr_error("failed fetching color"), 1);
 	}
 	else if (i == 5)
 	{
-		(*mapdata)->ceiling_color = fetch_color(line, identifier);
-		if ((*mapdata)->ceiling_color == -1)
+		if (fetch_color(line, identifier, &(*mapdata)->ceiling_color) == 1)
 			return (pr_error("failed fetching color"), 1);
 	}
 	return (0);
