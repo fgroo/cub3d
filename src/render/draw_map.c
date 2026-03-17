@@ -6,14 +6,16 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 18:43:49 by rtwobie           #+#    #+#             */
-/*   Updated: 2026/03/13 22:01:17 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/17 14:55:31 by rtwobie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "render.h"
+
 #include "MLX42.h"
 #include "cub3d.h"
 #include "draw.h"
+#include "libft.h"
 
 static void	draw_tile(mlx_image_t *img, t_vertex2i p, double scale, char tile)
 {
@@ -47,3 +49,14 @@ void	draw_map(t_mapdata *map, mlx_image_t *img, double scale)
 		++y;
 	}
 }
+
+void	draw_map_img(t_mapdata *map, mlx_image_t *img)
+{
+	double	scale;
+
+	scale = get_map_scale(map, img);
+	ft_memset(img->pixels, 0, img->width * img->height * BPP);
+	draw_map(map, img, scale);
+	draw_player(map, img, scale);
+}
+
