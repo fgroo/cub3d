@@ -173,6 +173,8 @@ SRC		+= get_next_line.c
 vpath %.c $(SRC_DIR)/input
 SRC		+= input.c
 SRC		+= player_control.c
+SRC		+= calc_rays01.c
+SRC		+= calc_rays02.c
 
 vpath %.c $(SRC_DIR)/malloc
 SRC		+= ft_malloc_lite.c
@@ -187,8 +189,6 @@ vpath %.c $(SRC_DIR)/render
 SRC		+= render.c
 SRC		+= draw_map.c
 SRC		+= draw_player.c
-SRC		+= draw_rays01.c
-SRC		+= draw_rays02.c
 
 #*******************************************************#
 

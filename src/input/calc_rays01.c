@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_rays01.c                                      :+:      :+:    :+:   */
+/*   calc_rays01.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 15:59:52 by rtwobie           #+#    #+#             */
-/*   Updated: 2026/03/13 21:46:34 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/17 15:58:33 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "input.h"
 #include "render.h"
 #include "draw.h"
 #include "cub3d.h"
 #include "libft.h"
 
+#include <stdlib.h>
 #include <math.h>
 
 static int	preinit_values(t_data *data, t_vector dir)
@@ -32,7 +34,7 @@ static int	preinit_values(t_data *data, t_vector dir)
 	return (0);
 }
 
-static void	init_values(t_data *data, t_vector dir)
+static void	init_ray_values(t_data *data, t_vector dir)
 {
 	if (dir.x != 0)
 		data->raycast->delta_dist_x = fabs(1.0 / dir.x);
@@ -65,7 +67,7 @@ static void	draw_single_ray(t_data *data, t_vector dir, double scale)
 
 	start = data->map->player_pos;
 	end = start;
-	if (!preinit_values(data, dir) && (init_values(data, dir), 1))
+	if (!preinit_values(data, dir) && (init_ray_values(data, dir), 1))
 		end = raycast_wall_hit(data->map, data->raycast, dir);
 	start.x *= TILESIZE * scale;
 	start.y *= TILESIZE * scale;
@@ -73,6 +75,8 @@ static void	draw_single_ray(t_data *data, t_vector dir, double scale)
 	end.y *= TILESIZE * scale;
 	put_line(data->img->map_buf, (t_vertex2i){(int)start.x, (int)start.y},
 		(t_vertex2i){(int)end.x, (int)end.y}, 0x00FF00FF);
+	put_line(data->img->map_buf, (t_vertex2i){(int)start.x, (int)start.y},
+		(t_vertex2i){(int)(data->map->cam_plane.x * 20) + (int)start.x, (int)(data->map->cam_plane.y * 20) + (int)start.y}, 0x0000FFFF);
 }
 
 static void	draw_rays_loop(t_data *data, double scale)
@@ -81,6 +85,8 @@ static void	draw_rays_loop(t_data *data, double scale)
 	double		camera_x;
 	int			i;
 
+	data->raycast->arraycaster = (double *)malloc(sizeof(double) * (RAY_COUNT + 1));
+	data->raycast->arraycaster[RAY_COUNT] = 0;
 	i = 0;
 	while (i < RAY_COUNT)
 	{
@@ -88,6 +94,7 @@ static void	draw_rays_loop(t_data *data, double scale)
 		dir.x = data->map->player_view.x + data->map->cam_plane.x * camera_x;
 		dir.y = data->map->player_view.y + data->map->cam_plane.y * camera_x;
 		draw_single_ray(data, dir, scale);
+		data->raycast->arraycaster[i] = data->raycast->hit_dist;
 		i++;
 	}
 }

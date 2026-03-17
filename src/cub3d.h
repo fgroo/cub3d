@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 19:41:22 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/13 17:41:02 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/17 14:14:33 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_raycast
 	double		delta_dist_x;
 	double		delta_dist_y;
 	double		hit_dist;
+	double		*arraycaster;
 	int			map_x;
 	int			map_y;
 	int			step_x;

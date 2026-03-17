@@ -1,15 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_rays02.c                                      :+:      :+:    :+:   */
+/*   calc_rays02.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 19:26:04 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/13 22:00:51 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/17 17:00:53 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "input.h"
 #include "draw.h"
 #include "cub3d.h"
 #include "libft.h"
@@ -53,7 +54,7 @@ int	is_wall(t_mapdata *map, int x, int y)
 		return (1);
 	if (row[x] == '1' || row[x] == ' ')
 		return (1);
-	return (0);
+	return (0); // saving the wall side where raycaster hits
 }
 
 t_vector	raycast_wall_hit(t_mapdata *map, t_raycast *ray, t_vector dir)

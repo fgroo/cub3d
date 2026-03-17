@@ -6,11 +6,12 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 15:46:49 by rtwobie           #+#    #+#             */
-/*   Updated: 2026/03/13 22:00:21 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/17 14:59:59 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "render.h"
+#include "input.h"
 
 #include "MLX42.h"
 #include "cub3d.h"
