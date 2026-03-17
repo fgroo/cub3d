@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "render.h"
 
 #include "MLX42.h"
@@ -30,14 +31,14 @@ static void draw_background(t_data *data, mlx_image_t *img)
 			data->map->floor_color);
 }
 
-static void	draw_vertical(t_data *data, mlx_image_t *img, int line_thickness, int idx)
+static void	draw_vertical(double ray_dist, mlx_image_t *img, int line_thickness, int idx)
 {
 	int	line_height;
 	int	draw_start;
 	int	draw_end;
 	int	i;
 
-	line_height = (int)(img->height / data->raycast->hit_dist);
+	line_height = (int)(img->height / ray_dist);
 	draw_start = -line_height / 2 + (int)img->height / 2;
 	if (draw_start < 0)
 		draw_start = 0;
@@ -47,27 +48,33 @@ static void	draw_vertical(t_data *data, mlx_image_t *img, int line_thickness, in
 	i = 0;
 	while(i < line_thickness)
 	{
-		put_line(img, (t_vertex2i){idx + i, draw_start}, (t_vertex2i){idx + i, draw_end}, 0x00FFFFFF);
+		put_line(img, (t_vertex2i){idx + i, draw_start}, 
+		   (t_vertex2i){idx + i, draw_end}, 0x00FFFFFF);
 		++i;
 	}
 }
 
+// WARNING: If img->width is not perfectly divisable by RAY_COUNT,
+//			the wall render will not compeletely fill the screen out
 static void	draw_walls_untextured(t_data *data, mlx_image_t *img)
 {
 	int	line_thickness;
 	int	i;
 
 	line_thickness = (int)img->width / RAY_COUNT;
+	char *debug = ft_itoa(line_thickness);
+	mlx_put_string(data->mlx, debug, 10, WINDOW_HEIGHT - 10);
 	i = 0;
-	while(i < (int)img->width)
+	while(i < RAY_COUNT * line_thickness)
 	{
-		draw_vertical(data, img, line_thickness, i);
-		i += line_thickness;
+		draw_vertical(data->raycast->arraycaster[i/line_thickness], img, line_thickness, i);
+		++i;
 	}
 }
 
 void	draw_game_img(t_data *data, mlx_image_t *img)
 {
+	ft_memset(img->pixels, 0, img->width * img->height * BPP);
 	draw_background(data, img);
 	draw_walls_untextured(data, img);
 }
