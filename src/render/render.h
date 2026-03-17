@@ -23,7 +23,7 @@
 # define TILESIZE 8
 # define PLAYERSIZE 2
 # define SCALE 4
-# define RAY_COUNT 20
+# define RAY_COUNT 128
 
 void		draw_map(t_mapdata *map, mlx_image_t *img, double scale);
 void		draw_game_img(t_data *data, mlx_image_t *img);
