@@ -59,4 +59,3 @@ void	draw_map_img(t_mapdata *map, mlx_image_t *img)
 	draw_map(map, img, scale);
 	draw_player(map, img, scale);
 }
-

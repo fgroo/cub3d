@@ -19,19 +19,20 @@
 
 #include <stdint.h>
 
-static void draw_background(t_data *data, mlx_image_t *img)
+static void	draw_background(t_data *data, mlx_image_t *img)
 {
-	put_square(img, 
-			(t_vertex2i){0, 0}, 
-			(t_vertex2i){(int)img->width, (int)img->height / 2},
-			data->map->ceiling_color);
-	put_square(img, 
-			(t_vertex2i){0, (int)img->height / 2}, 
-			(t_vertex2i){(int)img->width, (int)img->height}, 
-			data->map->floor_color);
+	put_square(img,
+		(t_vertex2i){0, 0},
+		(t_vertex2i){(int)img->width, (int)img->height / 2},
+		data->map->ceiling_color);
+	put_square(img,
+		(t_vertex2i){0, (int)img->height / 2},
+		(t_vertex2i){(int)img->width, (int)img->height},
+		data->map->floor_color);
 }
 
-static void	draw_vertical(double ray_dist, mlx_image_t *img, int line_thickness, int idx)
+static void	draw_vertical(double ray_dist, mlx_image_t *img, int line_thickness,
+						int idx)
 {
 	int	line_height;
 	int	draw_start;
@@ -46,10 +47,10 @@ static void	draw_vertical(double ray_dist, mlx_image_t *img, int line_thickness,
 	if (draw_end >= (int)img->height)
 		draw_end = (int)img->height - 1;
 	i = 0;
-	while(i < line_thickness)
+	while (i < line_thickness)
 	{
-		put_line(img, (t_vertex2i){idx + i, draw_start}, 
-		   (t_vertex2i){idx + i, draw_end}, 0x00FFFFFF);
+		put_line(img, (t_vertex2i){idx + i, draw_start},
+			(t_vertex2i){idx + i, draw_end}, 0x00FFFFFF);
 		++i;
 	}
 }
@@ -62,13 +63,11 @@ static void	draw_walls_untextured(t_data *data, mlx_image_t *img)
 	int	i;
 
 	line_thickness = (int)img->width / (int)data->raycast->ray_count;
-	char *debug = ft_itoa((int)line_thickness); // DELETE LATER!
-	mlx_put_string(data->mlx, debug, 10, WINDOW_HEIGHT - 10); // DELETE LATER!
 	i = 0;
-	while(i < (int)data->raycast->ray_count * line_thickness)
+	while (i < (int)data->raycast->ray_count * line_thickness)
 	{
-		draw_vertical(data->raycast->rays[i/line_thickness], img,
-				line_thickness, i);
+		draw_vertical(data->raycast->rays[i / line_thickness], img,
+			line_thickness, i);
 		++i;
 	}
 }

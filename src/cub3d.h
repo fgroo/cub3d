@@ -13,10 +13,9 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# define WINDOW_WIDTH 963 
+# define WINDOW_WIDTH 960 
 # define WINDOW_HEIGHT 360
 # define GAME_WIDTH 640
-# define BLACK_BORDER_WIDTH 160
 
 # include "MLX42.h"
 

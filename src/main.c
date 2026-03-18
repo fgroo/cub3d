@@ -20,6 +20,7 @@
 #include "input.h"
 
 #include <stddef.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 int	init_mlx(t_data *data)
