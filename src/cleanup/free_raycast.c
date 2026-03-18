@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cleanup.c                                          :+:      :+:    :+:   */
+/*   free_raycast.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rtwobie <student@42>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/09 17:29:42 by rtwobie           #+#    #+#             */
-/*   Updated: 2026/03/18 11:57:10 by rtwobie          ###   ########.fr       */
+/*   Created: 2026/03/18 11:54:14 by rtwobie           #+#    #+#             */
+/*   Updated: 2026/03/18 12:01:12 by rtwobie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cleanup.h"
-
 #include "cub3d.h"
 
-int	cleanup(t_data *data)
+#include <stdlib.h>
+
+void free_raycast(t_raycast *raycast)
 {
-	if (!data)
-		return (1);
-	if (data->map)
-		free_mapdata(data->map);
-	if (data->img)
-		free_images(data->mlx, data->img);
-	if (data->raycast)
-		free_raycast(data->raycast);
-	return (0);
+	if (raycast->rays)
+		free(raycast->rays);
+	free(raycast);
 }
