@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 15:47:23 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/17 15:10:05 by rtwobie          ###   ########.fr       */
+/*   Updated: 2026/03/18 12:29:46 by rtwobie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,33 @@ int	init_mlx(t_data *data)
 	return (0);
 }
 
+uint32_t adjust(uint32_t resolution)
+{
+	if (resolution % 8 == 0)
+		return (resolution);
+	else if (resolution % 8 >= 4)
+		return (resolution + resolution % 8);
+	return (resolution - resolution % 8);
+}
+
 int	init_data(t_data *data)
 {
+	data->game_width = adjust(GAME_WIDTH);
+	data->game_height = adjust(WINDOW_HEIGHT);
 	data->map = ft_calloc(1, sizeof(*data->map));
 	if (!data->map)
-		return (pr_error("malloc\n"), 1);
+		return (pr_error("malloc\n"), cleanup(data), 1);
 	data->img = ft_calloc(1, sizeof(*data->img));
 	if (!data->img)
-		return (pr_error("malloc\n"), 1);
+		return (pr_error("malloc\n"), cleanup(data), 1);
 	data->raycast = ft_calloc(1, sizeof(*data->raycast));
 	if (!data->raycast)
-		return (pr_error("malloc\n"), 1);
+		return (pr_error("malloc\n"), cleanup(data), 1);
+	data->raycast->ray_count = data->game_width / 4;
+	data->raycast->rays = malloc(sizeof(*data->raycast->rays)
+							  * data->raycast->ray_count);
+	if (!data->raycast->rays)
+		return (pr_error("malloc\n"), cleanup(data), 1);
 	return (0);
 }
 

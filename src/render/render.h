@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 19:37:50 by rtwobie           #+#    #+#             */
-/*   Updated: 2026/03/17 15:10:16 by rtwobie          ###   ########.fr       */
+/*   Updated: 2026/03/18 12:22:38 by rtwobie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 # define TILESIZE 8
 # define PLAYERSIZE 2
 # define SCALE 4
-# define RAY_COUNT 128
 
 void		draw_map(t_mapdata *map, mlx_image_t *img, double scale);
 void		draw_game_img(t_data *data, mlx_image_t *img);

@@ -6,14 +6,14 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 19:41:22 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/17 16:42:37 by rtwobie          ###   ########.fr       */
+/*   Updated: 2026/03/18 12:28:59 by rtwobie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# define WINDOW_WIDTH 960 
+# define WINDOW_WIDTH 963 
 # define WINDOW_HEIGHT 360
 # define GAME_WIDTH 640
 # define BLACK_BORDER_WIDTH 160
@@ -36,7 +36,8 @@ typedef struct s_raycast
 	double		hit_dist;
 	int			hit_side_x;
 	int			hit_side_y;
-	double		*arraycaster;
+	double		*rays;
+	size_t		ray_count;
 	int			map_x;
 	int			map_y;
 	int			step_x;
@@ -77,8 +78,8 @@ typedef struct s_data
 	t_mapdata	*map;
 	t_image		*img;
 	t_raycast	*raycast;
+	uint32_t	game_width;
+	uint32_t	game_height;
 }	t_data;
-
-void	key_hook(mlx_key_data_t keycode, void *data);
 
 #endif // !CUB3D_H

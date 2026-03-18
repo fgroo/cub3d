@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 15:46:49 by rtwobie           #+#    #+#             */
-/*   Updated: 2026/03/17 16:52:57 by rtwobie          ###   ########.fr       */
+/*   Updated: 2026/03/18 12:39:13 by rtwobie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "cub3d.h"
 #include "draw.h"
 #include "libft.h"
+#include <stdio.h>
 
 double	get_map_scale(t_mapdata *map, mlx_image_t *img)
 {
@@ -53,6 +54,7 @@ void	render_game(void *param)
 }
 
 // TODO: change values of width and height later
+// TEST: Check if it is safe to call delete on NULL pointers!
 int	init_images(t_data *data)
 {
 	uint32_t	width;
@@ -62,8 +64,10 @@ int	init_images(t_data *data)
 	height = width;
 	data->img->map = mlx_new_image(data->mlx, width, height);
 	data->img->map_buf = mlx_new_image(data->mlx, width, height);
-	data->img->game = mlx_new_image(data->mlx, GAME_WIDTH, WINDOW_HEIGHT);
-	data->img->game_buf = mlx_new_image(data->mlx, GAME_WIDTH, WINDOW_HEIGHT);
+	data->img->game = mlx_new_image(data->mlx, data->game_width, 
+								 data->game_height);
+	data->img->game_buf = mlx_new_image(data->mlx, data->game_width,
+									 data->game_height);
 	if (!data->img->map || !data->img->map_buf
 		|| !data->img->game || !data->img->game_buf)
 	{

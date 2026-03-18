@@ -6,7 +6,7 @@
 /*   By: rtwobie <student@42>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 14:39:05 by rtwobie           #+#    #+#             */
-/*   Updated: 2026/03/17 17:00:31 by rtwobie          ###   ########.fr       */
+/*   Updated: 2026/03/18 12:42:16 by rtwobie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,14 @@ static void	draw_walls_untextured(t_data *data, mlx_image_t *img)
 	int	line_thickness;
 	int	i;
 
-	line_thickness = (int)img->width / RAY_COUNT;
-	char *debug = ft_itoa(line_thickness);
-	mlx_put_string(data->mlx, debug, 10, WINDOW_HEIGHT - 10);
+	line_thickness = (int)img->width / (int)data->raycast->ray_count;
+	char *debug = ft_itoa((int)line_thickness); // DELETE LATER!
+	mlx_put_string(data->mlx, debug, 10, WINDOW_HEIGHT - 10); // DELETE LATER!
 	i = 0;
-	while(i < RAY_COUNT * line_thickness)
+	while(i < (int)data->raycast->ray_count * line_thickness)
 	{
-		draw_vertical(data->raycast->arraycaster[i/line_thickness], img, line_thickness, i);
+		draw_vertical(data->raycast->rays[i/line_thickness], img,
+				line_thickness, i);
 		++i;
 	}
 }
