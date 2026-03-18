@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rtwobie <student@42>                       +#+  +:+       +#+        */
+/*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 14:39:05 by rtwobie           #+#    #+#             */
-/*   Updated: 2026/03/18 12:42:16 by rtwobie          ###   ########.fr       */
+/*   Updated: 2026/03/18 22:18:22 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,27 @@ static void	draw_background(t_data *data, mlx_image_t *img)
 		data->map->floor_color);
 }
 
-static void	draw_vertical(double ray_dist, mlx_image_t *img, int line_thickness,
+static uint32_t	get_wall_side_color(t_raycast *ray)
+{
+	if (ray->hit_side == 'N')
+		return (RGB_GREEN);
+	else if (ray->hit_side == 'E')
+		return (RGB_GREY_DIM);
+	else if (ray->hit_side == 'S')
+		return (RGB_GREY);
+	else
+		return (RGB_GREEN_DIM);
+}
+
+static void	draw_vertical(t_raycast *ray, mlx_image_t *img, int line_thickness,
 						int idx)
 {
 	int	line_height;
 	int	draw_start;
 	int	draw_end;
 	int	i;
-	uint32_t color;
 
-	line_height = (int)(img->height / ray_dist);
+	line_height = (int)(img->height / ray->hit_dist);
 	draw_start = -line_height / 2 + (int)img->height / 2;
 	if (draw_start < 0)
 		draw_start = 0;
@@ -48,27 +59,24 @@ static void	draw_vertical(double ray_dist, mlx_image_t *img, int line_thickness,
 	if (draw_end >= (int)img->height)
 		draw_end = (int)img->height - 1;
 	i = 0;
-	if (	
 	while (i < line_thickness)
 	{
 		put_line(img, (t_vertex2i){idx + i, draw_start},
-			(t_vertex2i){idx + i, draw_end}, 0x00FFFFFF);
+			(t_vertex2i){idx + i, draw_end}, get_wall_side_color(ray));
 		++i;
 	}
 }
 
-// WARNING: If img->width is not perfectly divisable by RAY_COUNT,
-//			the wall render will not compeletely fill the screen out
 static void	draw_walls_untextured(t_data *data, mlx_image_t *img)
 {
 	int	line_thickness;
 	int	i;
 
-	line_thickness = (int)img->width / (int)data->raycast->ray_count;
+	line_thickness = (int)img->width / (int)data->ray_count;
 	i = 0;
-	while (i < (int)data->raycast->ray_count * line_thickness)
+	while (i < (int)data->ray_count * line_thickness)
 	{
-		draw_vertical(data->raycast->rays[i / line_thickness], img,
+		draw_vertical(&data->raycast[i / line_thickness], img,
 			line_thickness, i);
 		++i;
 	}
@@ -79,11 +87,11 @@ static void	draw_walls_untextured(t_data *data, mlx_image_t *img)
 // 	int	line_thickness;
 // 	int	i;
 //
-// 	line_thickness = (int)img->width / (int)data->raycast->ray_count;
+// 	line_thickness = (int)img->width / (int)data->ray_count;
 // 	i = 0;
-// 	while (i < (int)data->raycast->ray_count * line_thickness)
+// 	while (i < (int)data->ray_count * line_thickness)
 // 	{
-// 		draw_vertical(data->raycast->rays[i / line_thickness], img,
+// 		draw_vertical(data->raycast[i / line_thickness].hit_dist, img,
 // 			line_thickness, i);
 // 		++i;
 // 	}

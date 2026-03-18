@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 19:30:42 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/17 17:36:02 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/18 21:34:44 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void		init_values(t_mapdata *m);
 void		key_hook(mlx_key_data_t keycode, void *param);
 void		dda(t_vector start, t_vector end, mlx_image_t *img);
 void		draw_rays(t_data *data);
-t_vector	raycast_wall_hit(t_mapdata *map, t_raycast *ray, t_vector dir);
-int			is_wall(t_mapdata *map, int x, int y, t_raycast *ray);
+t_vector	raycast_wall_hit(t_mapdata *map, t_raycast *ray);
+int			is_wall(t_mapdata *map, int x, int y);
 
 #endif

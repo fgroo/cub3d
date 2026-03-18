@@ -20,56 +20,56 @@
 #include <math.h>
 #include <stdio.h> // remove later
 
-static int	preinit_values(t_data *data, t_vector dir)
+static int	preinit_values(t_data *data, t_raycast *ray)
 {
-	data->raycast->map_x = (int)data->map->player_pos.x;
-	data->raycast->map_y = (int)data->map->player_pos.y;
-	data->raycast->side_dist_x = 1e30;
-	data->raycast->side_dist_y = 1e30;
-	data->raycast->delta_dist_x = 1e30;
-	data->raycast->delta_dist_y = 1e30;
-	data->raycast->step_x = 0;
-	data->raycast->step_y = 0;
-	if (dir.x == 0 && dir.y == 0)
+	ray->map_x = (int)data->map->player_pos.x;
+	ray->map_y = (int)data->map->player_pos.y;
+	ray->side_dist_x = 1e30;
+	ray->side_dist_y = 1e30;
+	ray->delta_dist_x = 1e30;
+	ray->delta_dist_y = 1e30;
+	ray->step_x = 0;
+	ray->step_y = 0;
+	if (ray->ray_dir.x == 0 && ray->ray_dir.y == 0)
 		return (1);
 	return (0);
 }
 
-static void	init_ray_values(t_data *data, t_vector dir)
+static void	init_ray_values(t_data *data, t_raycast *ray)
 {
-	if (dir.x != 0)
-		data->raycast->delta_dist_x = fabs(1.0 / dir.x);
-	if (dir.y != 0)
-		data->raycast->delta_dist_y = fabs(1.0 / dir.y);
-	if (dir.x > 0)
-		data->raycast->side_dist_x = (data->raycast->map_x + 1.0
-				- data->map->player_pos.x) * data->raycast->delta_dist_x;
-	else if (dir.x < 0)
-		data->raycast->side_dist_x = (data->map->player_pos.x
-				- data->raycast->map_x) * data->raycast->delta_dist_x;
-	data->raycast->step_x = (dir.x > 0);
-	if (dir.x < 0)
-		data->raycast->step_x = -1;
-	if (dir.y > 0)
-		data->raycast->side_dist_y = (data->raycast->map_y + 1.0
-				- data->map->player_pos.y) * data->raycast->delta_dist_y;
-	else if (dir.y < 0)
-		data->raycast->side_dist_y = (data->map->player_pos.y
-				- data->raycast->map_y) * data->raycast->delta_dist_y;
-	data->raycast->step_y = (dir.y > 0);
-	if (dir.y < 0)
-		data->raycast->step_y = -1;
+	if (ray->ray_dir.x != 0)
+		ray->delta_dist_x = fabs(1.0 / ray->ray_dir.x);
+	if (ray->ray_dir.y != 0)
+		ray->delta_dist_y = fabs(1.0 / ray->ray_dir.y);
+	if (ray->ray_dir.x > 0)
+		ray->side_dist_x = (ray->map_x + 1.0
+				- data->map->player_pos.x) * ray->delta_dist_x;
+	else if (ray->ray_dir.x < 0)
+		ray->side_dist_x = (data->map->player_pos.x
+				- ray->map_x) * ray->delta_dist_x;
+	ray->step_x = (ray->ray_dir.x > 0);
+	if (ray->ray_dir.x < 0)
+		ray->step_x = -1;
+	if (ray->ray_dir.y > 0)
+		ray->side_dist_y = (ray->map_y + 1.0
+				- data->map->player_pos.y) * ray->delta_dist_y;
+	else if (ray->ray_dir.y < 0)
+		ray->side_dist_y = (data->map->player_pos.y
+				- ray->map_y) * ray->delta_dist_y;
+	ray->step_y = (ray->ray_dir.y > 0);
+	if (ray->ray_dir.y < 0)
+		ray->step_y = -1;
 }
 
-static void	draw_single_ray(t_data *data, t_vector dir, double scale)
+static void	draw_single_ray(t_data *data, t_raycast *ray, double scale)
 {
 	t_vector	start;
 	t_vector	end;
 
 	start = data->map->player_pos;
 	end = start;
-	if (!preinit_values(data, dir) && (init_ray_values(data, dir), 1))
-		end = raycast_wall_hit(data->map, data->raycast, dir);
+	if (!preinit_values(data, ray) && (init_ray_values(data, ray), 1))
+		end = raycast_wall_hit(data->map, ray);
 	start.x *= TILESIZE * scale;
 	start.y *= TILESIZE * scale;
 	end.x *= TILESIZE * scale;
@@ -83,18 +83,16 @@ static void	draw_single_ray(t_data *data, t_vector dir, double scale)
 
 static void	draw_rays_loop(t_data *data, double scale)
 {
-	t_vector	dir;
 	double		camera_x;
 	int			i;
 
 	i = 0;
-	while (i < (int)data->raycast->ray_count)
+	while (i < (int)data->ray_count)
 	{
-		camera_x = 2.0 * i / (double)(data->raycast->ray_count - 1) - 1.0;
-		dir.x = data->map->player_view.x + data->map->cam_plane.x * camera_x;
-		dir.y = data->map->player_view.y + data->map->cam_plane.y * camera_x;
-		draw_single_ray(data, dir, scale);
-		data->raycast->rays[i] = data->raycast->hit_dist;
+		camera_x = 2.0 * i / (double)(data->ray_count - 1) - 1.0;
+		data->raycast[i].ray_dir.x = data->map->player_view.x + data->map->cam_plane.x * camera_x;
+		data->raycast[i].ray_dir.y = data->map->player_view.y + data->map->cam_plane.y * camera_x;
+		draw_single_ray(data, &data->raycast[i], scale);
 		i++;
 	}
 }

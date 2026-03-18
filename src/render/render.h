@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 19:37:50 by rtwobie           #+#    #+#             */
-/*   Updated: 2026/03/18 12:22:38 by rtwobie          ###   ########.fr       */
+/*   Updated: 2026/03/18 22:03:51 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,16 @@
 
 # include <stdint.h>
 
-# define WALLTILE_COLOR 0xFFFFFFFF
+# define WALLTILE_COLOR  0xFFFFFFFF
 # define FLOORTILE_COLOR 0x000000FF
-# define PLAYER_COLOR 0xFF0000FF
-# define TILESIZE 8
-# define PLAYERSIZE 2
-# define SCALE 4
+# define PLAYER_COLOR    0xFF0000FF
+# define RGB_GREEN       0x228B22FF
+# define RGB_GREEN_DIM   0x114511FF
+# define RGB_GREY        0x808080FF
+# define RGB_GREY_DIM    0x404040FF
+# define TILESIZE        8
+# define PLAYERSIZE      2
+# define SCALE           4
 
 void		draw_map(t_mapdata *map, mlx_image_t *img, double scale);
 void		draw_game_img(t_data *data, mlx_image_t *img);

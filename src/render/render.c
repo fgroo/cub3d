@@ -6,12 +6,13 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 15:46:49 by rtwobie           #+#    #+#             */
-/*   Updated: 2026/03/18 12:39:13 by rtwobie          ###   ########.fr       */
+/*   Updated: 2026/03/18 22:32:12 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "render.h"
 #include "input.h"
+#include "debug.h"
 
 #include "MLX42.h"
 #include "cub3d.h"
@@ -48,6 +49,7 @@ void	render_game(void *param)
 	tmp = data->img->game;
 	data->img->game = data->img->game_buf;
 	data->img->game_buf = tmp;
+	display_debug(data);
 }
 
 // TODO: change values of width and height later

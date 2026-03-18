@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 19:41:22 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/18 12:28:59 by rtwobie          ###   ########.fr       */
+/*   Updated: 2026/03/18 23:05:35 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,8 @@ typedef struct s_raycast
 	double		delta_dist_x;
 	double		delta_dist_y;
 	double		hit_dist;
-	int			hit_side_x;
-	int			hit_side_y;
-	double		*rays;
-	size_t		ray_count;
+	char		hit_side;
+	t_vector	ray_dir;
 	int			map_x;
 	int			map_y;
 	int			step_x;
@@ -77,6 +75,7 @@ typedef struct s_data
 	t_mapdata	*map;
 	t_image		*img;
 	t_raycast	*raycast;
+	size_t		ray_count;
 	uint32_t	game_width;
 	uint32_t	game_height;
 }	t_data;

@@ -157,6 +157,7 @@ SRC		+= cleanup.c
 
 vpath %.c $(SRC_DIR)/debug
 SRC		+= print_mapdata.c
+SRC		+= display_debug.c
 
 vpath %.c $(SRC_DIR)/draw
 SRC		+= put_pixel.c

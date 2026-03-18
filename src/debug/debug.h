@@ -16,5 +16,6 @@
 # include "cub3d.h"
 
 void	print_mapdata(t_mapdata *map);
+void	display_debug(t_data *data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 15:47:23 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/18 12:29:46 by rtwobie          ###   ########.fr       */
+/*   Updated: 2026/03/18 21:13:48 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,9 @@ int	init_data(t_data *data)
 	data->img = ft_calloc(1, sizeof(*data->img));
 	if (!data->img)
 		return (pr_error("malloc\n"), cleanup(data), 1);
-	data->raycast = ft_calloc(1, sizeof(*data->raycast));
+	data->ray_count = data->game_width / 4;
+	data->raycast = ft_calloc(data->ray_count, sizeof(*data->raycast)); 
 	if (!data->raycast)
-		return (pr_error("malloc\n"), cleanup(data), 1);
-	data->raycast->ray_count = data->game_width / 4;
-	data->raycast->rays = malloc(sizeof(*data->raycast->rays)
-							  * data->raycast->ray_count);
-	if (!data->raycast->rays)
 		return (pr_error("malloc\n"), cleanup(data), 1);
 	return (0);
 }
