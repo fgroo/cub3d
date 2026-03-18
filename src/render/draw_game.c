@@ -38,6 +38,7 @@ static void	draw_vertical(double ray_dist, mlx_image_t *img, int line_thickness,
 	int	draw_start;
 	int	draw_end;
 	int	i;
+	uint32_t color;
 
 	line_height = (int)(img->height / ray_dist);
 	draw_start = -line_height / 2 + (int)img->height / 2;
@@ -47,6 +48,7 @@ static void	draw_vertical(double ray_dist, mlx_image_t *img, int line_thickness,
 	if (draw_end >= (int)img->height)
 		draw_end = (int)img->height - 1;
 	i = 0;
+	if (	
 	while (i < line_thickness)
 	{
 		put_line(img, (t_vertex2i){idx + i, draw_start},
@@ -71,6 +73,21 @@ static void	draw_walls_untextured(t_data *data, mlx_image_t *img)
 		++i;
 	}
 }
+
+// static void draw_walls_textured(t_data *data, mlx_image_t *img)
+// {
+// 	int	line_thickness;
+// 	int	i;
+//
+// 	line_thickness = (int)img->width / (int)data->raycast->ray_count;
+// 	i = 0;
+// 	while (i < (int)data->raycast->ray_count * line_thickness)
+// 	{
+// 		draw_vertical(data->raycast->rays[i / line_thickness], img,
+// 			line_thickness, i);
+// 		++i;
+// 	}
+// }
 
 void	draw_game_img(t_data *data, mlx_image_t *img)
 {
