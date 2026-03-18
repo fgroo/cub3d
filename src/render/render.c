@@ -15,9 +15,6 @@
 
 #include "MLX42.h"
 #include "cub3d.h"
-#include "draw.h"
-#include "libft.h"
-#include <stdio.h>
 
 double	get_map_scale(t_mapdata *map, mlx_image_t *img)
 {
@@ -64,10 +61,10 @@ int	init_images(t_data *data)
 	height = width;
 	data->img->map = mlx_new_image(data->mlx, width, height);
 	data->img->map_buf = mlx_new_image(data->mlx, width, height);
-	data->img->game = mlx_new_image(data->mlx, data->game_width, 
-								 data->game_height);
+	data->img->game = mlx_new_image(data->mlx, data->game_width,
+			data->game_height);
 	data->img->game_buf = mlx_new_image(data->mlx, data->game_width,
-									 data->game_height);
+			data->game_height);
 	if (!data->img->map || !data->img->map_buf
 		|| !data->img->game || !data->img->game_buf)
 	{
@@ -78,7 +75,7 @@ int	init_images(t_data *data)
 		return (1);
 	}
 	mlx_image_to_window(data->mlx, data->img->map, 0, 0);
-	mlx_image_to_window(data->mlx, data->img->game, 
-					 WINDOW_WIDTH - GAME_WIDTH, 0);
+	mlx_image_to_window(data->mlx, data->img->game,
+		WINDOW_WIDTH - GAME_WIDTH, 0);
 	return (0);
 }

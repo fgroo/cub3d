@@ -76,19 +76,20 @@ static void	draw_single_ray(t_data *data, t_vector dir, double scale)
 	put_line(data->img->map_buf, (t_vertex2i){(int)start.x, (int)start.y},
 		(t_vertex2i){(int)end.x, (int)end.y}, 0x00FF00FF);
 	put_line(data->img->map_buf, (t_vertex2i){(int)start.x, (int)start.y},
-		(t_vertex2i){(int)(data->map->cam_plane.x * 20) + (int)start.x, (int)(data->map->cam_plane.y * 20) + (int)start.y}, 0x0000FFFF);
+		(t_vertex2i){(int)(data->map->cam_plane.x * 20) + (int)start.x,
+		(int)(data->map->cam_plane.y * 20) + (int)start.y}, 0x0000FFFF);
 }
 
 static void	draw_rays_loop(t_data *data, double scale)
 {
 	t_vector	dir;
 	double		camera_x;
-	size_t		i;
+	int			i;
 
 	i = 0;
-	while (i < data->raycast->ray_count)
+	while (i < (int)data->raycast->ray_count)
 	{
-		camera_x = 2.0 * (double)i / (double)(data->raycast->ray_count - 1) - 1.0;
+		camera_x = 2.0 * i / (double)(data->raycast->ray_count - 1) - 1.0;
 		dir.x = data->map->player_view.x + data->map->cam_plane.x * camera_x;
 		dir.y = data->map->player_view.y + data->map->cam_plane.y * camera_x;
 		draw_single_ray(data, dir, scale);
