@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:25:10 by rtwobie           #+#    #+#             */
-/*   Updated: 2026/03/17 17:50:56 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/19 15:57:18 by rtwobie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,4 @@ void	key_hook(mlx_key_data_t keycode, void *param)
 		move_player(map, &keycode);
 	else if (keycode.key == MLX_KEY_LEFT || keycode.key == MLX_KEY_RIGHT)
 		rotate_player(map, &keycode);
-	printf("player x: %d\n", (int)round(map->player_pos.x * TILESIZE * SCALE));
-	printf("player y: %d\n", (int)round(map->player_pos.y * TILESIZE * SCALE));
-	printf("player x: %f\n", map->player_pos.x);
-	printf("player y: %f\n", map->player_pos.y);
 }
