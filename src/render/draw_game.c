@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 14:39:05 by rtwobie           #+#    #+#             */
-/*   Updated: 2026/03/19 21:35:43 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/19 22:07:41 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,14 @@ static uint32_t	get_wall_side_color(t_raycast *ray)
 		return (RGB_GREY_DIM);
 	else if (ray->hit_side == 'S')
 		return (RGB_GREY);
-	else
+	else if (ray->hit_side == 'W')
 		return (RGB_GREEN_DIM);
+	return (RGB_MAGENTA);
 }
 
-static void	draw_vertical(t_raycast *ray, mlx_image_t *img, int line_thickness,
-						int idx)
+static void	draw_color_vertical(t_raycast *ray, mlx_image_t *img,
+							int line_thickness,
+							int idx)
 {
 	int	line_height;
 	int	draw_start;
@@ -74,28 +76,13 @@ static void	draw_walls_untextured(t_data *data, mlx_image_t *img)
 
 	line_thickness = (int)img->width / (int)data->ray_count;
 	i = 0;
-	while (i < (int)data->ray_count * line_thickness)
+	while (i < (int)data->ray_count)
 	{
-		draw_vertical(&data->raycast[i / line_thickness], img,
-			line_thickness, i);
+		draw_color_vertical(&data->raycast[i], img,
+			line_thickness, i * line_thickness);
 		++i;
 	}
 }
-
-// static void draw_walls_textured(t_data *data, mlx_image_t *img)
-// {
-// 	int	line_thickness;
-// 	int	i;
-//
-// 	line_thickness = (int)img->width / (int)data->ray_count;
-// 	i = 0;
-// 	while (i < (int)data->ray_count * line_thickness)
-// 	{
-// 		draw_vertical(data->raycast[i / line_thickness].hit_dist, img,
-// 			line_thickness, i);
-// 		++i;
-// 	}
-// }
 
 void	draw_game_img(t_data *data, mlx_image_t *img)
 {
