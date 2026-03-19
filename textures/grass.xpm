@@ -1,6 +1,6 @@
 /* XPM */
 static char *[] = {
-/* columns rows colors chars-per-pixel */
+    /* columns rows colors chars-per-pixel */
 "64 64 40 1",
 "  c #79553A",
 ". c #966C4A",
