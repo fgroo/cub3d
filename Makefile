@@ -192,6 +192,7 @@ vpath %.c $(SRC_DIR)/render
 SRC		+= render.c
 SRC		+= draw_map.c
 SRC		+= draw_game.c
+SRC		+= draw_walls_textured.c
 SRC		+= draw_player.c
 SRC		+= upscaler.c
 

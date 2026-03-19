@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 14:39:05 by rtwobie           #+#    #+#             */
-/*   Updated: 2026/03/19 22:07:41 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/19 22:08:05 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static void	draw_color_vertical(t_raycast *ray, mlx_image_t *img,
 	}
 }
 
-static void	draw_walls_untextured(t_data *data, mlx_image_t *img)
+void	draw_walls_untextured(t_data *data, mlx_image_t *img)
 {
 	int	line_thickness;
 	int	i;
@@ -88,5 +88,6 @@ void	draw_game_img(t_data *data, mlx_image_t *img)
 {
 	ft_memset(img->pixels, 0, img->width * img->height * BPP);
 	draw_background(data, img);
-	draw_walls_untextured(data, img);
+	// draw_walls_untextured(data, img);
+	draw_walls_textured(data, img);
 }
