@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 19:41:22 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/19 21:32:47 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/19 22:03:28 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # define GAME_WIDTH 480
 # define GAME_HEIGHT 240
 # define MAP_PXL_SIZE 320
+# define TEXTURE_WIDTH 64
+# define TEXTURE_HEIGHT 64
 
 # include "MLX42.h"
 
@@ -72,12 +74,25 @@ typedef struct s_image
 	mlx_image_t	*game_upscld;
 }	t_image;
 
+typedef struct s_textures
+{
+	mlx_texture_t	*north_wall;
+	mlx_texture_t	*south_wall;
+	mlx_texture_t	*east_wall;
+	mlx_texture_t	*west_wall;
+	// xpm_t	*north_wall;
+	// xpm_t	*south_wall;
+	// xpm_t	*east_wall;
+	// xpm_t	*west_wall;
+}	t_textures;
+
 typedef struct s_data
 {
 	mlx_t		*mlx;
 	t_mapdata	*map;
 	t_image		*img;
 	t_raycast	*raycast;
+	t_textures	*textures;
 	size_t		ray_count;
 	uint32_t	game_width;
 	uint32_t	game_height;
