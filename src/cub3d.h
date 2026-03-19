@@ -6,16 +6,18 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 19:41:22 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/18 23:05:35 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/19 21:32:47 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# define WINDOW_WIDTH 960 
-# define WINDOW_HEIGHT 360
-# define GAME_WIDTH 640
+# define WINDOW_WIDTH 320 // deprecated
+# define WINDOW_HEIGHT 240 // deprecated
+# define GAME_WIDTH 480
+# define GAME_HEIGHT 240
+# define MAP_PXL_SIZE 320
 
 # include "MLX42.h"
 
@@ -67,6 +69,7 @@ typedef struct s_image
 	mlx_image_t	*map;
 	mlx_image_t	*game_buf;
 	mlx_image_t	*game;
+	mlx_image_t	*game_upscld;
 }	t_image;
 
 typedef struct s_data
@@ -78,6 +81,8 @@ typedef struct s_data
 	size_t		ray_count;
 	uint32_t	game_width;
 	uint32_t	game_height;
+	int32_t		window_width;
+	int32_t		window_height;
 }	t_data;
 
 #endif // !CUB3D_H

@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 19:32:16 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/13 21:49:33 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/19 21:38:41 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	moving(t_mapdata *map, char direction)
 
 void	init_values(t_mapdata *m)
 {
-	m->rotspeed = 0.06; // i dont know where this value should come from
+	m->rotspeed = 0.06;
 	m->player_pos.x = m->spawn_coordinates.x + 0.5;
 	m->player_pos.y = m->spawn_coordinates.y + 0.5;
 	if (m->spawn_orientation == 'N')

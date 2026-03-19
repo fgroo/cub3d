@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 15:47:23 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/18 21:13:48 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/19 21:21:44 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	init_mlx(t_data *data)
 	data->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "cub3d", false);
 	if (!data->mlx)
 		return (1);
+	mlx_get_monitor_size(0, &data->window_width, &data->window_height);
+	mlx_set_window_size(data->mlx, data->window_width, data->window_height);
 	if (init_images(data))
 	{
 		cleanup(data);
@@ -53,7 +55,7 @@ uint32_t adjust(uint32_t resolution)
 int	init_data(t_data *data)
 {
 	data->game_width = adjust(GAME_WIDTH);
-	data->game_height = adjust(WINDOW_HEIGHT);
+	data->game_height = adjust(GAME_HEIGHT);
 	data->map = ft_calloc(1, sizeof(*data->map));
 	if (!data->map)
 		return (pr_error("malloc\n"), cleanup(data), 1);

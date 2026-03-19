@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 19:37:50 by rtwobie           #+#    #+#             */
-/*   Updated: 2026/03/18 22:03:51 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/19 21:13:33 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,16 @@
 # include "cub3d.h"
 
 # include <stdint.h>
+
+typedef struct s_upscale
+{
+	uint32_t	*s;
+	uint32_t	*d;
+	uint32_t	x;
+	uint32_t	y;
+	float		wstep;
+	float		hstep;
+}				t_upscale;
 
 # define WALLTILE_COLOR  0xFFFFFFFF
 # define FLOORTILE_COLOR 0x000000FF
@@ -38,5 +48,6 @@ void		draw_rays(t_data *data);
 void		render_map(void *param);
 void		render_game(void *param);
 int			init_images(t_data *data);
+void		upscale(t_data *data);
 
 #endif

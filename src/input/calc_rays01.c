@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/11 15:59:52 by rtwobie           #+#    #+#             */
-/*   Updated: 2026/03/17 17:59:54 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/19 21:38:03 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,10 @@ static void	draw_rays_loop(t_data *data, double scale)
 	while (i < (int)data->ray_count)
 	{
 		camera_x = 2.0 * i / (double)(data->ray_count - 1) - 1.0;
-		data->raycast[i].ray_dir.x = data->map->player_view.x + data->map->cam_plane.x * camera_x;
-		data->raycast[i].ray_dir.y = data->map->player_view.y + data->map->cam_plane.y * camera_x;
+		data->raycast[i].ray_dir.x = data->map->player_view.x
+			+ data->map->cam_plane.x * camera_x;
+		data->raycast[i].ray_dir.y = data->map->player_view.y
+			+ data->map->cam_plane.y * camera_x;
 		draw_single_ray(data, &data->raycast[i], scale);
 		i++;
 	}

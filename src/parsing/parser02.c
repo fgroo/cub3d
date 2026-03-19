@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 19:52:36 by rtwobie           #+#    #+#             */
-/*   Updated: 2026/03/17 16:11:59 by rtwobie          ###   ########.fr       */
+/*   Updated: 2026/03/19 21:39:29 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	fetch_color(char *line, const char *identifier, uint32_t *color)
 	if (parse_color(line, rgb) == 1)
 		return (1);
 	if (rgb[0] < 0 || rgb[1] < 0 || rgb[2] < 0
-		|| rgb[0] > 255 || rgb[1]> 255 || rgb[2] > 255)
+		|| rgb[0] > 255 || rgb[1] > 255 || rgb[2] > 255)
 		return (1);
 	*color = to_hex_color(rgb[0], rgb[1], rgb[2]);
 	return (0);

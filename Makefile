@@ -192,6 +192,7 @@ SRC		+= render.c
 SRC		+= draw_map.c
 SRC		+= draw_game.c
 SRC		+= draw_player.c
+SRC		+= upscaler.c
 
 #*******************************************************#
 

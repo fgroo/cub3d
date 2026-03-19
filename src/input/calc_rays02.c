@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 19:26:04 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/18 21:34:37 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/19 21:37:29 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,31 +54,31 @@ int	is_wall(t_mapdata *map, int x, int y)
 		return (1);
 	if (row[x] == '1' || row[x] == ' ')
 		return (1);
-	return (0); // saving the wall side where raycaster hits
+	return (0);
 }
 
-static void wall_hit_loop(t_raycast *ray)
+static void	wall_hit_loop(t_raycast *ray)
 {
 	if (ray->side_dist_x < ray->side_dist_y)
-		{
-			ray->side_dist_x += ray->delta_dist_x;
-			ray->map_x += ray->step_x;
-			ray->hit_dist = ray->side_dist_x - ray->delta_dist_x;
-			if (ray->step_x == 1)
-				ray->hit_side = 'W';
-			else
-				ray->hit_side = 'E';
-		}
+	{
+		ray->side_dist_x += ray->delta_dist_x;
+		ray->map_x += ray->step_x;
+		ray->hit_dist = ray->side_dist_x - ray->delta_dist_x;
+		if (ray->step_x == 1)
+			ray->hit_side = 'W';
 		else
-		{
-			ray->side_dist_y += ray->delta_dist_y;
-			ray->map_y += ray->step_y;
-			ray->hit_dist = ray->side_dist_y - ray->delta_dist_y;
-			if (ray->step_y == 1)
-				ray->hit_side = 'N';
-			else
-				ray->hit_side = 'S';
-		}
+			ray->hit_side = 'E';
+	}
+	else
+	{
+		ray->side_dist_y += ray->delta_dist_y;
+		ray->map_y += ray->step_y;
+		ray->hit_dist = ray->side_dist_y - ray->delta_dist_y;
+		if (ray->step_y == 1)
+			ray->hit_side = 'N';
+		else
+			ray->hit_side = 'S';
+	}
 }
 
 t_vector	raycast_wall_hit(t_mapdata *map, t_raycast *ray)

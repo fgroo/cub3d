@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 15:46:49 by rtwobie           #+#    #+#             */
-/*   Updated: 2026/03/18 22:32:12 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/19 21:35:32 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	render_game(void *param)
 	tmp = data->img->game;
 	data->img->game = data->img->game_buf;
 	data->img->game_buf = tmp;
+	upscale(data);
 	display_debug(data);
 }
 
@@ -56,28 +57,25 @@ void	render_game(void *param)
 // TEST: Check if it is safe to call delete on NULL pointers!
 int	init_images(t_data *data)
 {
-	uint32_t	width;
-	uint32_t	height;
-
-	width = 320;
-	height = width;
-	data->img->map = mlx_new_image(data->mlx, width, height);
-	data->img->map_buf = mlx_new_image(data->mlx, width, height);
+	data->img->map = mlx_new_image(data->mlx, MAP_PXL_SIZE, MAP_PXL_SIZE);
+	data->img->map_buf = mlx_new_image(data->mlx, MAP_PXL_SIZE, MAP_PXL_SIZE);
 	data->img->game = mlx_new_image(data->mlx, data->game_width,
 			data->game_height);
 	data->img->game_buf = mlx_new_image(data->mlx, data->game_width,
 			data->game_height);
-	if (!data->img->map || !data->img->map_buf
+	data->img->game_upscld = mlx_new_image(data->mlx,
+			(uint32_t)data->window_width, (uint32_t)data->window_height);
+	if (!data->img->map || !data->img->map_buf || !data->img->game_upscld
 		|| !data->img->game || !data->img->game_buf)
 	{
 		mlx_delete_image(data->mlx, data->img->map);
 		mlx_delete_image(data->mlx, data->img->map_buf);
 		mlx_delete_image(data->mlx, data->img->game);
 		mlx_delete_image(data->mlx, data->img->game_buf);
+		mlx_delete_image(data->mlx, data->img->game_upscld);
 		return (1);
 	}
+	mlx_image_to_window(data->mlx, data->img->game_upscld, 0, 0);
 	mlx_image_to_window(data->mlx, data->img->map, 0, 0);
-	mlx_image_to_window(data->mlx, data->img->game,
-		WINDOW_WIDTH - GAME_WIDTH, 0);
 	return (0);
 }
