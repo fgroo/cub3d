@@ -34,33 +34,37 @@ static mlx_texture_t	*get_wall_texture(t_textures *textures, char side)
 	return (textures->north_wall);
 }
 
+uint32_t get_pixel_color(mlx_texture_t *texture, uint32_t tex_x, uint32_t tex_y)
+{
+	uint32_t	color;
+	uint32_t	i;
+
+	i = (texture->width * (uint32_t)tex_y + (uint32_t)tex_x) * BPP;
+	color = (uint32_t)texture->pixels[i++] << 24;
+	color |= (uint32_t)texture->pixels[i++] << 16;
+	color |= (uint32_t)texture->pixels[i++] << 8;
+	color |= (uint32_t)texture->pixels[i];
+	return (color);
+}
 // if (ray->side_dist_x < side_dist_y) == if (side == 0)
 static void	draw_texture_vertical(mlx_image_t *img, t_vertical *vert, int idx)
 {
-	uint32_t	*pixels;
 	uint32_t	color;
 	int			y;
 	int			x;
 
-	pixels = (uint32_t *)vert->texture->pixels;
 	y = vert->draw_start;
 	while (y < vert->draw_end)
 	{
 		vert->tex_y = (int)vert->tex_pos & (int)(vert->texture->height - 1);
 		vert->tex_pos += vert->step;
-		color = pixels[vert->texture->width * \
-			(uint32_t)vert->tex_y + (uint32_t)vert->tex_x];
-
+		color = get_pixel_color(vert->texture, (uint32_t)vert->tex_x, (uint32_t)vert->tex_y);
 		static int once = 0;
-		if (once == 50)
+		if (once == 0)
 		{
 			printf("tex width: %d\n", vert->texture->width);
 			printf("tex_y: %d\n", vert->tex_y);
 			printf("tex_x: %d\n", vert->tex_x);
-			printf("0x%x\n", vert->texture->pixels[0]);
-			printf("0x%x\n", vert->texture->pixels[1]);
-			printf("0x%x\n", vert->texture->pixels[2]);
-			printf("0x%x\n", vert->texture->pixels[3]);
 			printf("0x%x\n", color);
 		}
 		once++;
