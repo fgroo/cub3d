@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 19:37:50 by rtwobie           #+#    #+#             */
-/*   Updated: 2026/03/20 00:30:45 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/20 11:58:53 by rtwobie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,6 @@ typedef struct s_upscale
 	float		wstep;
 	float		hstep;
 }				t_upscale;
-
-typedef struct s_vertical
-{
-	double			wall_x;
-	int				tex_x;
-	int				tex_y;
-	double			step;
-	double			tex_pos;
-	int				line_thickness;
-	int				line_height;
-	int				draw_start;
-	int				draw_end;
-	mlx_texture_t	*texture;
-}	t_vertical;
 
 # define WALLTILE_COLOR  0xFFFFFFFF
 # define FLOORTILE_COLOR 0x000000FF
