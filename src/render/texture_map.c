@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rtwobie <student@42>                       +#+  +:+       +#+        */
+/*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 11:47:44 by rtwobie           #+#    #+#             */
-/*   Updated: 2026/03/20 16:56:11 by rtwobie          ###   ########.fr       */
+/*   Updated: 2026/03/20 17:15:02 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	map_texture_to_vertical(t_texmap *vert, mlx_image_t *img,
 								t_textures *textures, t_raycast *ray)
 {
 	vert->texture = get_wall_texture(textures, ray->hit_side);
-	vert->line_height = (int)((double)img->height / ray->hit_dist);
+	vert->line_height = (int)((double)vert->texture->height / ray->hit_dist);
 	vert->draw_start = -vert->line_height / 2 + (int)img->height / 2;
 	if (vert->draw_start < 0)
 		vert->draw_start = 0;
