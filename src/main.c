@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 15:47:23 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/20 01:40:43 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/20 18:33:57 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	init_mlx(t_data *data)
 		return (pr_error("loading textures\n"), cleanup(data), 1);
 	mlx_loop_hook(data->mlx, render_map, data);
 	mlx_loop_hook(data->mlx, render_game, data);
-	mlx_key_hook(data->mlx, key_hook, data);
+	mlx_loop_hook(data->mlx, input_hook, data);
 	mlx_loop(data->mlx); // NOTE: is there a function to break the loop?
 	mlx_terminate(data->mlx);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:25:10 by rtwobie           #+#    #+#             */
-/*   Updated: 2026/03/19 15:57:18 by rtwobie          ###   ########.fr       */
+/*   Updated: 2026/03/20 18:36:26 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,50 +22,51 @@
 #include <stdlib.h>
 
 // TODO: smoother movement as soon as a button is held down
-void	move_player(t_mapdata *map, const mlx_key_data_t *keycode)
+void	move_player(t_data *data)
 {
-	if (keycode->key == MLX_KEY_W)
-		moving(map, 'W');
-	else if (keycode->key == MLX_KEY_A)
-		moving(map, 'A');
-	else if (keycode->key == MLX_KEY_S)
-		moving(map, 'S');
-	else if (keycode->key == MLX_KEY_D)
-		moving(map, 'D');
+	if (mlx_is_key_down(data->mlx, MLX_KEY_W))
+		moving(data->map, 'W');
+	if (mlx_is_key_down(data->mlx, MLX_KEY_A))
+		moving(data->map, 'A');
+	if (mlx_is_key_down(data->mlx, MLX_KEY_S))
+		moving(data->map, 'S');
+	if (mlx_is_key_down(data->mlx, MLX_KEY_D))
+		moving(data->map, 'D');
 }
 
-void	rotate_player(t_mapdata *map, const mlx_key_data_t *keycode)
+void	rotate_player(t_data *data)
 {
-	if (keycode->key == MLX_KEY_LEFT)
+	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
 	{
-		matrix_rotation(&map->cam_plane.x, &map->cam_plane.y, -0.07);
-		matrix_rotation(&map->player_view.x, &map->player_view.y, -0.07);
+		matrix_rotation(&data->map->cam_plane.x,
+			&data->map->cam_plane.y, -ROT_SPEED);
+		matrix_rotation(&data->map->player_view.x,
+			&data->map->player_view.y, -ROT_SPEED);
 	}
-	else if (keycode->key == MLX_KEY_RIGHT)
+	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 	{
-		matrix_rotation(&map->cam_plane.x, &map->cam_plane.y, 0.07);
-		matrix_rotation(&map->player_view.x, &map->player_view.y, 0.07);
+		matrix_rotation(&data->map->cam_plane.x,
+			&data->map->cam_plane.y, ROT_SPEED);
+		matrix_rotation(&data->map->player_view.x,
+			&data->map->player_view.y, ROT_SPEED);
 	}
 }
 
-void	key_hook(mlx_key_data_t keycode, void *param)
+void	input_hook(void *param)
 {
 	t_data		*data;
-	t_mapdata	*map;
+	static int	i;
 
+	if (--i > 0)
+		return ;
+	i = 3;
 	data = (t_data *)param;
-	map = data->map;
-	if (keycode.key == MLX_KEY_ESCAPE)
+	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
 	{
 		cleanup(data);
-		mlx_terminate(data->mlx);
-		exit(0);
+		mlx_close_window(data->mlx);
+		return ;
 	}
-	else if (keycode.key == MLX_KEY_W
-		|| keycode.key == MLX_KEY_A
-		|| keycode.key == MLX_KEY_S
-		|| keycode.key == MLX_KEY_D)
-		move_player(map, &keycode);
-	else if (keycode.key == MLX_KEY_LEFT || keycode.key == MLX_KEY_RIGHT)
-		rotate_player(map, &keycode);
+	move_player(data);
+	rotate_player(data);
 }

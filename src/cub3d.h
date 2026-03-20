@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 19:41:22 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/19 22:03:28 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/20 18:29:50 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # define MAP_PXL_SIZE 320
 # define TEXTURE_WIDTH 64
 # define TEXTURE_HEIGHT 64
+# define ROT_SPEED 0.15
+# define FOV 2.66
 
 # include "MLX42.h"
 

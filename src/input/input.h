@@ -21,7 +21,7 @@
 void		moving(t_mapdata *map, char direction);
 void		matrix_rotation(double *x, double *y, double rotspeed);
 void		init_values(t_mapdata *m);
-void		key_hook(mlx_key_data_t keycode, void *param);
+void		input_hook(void *param);
 void		dda(t_vector start, t_vector end, mlx_image_t *img);
 void		draw_rays(t_data *data);
 t_vector	raycast_wall_hit(t_mapdata *map, t_raycast *ray);
