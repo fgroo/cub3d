@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 19:37:50 by rtwobie           #+#    #+#             */
-/*   Updated: 2026/03/19 22:08:19 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/20 00:30:45 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,6 @@ typedef struct s_upscale
 	float		hstep;
 }				t_upscale;
 
-# define WALLTILE_COLOR  0xFFFFFFFF
-# define FLOORTILE_COLOR 0x000000FF
-# define PLAYER_COLOR    0xFF0000FF
-# define RGB_GREEN       0x228B22FF
-# define RGB_GREEN_DIM   0x114511FF
-# define RGB_GREY        0x808080FF
-# define RGB_GREY_DIM    0x404040FF
-# define RGB_MAGENTA     0xFFFF00FF
-# define TILESIZE        8
-# define PLAYERSIZE      2
-# define SCALE           4
-
 typedef struct s_vertical
 {
 	double			wall_x;
@@ -52,6 +40,18 @@ typedef struct s_vertical
 	int				draw_end;
 	mlx_texture_t	*texture;
 }	t_vertical;
+
+# define WALLTILE_COLOR  0xFFFFFFFF
+# define FLOORTILE_COLOR 0x000000FF
+# define PLAYER_COLOR    0xFF0000FF
+# define RGB_GREEN       0x228B22FF
+# define RGB_GREEN_DIM   0x114511FF
+# define RGB_GREY        0x808080FF
+# define RGB_GREY_DIM    0x404040FF
+# define RGB_MAGENTA     0xFFFF00FF
+# define TILESIZE        8
+# define PLAYERSIZE      2
+# define SCALE           4
 
 void		draw_map(t_mapdata *map, mlx_image_t *img, double scale);
 void		draw_game_img(t_data *data, mlx_image_t *img);

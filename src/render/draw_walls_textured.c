@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_walls_textured.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rtwobie <student@42>                       +#+  +:+       +#+        */
+/*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 14:59:43 by rtwobie           #+#    #+#             */
-/*   Updated: 2026/03/19 18:12:05 by rtwobie          ###   ########.fr       */
+/*   Updated: 2026/03/20 01:43:16 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,26 +82,26 @@ static void	draw_texture_vertical(mlx_image_t *img, t_vertical *vert, int idx)
 void	init_vertical_data(t_vertical *vert, mlx_image_t *img, t_data *data, t_raycast *ray)
 {
 	vert->texture = get_wall_texture(data->textures, ray->hit_side);
-	vert->line_height = (int)(img->height / ray->hit_dist);
+	vert->line_height = (int)((double)img->height / ray->hit_dist);
 	vert->draw_start = -vert->line_height / 2 + (int)img->height / 2;
 	if (vert->draw_start < 0)
 		vert->draw_start = 0;
-	vert->draw_end = vert->line_height / 2 + (int)img->height / 2;
+	vert->draw_end = (int)vert->line_height / 2 + (int)img->height / 2;
 	if (vert->draw_end >= (int)img->height)
 		vert->draw_end = (int)img->height - 1;
 	if (ray->side_dist_x < ray->side_dist_y)
 		vert->wall_x = data->map->player_pos.y + \
-			ray->ray_dir.y * ray->hit_dist;
+			ray->hit_dist * ray->ray_dir.y;
 	else
 		vert->wall_x = data->map->player_pos.x + \
-			ray->ray_dir.x * ray->hit_dist;
+			ray->hit_dist * ray->ray_dir.x;
 	vert->wall_x -= floor(vert->wall_x);
 	vert->tex_x = (int)(vert->wall_x * (double)(vert->texture->width));
 	if (ray->side_dist_x < ray->side_dist_y && ray->ray_dir.x > 0)
 		vert->tex_x = (int)vert->texture->width - vert->tex_x - 1;
 	if (ray->side_dist_x >= ray->side_dist_y && ray->ray_dir.y < 0)
 		vert->tex_x = (int)vert->texture->width - vert->tex_x - 1;
-	vert->step = 1.0 * img->height / vert->line_height;
+	vert->step = 1.0 * vert->texture->height / vert->line_height;
 	vert->tex_pos = (vert->draw_start - (double)img->height / 2 + \
 		(double)vert->line_height / 2) * vert->step;
 }
