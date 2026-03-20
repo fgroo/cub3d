@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 14:39:05 by rtwobie           #+#    #+#             */
-/*   Updated: 2026/03/19 22:08:05 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/20 16:52:00 by rtwobie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,5 @@ void	draw_game_img(t_data *data, mlx_image_t *img)
 {
 	ft_memset(img->pixels, 0, img->width * img->height * BPP);
 	draw_background(data, img);
-	// draw_walls_untextured(data, img);
 	draw_walls_textured(data, img);
 }
