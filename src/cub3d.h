@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 19:41:22 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/21 19:11:08 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/21 22:16:14 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # define TEXTURE_HEIGHT 64
 # define ROT_SPEED 0.15
 # define FOV 2.66
+# define DETAIL_LEVEL 1
 
 # include "MLX42.h"
 

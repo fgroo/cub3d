@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 15:47:23 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/20 18:33:57 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/21 22:16:37 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ uint32_t adjust(uint32_t resolution)
 
 int	init_data(t_data *data)
 {
-	const uint32_t	detail_level = 1;
+	const uint32_t	detail_level = DETAIL_LEVEL;
 
 	data->game_width = adjust(GAME_WIDTH);
 	data->game_height = adjust(GAME_HEIGHT);
