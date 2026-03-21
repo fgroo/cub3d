@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 15:47:23 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/21 23:13:03 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/21 23:27:23 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	load_textures(t_data *data, t_textures *textures)
 
 int	init_mlx(t_data *data)
 {
-	data->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "cub3d", false);
+	data->mlx = mlx_init(320, 240, "cub3d", false);
 	if (!data->mlx)
 		return (1);
 	mlx_get_monitor_size(0, &data->window_width, &data->window_height);

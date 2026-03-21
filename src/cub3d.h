@@ -6,15 +6,13 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 19:41:22 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/21 22:24:53 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/21 23:27:30 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# define WINDOW_WIDTH 320
-# define WINDOW_HEIGHT 240
 # define GAME_WIDTH 480
 # define GAME_HEIGHT 240
 # define MAP_PXL_SIZE 320

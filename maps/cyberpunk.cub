@@ -1,0 +1,15 @@
+NO ./textures/custom/cp_cyan.png
+SO ./textures/custom/cp_cyan.png
+WE ./textures/custom/cp_pink.png
+EA ./textures/custom/cp_pink.png
+
+F 5,5,20
+C 150,0,150
+
+111111111111111111
+100001000000010001
+101100011111000101
+100001000000N00001
+101100011111000101
+100001000000010001
+111111111111111111

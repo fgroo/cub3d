@@ -250,5 +250,16 @@ utest:
 valtest:
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes ./$(NAME) $(ARGS)
 
-.PHONY: all clean fclean re
+bonus: all
+	@echo '+----------------------------------------+'
+	@echo '|         ___      _  ____  ____         |'
+	@echo '|        / __|_  _| ||__ / |  _ \        |'
+	@echo '|       | (__| || || . \_ \| | \ \       |'
+	@echo '|        \___|\_,_||___/__/|____/        |'
+	@echo '|                                        |'
+	@echo '|          * B O N U S   A R T *         |'
+	@echo '|     Enjoy this purely stylish output!  |'
+	@echo '+----------------------------------------+'
+
+.PHONY: all clean fclean re bonus
 .PHONY: valtest utest
