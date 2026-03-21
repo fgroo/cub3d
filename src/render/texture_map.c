@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/20 11:47:44 by rtwobie           #+#    #+#             */
-/*   Updated: 2026/03/20 17:15:02 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/21 19:10:57 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,9 @@ static int	get_tex_x(mlx_texture_t *texture, t_raycast *ray)
 		wall_x = ray->hit.x - floor(ray->hit.x);
 	else
 		wall_x = ray->hit.y - floor(ray->hit.y);
-	if (ray->hit_side == 'N' || ray->hit_side == 'S')
-		tex_x = (int)((wall_x) * (double)(texture->width));
-	else
-		tex_x = (int)((wall_x) * (double)(texture->width));
+	tex_x = (int)(wall_x * (double)texture->width);
+	if (ray->hit_side == 'N' || ray->hit_side == 'E')
+		tex_x = (int)texture->width - tex_x - 1;
 	return (tex_x);
 }
 
