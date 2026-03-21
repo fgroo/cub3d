@@ -1,0 +1,29 @@
+{
+   General-Font-Pango-System
+   Memcheck:Leak
+   match-leak-kinds: all
+   fun:*
+   obj:*/libfontconfig.so*
+}
+{
+   General-Pango-Cairo-System
+   Memcheck:Leak
+   match-leak-kinds: all
+   fun:*
+   obj:*/libpango*.so*
+}
+{
+   General-Wayland-System
+   Memcheck:Leak
+   match-leak-kinds: all
+   fun:*
+   obj:*/libwayland-client.so*
+}
+{
+   Glfw-Wayland-Internals
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:calloc
+   ...
+   fun:glfwCreateWindow
+}

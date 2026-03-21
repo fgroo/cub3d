@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 11:54:14 by rtwobie           #+#    #+#             */
-/*   Updated: 2026/03/19 21:39:10 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/20 23:49:37 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,6 @@
 
 void	free_raycast(t_raycast *raycast)
 {
-	free(raycast);
+	if (raycast)
+		free(raycast);
 }

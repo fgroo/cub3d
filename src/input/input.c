@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 16:25:10 by rtwobie           #+#    #+#             */
-/*   Updated: 2026/03/20 18:36:26 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/21 01:15:08 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void	input_hook(void *param)
 	data = (t_data *)param;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
 	{
-		cleanup(data);
 		mlx_close_window(data->mlx);
 		return ;
 	}

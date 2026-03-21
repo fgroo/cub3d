@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 19:41:45 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/17 16:11:10 by rtwobie          ###   ########.fr       */
+/*   Updated: 2026/03/21 00:58:11 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ int	validate_format(int fd, t_mapdata *mapdata)
 		if (ft_strncmp(tmp, format[i], ft_strlen(format[i])) && (free(tmp), 1))
 			return (pr_error("Wrong Format\n"), 1);
 		if (i < 4 && check_texture_file(&mapdata->tex[i], tmp, format[i]))
-			return (1);
+			return (free(tmp), 1);
 		else if (i >= 4 && check_fetch_color(&mapdata, tmp, format[i], i))
-			return (1);
+			return (free(tmp), 1);
 		++i;
 		free(tmp);
 	}
@@ -76,18 +76,18 @@ int	parser(t_mapdata *map, char *file)
 	if (!map)
 		return (pr_error(""), 1);
 	if ((ft_strcmp(file + (ft_strlen(file) - 4), ".cub")) != 0)
-		return (free_mapdata(map), pr_error("Wrong file extension\n"), 1);
+		return (pr_error("Wrong file extension\n"), 1);
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
-		return (free_mapdata(map), pr_error("open()\n"), 1);
+		return (pr_error("open()\n"), 1);
 	if (validate_format(fd, map))
-		return (free_mapdata(map), close(fd), 1);
+		return (close(fd), 1);
 	if (validate_map(fd, &map->map))
-		return (free_mapdata(map), close(fd), 1);
+		return (close(fd), 1);
 	if (flood_map(map))
-		return (free_mapdata(map), close(fd), 1);
+		return (close(fd), 1);
 	if (map_size(map, &map->width, &map->height))
-		return (free_mapdata(map), close(fd), 1);
+		return (close(fd), 1);
 	print_mapdata(map);
 	close(fd);
 	return (0);
