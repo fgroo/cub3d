@@ -24,14 +24,5 @@ void	free_textures(t_textures *textures)
 		mlx_delete_texture(textures->east_wall);
 	if (textures->west_wall)
 		mlx_delete_texture(textures->west_wall);
-
-	// if (textures->north_wall)
-	// 	mlx_delete_xpm42(textures->north_wall);
-	// if (textures->south_wall)
-	// 	mlx_delete_xpm42(textures->south_wall);
-	// if (textures->east_wall)
-	// 	mlx_delete_xpm42(textures->east_wall);
-	// if (textures->west_wall)
-	// 	mlx_delete_xpm42(textures->west_wall);
 	free(textures);
 }

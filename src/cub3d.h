@@ -6,15 +6,15 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 19:41:22 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/20 18:29:50 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/21 01:43:13 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# define WINDOW_WIDTH 320 // deprecated
-# define WINDOW_HEIGHT 240 // deprecated
+# define WINDOW_WIDTH 320
+# define WINDOW_HEIGHT 240
 # define GAME_WIDTH 480
 # define GAME_HEIGHT 240
 # define MAP_PXL_SIZE 320
@@ -46,11 +46,7 @@ typedef struct s_raycast
 	int			step_x;
 	int			step_y;
 }			t_raycast;
-/*
- * Texture files are saved in char *tex[] in this exact order:
- * char *tex[4] = { ./path-of-north-tex, ./path-of-south-tex,
- *					./path-of-west-tex, ./path-of-east-tex }
- */
+
 typedef struct s_mapdata
 {
 	char		*tex[4];
@@ -82,10 +78,6 @@ typedef struct s_textures
 	mlx_texture_t	*south_wall;
 	mlx_texture_t	*east_wall;
 	mlx_texture_t	*west_wall;
-	// xpm_t	*north_wall;
-	// xpm_t	*south_wall;
-	// xpm_t	*east_wall;
-	// xpm_t	*west_wall;
 }	t_textures;
 
 typedef struct s_data
@@ -102,4 +94,7 @@ typedef struct s_data
 	int32_t		window_height;
 }	t_data;
 
-#endif // !CUB3D_H
+void		init_values(t_mapdata *mapdata);
+int			init_data(t_data *data);
+
+#endif

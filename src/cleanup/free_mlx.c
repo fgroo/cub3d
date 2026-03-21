@@ -1,30 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cleanup.c                                          :+:      :+:    :+:   */
+/*   free_mlx.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/09 17:29:42 by rtwobie           #+#    #+#             */
-/*   Updated: 2026/03/21 00:38:34 by fgroo            ###   ########.fr       */
+/*   Created: 2026/03/21 00:07:28 by fgroo             #+#    #+#             */
+/*   Updated: 2026/03/21 01:41:52 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cleanup.h"
 
-int	cleanup(t_data *data)
+#include <stdlib.h>
+
+void	free_mlx(mlx_t *mlx)
 {
-	if (!data)
-		return (1);
-	if (data->map)
-		free_mapdata(data->map);
-	if (data->img)
-		free_images(data->mlx, data->img);
-	if (data->raycast)
-		free_raycast(data->raycast);
-	if (data->textures)
-		free_textures(data->textures);
-	if (data->mlx)
-		free_mlx(data->mlx);
-	return (0);
+	mlx && (mlx_close_window(mlx), 1);
+	mlx && (mlx_terminate(mlx), 1);
 }

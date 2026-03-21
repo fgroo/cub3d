@@ -147,11 +147,13 @@ SRC		:=
 
 vpath %.c $(SRC_DIR)
 SRC		+= main.c
+SRC		+= init_data.c
 
 vpath %.c $(SRC_DIR)/cleanup
 SRC		+= free_double_array.c
 SRC		+= free_mapdata.c
 SRC		+= free_images.c
+SRC		+= free_mlx.c
 SRC		+= free_raycast.c
 SRC		+= free_textures.c
 SRC		+= cleanup.c

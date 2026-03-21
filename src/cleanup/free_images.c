@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_images.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rtwobie <student@42>                       +#+  +:+       +#+        */
+/*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 17:41:46 by rtwobie           #+#    #+#             */
-/*   Updated: 2026/03/18 12:08:19 by rtwobie          ###   ########.fr       */
+/*   Updated: 2026/03/20 23:44:55 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,7 @@ void	free_images(mlx_t *mlx, t_image *image)
 		mlx_delete_image(mlx, image->game_buf);
 	if (image->game)
 		mlx_delete_image(mlx, image->game);
+	if (image->game_upscld)
+		mlx_delete_image(mlx, image->game_upscld);
 	free(image);
 }
