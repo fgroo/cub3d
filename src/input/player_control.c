@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 19:32:16 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/20 18:38:13 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/21 23:03:05 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,13 @@
 
 #include <math.h>
 #include <stdlib.h>
+
+static	int	if_no_wall(t_mapdata *map, double new_x, double new_y)
+{
+	if (map->map[(int)new_y][(int)new_x] == '1')
+		return (0);
+	return (1);
+}
 
 void	matrix_rotation(double *x, double *y, double rotspeed)
 {
@@ -28,30 +35,44 @@ void	matrix_rotation(double *x, double *y, double rotspeed)
 	*y = old_y * cos(rotspeed) + old_x * sin(rotspeed);
 }
 
+static void	calc_new_pos(t_mapdata *map, char d, double *new_x, double *new_y)
+{
+	*new_x = map->player_pos.x;
+	*new_y = map->player_pos.y;
+	if (d == 'W')
+	{
+		*new_x += map->player_view.x * MOVEMENT_SPEED;
+		*new_y += map->player_view.y * MOVEMENT_SPEED;
+	}
+	else if (d == 'S')
+	{
+		*new_x -= map->player_view.x * MOVEMENT_SPEED;
+		*new_y -= map->player_view.y * MOVEMENT_SPEED;
+	}
+	else if (d == 'A')
+	{
+		*new_x += map->player_view.y * MOVEMENT_SPEED;
+		*new_y -= map->player_view.x * MOVEMENT_SPEED;
+	}
+	else if (d == 'D')
+	{
+		*new_x -= map->player_view.y * MOVEMENT_SPEED;
+		*new_y += map->player_view.x * MOVEMENT_SPEED;
+	}
+}
+
 void	moving(t_mapdata *map, char direction)
 {
+	double	new_x;
+	double	new_y;
+
 	if (!map || !map->map)
 		return ;
-	if (direction == 'W')
-	{
-		map->player_pos.x += map->player_view.x * MOVEMENT_SPEED;
-		map->player_pos.y += map->player_view.y * MOVEMENT_SPEED;
-	}
-	else if (direction == 'A')
-	{
-		map->player_pos.x += map->player_view.y * MOVEMENT_SPEED;
-		map->player_pos.y -= map->player_view.x * MOVEMENT_SPEED;
-	}
-	else if (direction == 'S')
-	{
-		map->player_pos.x -= map->player_view.x * MOVEMENT_SPEED;
-		map->player_pos.y -= map->player_view.y * MOVEMENT_SPEED;
-	}
-	else if (direction == 'D')
-	{
-		map->player_pos.x -= map->player_view.y * MOVEMENT_SPEED;
-		map->player_pos.y += map->player_view.x * MOVEMENT_SPEED;
-	}
+	calc_new_pos(map, direction, &new_x, &new_y);
+	if (if_no_wall(map, new_x, map->player_pos.y))
+		map->player_pos.x = new_x;
+	if (if_no_wall(map, map->player_pos.x, new_y))
+		map->player_pos.y = new_y;
 }
 
 void	init_values(t_mapdata *m)

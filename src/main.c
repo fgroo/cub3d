@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 15:47:23 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/21 22:25:24 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/21 23:13:03 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,38 +62,6 @@ int	init_mlx(t_data *data)
 	mlx_loop_hook(data->mlx, render_game, data);
 	mlx_loop_hook(data->mlx, input_hook, data);
 	mlx_loop(data->mlx);
-	mlx_terminate(data->mlx);
-	return (0);
-}
-
-uint32_t adjust(uint32_t resolution)
-{
-	if (resolution % 8 == 0)
-		return (resolution);
-	else if (resolution % 8 >= 4)
-		return (resolution + resolution % 8);
-	return (resolution - resolution % 8);
-}
-
-int	init_data(t_data *data)
-{
-	const uint32_t	detail_level = DETAIL_LEVEL;
-
-	data->game_width = adjust(GAME_WIDTH);
-	data->game_height = adjust(GAME_HEIGHT);
-	data->map = ft_calloc(1, sizeof(*data->map));
-	if (!data->map)
-		return (pr_error("malloc\n"), cleanup(data), 1);
-	data->img = ft_calloc(1, sizeof(*data->img));
-	if (!data->img)
-		return (pr_error("malloc\n"), cleanup(data), 1);
-	data->ray_count = data->game_width / detail_level;
-	data->raycast = ft_calloc(data->ray_count, sizeof(*data->raycast));
-	if (!data->raycast)
-		return (pr_error("malloc\n"), cleanup(data), 1);
-	data->textures = ft_calloc(1, sizeof(*data->textures));
-	if (!data->textures)
-		return (pr_error("malloc\n"), cleanup(data), 1);
 	return (0);
 }
 
@@ -111,5 +79,6 @@ int	main(int argc, char *argv[])
 	init_values(data.map);
 	if (init_mlx(&data))
 		return (cleanup(&data), 1);
+	cleanup(&data);
 	return (0);
 }
