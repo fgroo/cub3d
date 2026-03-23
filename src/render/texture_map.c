@@ -12,6 +12,7 @@
 
 #include "render_int.h"
 #include <math.h>
+#include <stdio.h>
 
 static mlx_texture_t	*get_wall_texture(t_textures *textures, char side)
 {
@@ -24,6 +25,18 @@ static mlx_texture_t	*get_wall_texture(t_textures *textures, char side)
 	else if (side == 'W')
 		return (textures->west_wall);
 	return (textures->north_wall);
+}
+
+int	get_line_height(uint32_t texture_height, double hit_dist)
+{
+	double	line_height;
+	double	epsilon;
+
+	epsilon = 1e-7;
+	if (hit_dist < 0)
+		epsilon = -epsilon;
+	line_height = (double)texture_height / (hit_dist + epsilon);
+	return ((int)line_height);
 }
 
 static int	get_tex_x(mlx_texture_t *texture, t_raycast *ray)
@@ -45,7 +58,7 @@ void	map_texture_to_vertical(t_texmap *vert, mlx_image_t *img,
 								t_textures *textures, t_raycast *ray)
 {
 	vert->texture = get_wall_texture(textures, ray->hit_side);
-	vert->line_height = (int)((double)vert->texture->height / ray->hit_dist);
+	vert->line_height = get_line_height(vert->texture->height, ray->hit_dist);
 	vert->draw_start = -vert->line_height / 2 + (int)img->height / 2;
 	if (vert->draw_start < 0)
 		vert->draw_start = 0;
