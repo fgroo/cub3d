@@ -1,10 +1,10 @@
-NO ./textures/custom/br_wall.png
-SO ./textures/custom/br_wall.png
-WE ./textures/custom/br_wall.png
-EA ./textures/custom/br_wall.png
+NO ./textures/custom/br_wall_alt.png
+SO ./textures/custom/br_wall_alt.png
+WE ./textures/custom/br_wall_alt.png
+EA ./textures/custom/br_wall_alt.png
 
-F 209,192,115
-C 252,251,227
+F 96,86,44
+C 136,114,47
 
 11111111111111111111111111
 10000100000010001000001101
