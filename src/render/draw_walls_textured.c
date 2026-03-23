@@ -35,8 +35,8 @@ uint32_t	get_pixel_color(mlx_texture_t *texture, int tex_x, int tex_y)
 
 static uint32_t	darken_color(uint32_t color, uint32_t luminence_in_percent)
 {
-	uint32_t darkened;
-	uint32_t color_channel;
+	uint32_t	darkened;
+	uint32_t	color_channel;
 
 	if (luminence_in_percent > 100)
 		luminence_in_percent = 100;
@@ -87,7 +87,7 @@ void	draw_walls_textured(t_data *data, mlx_image_t *img)
 	{
 		map_texture_to_vertical(&vert, img, data->textures, &data->raycast[x]);
 		draw_texture_on_vertical(img, &vert, x * vert.line_thickness,
-						data->raycast[x].hit_side);
+			data->raycast[x].hit_side);
 		++x;
 	}
 }
