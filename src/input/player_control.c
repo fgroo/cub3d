@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 19:32:16 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/21 23:03:05 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/23 18:01:00 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@
 
 static	int	if_no_wall(t_mapdata *map, double new_x, double new_y)
 {
-	if (map->map[(int)new_y][(int)new_x] == '1')
+	if (map->map[(int)(new_y - 0.01)][(int)(new_x - 0.01)] == '1')
+		return (0);
+	else if (map->map[(int)(new_y + 0.01)][(int)(new_x + 0.01)] == '1')
 		return (0);
 	return (1);
 }
