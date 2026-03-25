@@ -17,11 +17,14 @@
 #include <math.h>
 #include <stdlib.h>
 
+#define HB 0.01
+
 static	int	if_no_wall(t_mapdata *map, double new_x, double new_y)
 {
-	if (map->map[(int)(new_y - 0.01)][(int)(new_x - 0.01)] == '1')
-		return (0);
-	else if (map->map[(int)(new_y + 0.01)][(int)(new_x + 0.01)] == '1')
+	if (is_wall(map, (int)(new_x - HB), (int)(new_y - HB))
+		|| is_wall(map, (int)(new_x + HB), (int)(new_y - HB))
+		|| is_wall(map, (int)(new_x - HB), (int)(new_y + HB))
+		|| is_wall(map, (int)(new_x + HB), (int)(new_y + HB)))
 		return (0);
 	return (1);
 }

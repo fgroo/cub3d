@@ -45,7 +45,6 @@ void	ft_free(void *ptr)
 
 void	*ft_realloc_lite(void *ptr, size_t size)
 {
-	static size_t	power;
 	t_chunkheader	*header;
 	size_t			current_size;
 	size_t			align_size;
@@ -60,7 +59,7 @@ void	*ft_realloc_lite(void *ptr, size_t size)
 	current_size = header->size;
 	if (align_size <= current_size)
 		return (ptr);
-	new_ptr = ft_malloc_lite(align_size * ++power);
+	new_ptr = ft_malloc_lite(align_size * 2);
 	if (!new_ptr)
 		return (NULL);
 	ft_memcpy(new_ptr, ptr, current_size);

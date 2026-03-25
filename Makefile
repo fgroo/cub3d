@@ -106,7 +106,7 @@ LDLIBS	+= -lpthread
 
 
 ifeq ($(DEBUG), 1)
-	CFLAGS	+= -ggdb3 -O0
+	CFLAGS	+= -ggdb3 -O0 -DDEBUG=1
 	LDFLAGS	+= -ggdb3 -O0
 endif
 
@@ -241,7 +241,7 @@ re:
 
 # Example use:
 # $ make utest file_to_test1.c file_to_test2.c test_file.c
-utest: CFLAGS += -ggdb3 -O0
+utest: CFLAGS += -ggdb3 -O0 -DDEBUG=1
 utest: LDFLAGS += -ggdb3 -O0
 utest:
 	@echo "Compiling files: " $(CFILES)

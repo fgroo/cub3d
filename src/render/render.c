@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 15:46:49 by rtwobie           #+#    #+#             */
-/*   Updated: 2026/03/20 23:20:22 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/25 00:56:04 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ void	render_game(void *param)
 	data->img->game = data->img->game_buf;
 	data->img->game_buf = tmp;
 	upscale(data);
-	display_debug(data);
+	if (DEBUG)
+		display_debug(data);
 }
 
 // TODO: change values of width and height later

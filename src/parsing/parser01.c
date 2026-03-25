@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 19:41:45 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/21 00:58:11 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/25 00:54:51 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,29 @@ int	validate_format(int fd, t_mapdata *mapdata)
 	return (0);
 }
 
+static int	check_extension(const char *file)
+{
+	const char	*base;
+	const char	*dot;
+
+	base = ft_strrchr(file, '/');
+	if (!base)
+		base = file;
+	else
+		++base;
+	dot = ft_strchr(base, '.');
+	if (!dot || ft_strcmp(dot, ".cub") != 0)
+		return (1);
+	return (0);
+}
+
 int	parser(t_mapdata *map, char *file)
 {
 	int	fd;
 
 	if (!map)
 		return (pr_error(""), 1);
-	if ((ft_strcmp(file + (ft_strlen(file) - 4), ".cub")) != 0)
+	if (check_extension(file))
 		return (pr_error("Wrong file extension\n"), 1);
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
@@ -88,7 +104,8 @@ int	parser(t_mapdata *map, char *file)
 		return (close(fd), 1);
 	if (map_size(map, &map->width, &map->height))
 		return (close(fd), 1);
-	print_mapdata(map);
+	if (DEBUG)
+		print_mapdata(map);
 	close(fd);
 	return (0);
 }

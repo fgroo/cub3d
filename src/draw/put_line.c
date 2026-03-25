@@ -86,12 +86,14 @@ void	put_line(mlx_image_t *img, t_vertex2i p1, t_vertex2i p2, uint32_t color)
 	{
 		if (p1.x > p2.x)
 			_draw_line_h(img, p2, p1, color);
-		_draw_line_h(img, p1, p2, color);
+		else
+			_draw_line_h(img, p1, p2, color);
 	}
 	else
 	{
 		if (p1.y > p2.y)
 			_draw_line_v(img, p2, p1, color);
-		_draw_line_v(img, p1, p2, color);
+		else
+			_draw_line_v(img, p1, p2, color);
 	}
 }

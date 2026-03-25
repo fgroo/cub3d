@@ -1,6 +1,6 @@
-NO ./path_to_the_north_texture
-WE ./path_to_the_west_texture
-EA ./path_to_the_east_texture
+NO ./textures/mc_grass_block_side.png
+WE ./textures/mc_oak_log_64.png
+EA ./textures/mc_cobblestone_64.png
 
 F 220,100,0
 C 225,30,0
