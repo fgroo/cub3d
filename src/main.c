@@ -33,11 +33,11 @@ int	load_textures(t_data *data, t_textures *textures)
 	textures->south_wall = mlx_load_png(data->map->tex[1]);
 	if (!textures->south_wall)
 		return (1);
-	textures->east_wall = mlx_load_png(data->map->tex[2]);
-	if (!textures->east_wall)
-		return (1);
-	textures->west_wall = mlx_load_png(data->map->tex[3]);
+	textures->west_wall = mlx_load_png(data->map->tex[2]);
 	if (!textures->west_wall)
+		return (1);
+	textures->east_wall = mlx_load_png(data->map->tex[3]);
+	if (!textures->east_wall)
 		return (1);
 	if (!is_correct_size(textures->north_wall)
 		|| !is_correct_size(textures->south_wall)
