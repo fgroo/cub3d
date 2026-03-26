@@ -1,5 +1,5 @@
 # config
-NAME		:= cub3d
+NAME		:= cub3D
 CC			:= cc
 SRC_DIR		:= src
 OBJ_DIR		:= obj
