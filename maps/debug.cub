@@ -1,0 +1,15 @@
+NO ./textures/dbg_north.png
+SO ./textures/dbg_south.png
+WE ./textures/dbg_west.png
+EA ./textures/dbg_east.png
+
+F 113,177,71
+C 142,190,255
+
+111111111
+101000001
+101000001
+101001001
+100000001
+100000N01
+111111111
