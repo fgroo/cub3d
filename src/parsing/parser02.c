@@ -68,14 +68,15 @@ static int	parse_color(char *line, long rgb[3])
 	i = 0;
 	while (*line && i < 3)
 	{
-		rgb[i++] = ft_strtol(line + (*line == ','), &endptr, 10);
+		rgb[i] = ft_strtol(line, &endptr, 10);
 		if (endptr == line)
 			return (1);
 		while (*endptr && ft_isspace(*endptr))
 			++endptr;
-		if (*endptr != ',' && i != 3)
+		if (*endptr != ',' && i < 2)
 			return (1);
-		line = endptr;
+		line = endptr + (*endptr == ',');
+		++i;
 	}
 	if (i != 3 || *endptr)
 		return (1);
