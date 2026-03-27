@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/27 15:42:01 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/23 19:32:35 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/27 14:23:55 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,14 @@ static int	check_chars(int *spawnp, const char *line)
 	return (0);
 }
 
-int	validate_map(int fd, char ***map)
+static char	*get_first_line(char *saved, int fd)
+{
+	if (saved)
+		return (saved);
+	return (get_next_line(fd));
+}
+
+int	validate_map(int fd, char ***map, char *saved)
 {
 	char	*tmp;
 	size_t	rows;
@@ -45,7 +52,7 @@ int	validate_map(int fd, char ***map)
 
 	rows = 0;
 	spawnp = 0;
-	tmp = get_next_line(fd);
+	tmp = get_first_line(saved, fd);
 	while (tmp && *tmp == '\n' && (free(tmp), 1))
 		tmp = get_next_line(fd);
 	while (tmp && tmp[0] != '\n')

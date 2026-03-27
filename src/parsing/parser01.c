@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 19:41:45 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/25 00:54:51 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/27 15:34:27 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,55 +18,47 @@
 #include <stdlib.h>
 #include <fcntl.h>
 
-static int	check_texture_file(char **tex, char *line, char *identifier)
+static int	is_complete(int *flag)
 {
-	*tex = fetch_texture_file(line, identifier);
-	if (!(*tex) && (free(line), 1))
-		return (pr_error("failed fetching texture file\n"), 1);
-	return (0);
-}
-
-static int	check_fetch_color(t_mapdata **mapdata, char *line,
-	char *identifier, int i)
-{
-	if (i == 4)
-	{
-		if (fetch_color(line, identifier, &(*mapdata)->floor_color) == 1)
-			return (pr_error("failed fetching color"), 1);
-	}
-	else if (i == 5)
-	{
-		if (fetch_color(line, identifier, &(*mapdata)->ceiling_color) == 1)
-			return (pr_error("failed fetching color"), 1);
-	}
-	return (0);
-}
-
-int	validate_format(int fd, t_mapdata *mapdata)
-{
-	static char	format[7][3] = {"NO", "SO", "WE", "EA", "F", "C", {0}};
-	char		*tmp;
-	int			i;
+	int	i;
 
 	i = 0;
 	while (i < 6)
 	{
-		tmp = NULL;
+		if (flag[i] != 1)
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int	validate_format(int fd, t_mapdata *mapdata, char **saved)
+{
+	static const char	*format[7] = {"NO", "SO", "WE", "EA", "F", "C", NULL};
+	static int			flag[7];
+	char				*tmp;
+
+	*saved = NULL;
+	while (1)
+	{
 		tmp = get_next_line(fd);
+		if (!tmp && is_complete(flag))
+			return (0);
 		if (!tmp)
-			return (pr_error("GNL\n"), 1);
+			return (pr_error("incomplete config\n"), 1);
 		if (tmp[0] == '\n' && (free(tmp), 1))
 			continue ;
-		if (ft_strncmp(tmp, format[i], ft_strlen(format[i])) && (free(tmp), 1))
-			return (pr_error("Wrong Format\n"), 1);
-		if (i < 4 && check_texture_file(&mapdata->tex[i], tmp, format[i]))
+		if (is_complete(flag))
+		{
+			if (is_config_identifier(format, tmp))
+				return (free(tmp), pr_error("configline already taken\n"), 1);
+			*saved = tmp;
+			return (0);
+		}
+		if (!does_mapfile_align(flag, format, tmp, mapdata))
 			return (free(tmp), 1);
-		else if (i >= 4 && check_fetch_color(&mapdata, tmp, format[i], i))
-			return (free(tmp), 1);
-		++i;
 		free(tmp);
 	}
-	return (0);
 }
 
 static int	check_extension(const char *file)
@@ -87,8 +79,10 @@ static int	check_extension(const char *file)
 
 int	parser(t_mapdata *map, char *file)
 {
-	int	fd;
+	int		fd;
+	char	*saved;
 
+	saved = NULL;
 	if (!map)
 		return (pr_error(""), 1);
 	if (check_extension(file))
@@ -96,9 +90,9 @@ int	parser(t_mapdata *map, char *file)
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		return (pr_error("open()\n"), 1);
-	if (validate_format(fd, map))
+	if (validate_format(fd, map, &saved))
 		return (close(fd), 1);
-	if (validate_map(fd, &map->map))
+	if (validate_map(fd, &map->map, saved))
 		return (close(fd), 1);
 	if (flood_map(map))
 		return (close(fd), 1);
