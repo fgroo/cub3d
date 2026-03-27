@@ -189,6 +189,7 @@ SRC		+= parser01.c
 SRC		+= parser02.c
 SRC		+= parser03.c
 SRC		+= parser04.c
+SRC		+= parser05.c
 
 vpath %.c $(SRC_DIR)/render
 SRC		+= render.c
