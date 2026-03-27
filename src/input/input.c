@@ -25,41 +25,40 @@
 void	move_player(t_data *data)
 {
 	if (mlx_is_key_down(data->mlx, MLX_KEY_W))
-		moving(data->map, 'W');
+		moving(data, 'W');
 	if (mlx_is_key_down(data->mlx, MLX_KEY_A))
-		moving(data->map, 'A');
+		moving(data, 'A');
 	if (mlx_is_key_down(data->mlx, MLX_KEY_S))
-		moving(data->map, 'S');
+		moving(data, 'S');
 	if (mlx_is_key_down(data->mlx, MLX_KEY_D))
-		moving(data->map, 'D');
+		moving(data, 'D');
 }
 
 void	rotate_player(t_data *data)
 {
+	double	delta_time;
+
+	delta_time = data->mlx->delta_time;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
 	{
 		matrix_rotation(&data->map->cam_plane.x,
-			&data->map->cam_plane.y, -ROT_SPEED);
+			&data->map->cam_plane.y, -ROT_SPEED * delta_time);
 		matrix_rotation(&data->map->player_view.x,
-			&data->map->player_view.y, -ROT_SPEED);
+			&data->map->player_view.y, -ROT_SPEED * delta_time);
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 	{
 		matrix_rotation(&data->map->cam_plane.x,
-			&data->map->cam_plane.y, ROT_SPEED);
+			&data->map->cam_plane.y, ROT_SPEED * delta_time);
 		matrix_rotation(&data->map->player_view.x,
-			&data->map->player_view.y, ROT_SPEED);
+			&data->map->player_view.y, ROT_SPEED * delta_time);
 	}
 }
 
 void	input_hook(void *param)
 {
 	t_data		*data;
-	static int	i;
 
-	if (--i > 0)
-		return ;
-	i = 3;
 	data = (t_data *)param;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
 	{

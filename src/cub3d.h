@@ -18,7 +18,7 @@
 # define MAP_PXL_SIZE 320
 # define TEXTURE_WIDTH 64
 # define TEXTURE_HEIGHT 64
-# define ROT_SPEED 0.15
+# define ROT_SPEED 4
 # define FOV 2.66
 # define DETAIL_LEVEL 1
 # ifndef DEBUG

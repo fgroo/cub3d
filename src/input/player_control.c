@@ -40,44 +40,47 @@ void	matrix_rotation(double *x, double *y, double rotspeed)
 	*y = old_y * cos(rotspeed) + old_x * sin(rotspeed);
 }
 
-static void	calc_new_pos(t_mapdata *map, char d, double *new_x, double *new_y)
+static void	calc_new_pos(t_data *data, char d, double *new_x, double *new_y)
 {
-	*new_x = map->player_pos.x;
-	*new_y = map->player_pos.y;
+	double	delta_time;
+
+	delta_time = data->mlx->delta_time;
+	*new_x = data->map->player_pos.x;
+	*new_y = data->map->player_pos.y;
 	if (d == 'W')
 	{
-		*new_x += map->player_view.x * MOVEMENT_SPEED;
-		*new_y += map->player_view.y * MOVEMENT_SPEED;
+		*new_x += data->map->player_view.x * MOVEMENT_SPEED * delta_time;
+		*new_y += data->map->player_view.y * MOVEMENT_SPEED * delta_time;
 	}
 	else if (d == 'S')
 	{
-		*new_x -= map->player_view.x * MOVEMENT_SPEED;
-		*new_y -= map->player_view.y * MOVEMENT_SPEED;
+		*new_x -= data->map->player_view.x * MOVEMENT_SPEED * delta_time;
+		*new_y -= data->map->player_view.y * MOVEMENT_SPEED * delta_time;
 	}
 	else if (d == 'A')
 	{
-		*new_x += map->player_view.y * MOVEMENT_SPEED;
-		*new_y -= map->player_view.x * MOVEMENT_SPEED;
+		*new_x += data->map->player_view.y * MOVEMENT_SPEED * delta_time;
+		*new_y -= data->map->player_view.x * MOVEMENT_SPEED * delta_time;
 	}
 	else if (d == 'D')
 	{
-		*new_x -= map->player_view.y * MOVEMENT_SPEED;
-		*new_y += map->player_view.x * MOVEMENT_SPEED;
+		*new_x -= data->map->player_view.y * MOVEMENT_SPEED * delta_time;
+		*new_y += data->map->player_view.x * MOVEMENT_SPEED * delta_time;
 	}
 }
 
-void	moving(t_mapdata *map, char direction)
+void	moving(t_data *data, char direction)
 {
 	double	new_x;
 	double	new_y;
 
-	if (!map || !map->map)
+	if (!data->map || !data->map->map)
 		return ;
-	calc_new_pos(map, direction, &new_x, &new_y);
-	if (if_no_wall(map, new_x, map->player_pos.y))
-		map->player_pos.x = new_x;
-	if (if_no_wall(map, map->player_pos.x, new_y))
-		map->player_pos.y = new_y;
+	calc_new_pos(data, direction, &new_x, &new_y);
+	if (if_no_wall(data->map, new_x, data->map->player_pos.y))
+		data->map->player_pos.x = new_x;
+	if (if_no_wall(data->map, data->map->player_pos.x, new_y))
+		data->map->player_pos.y = new_y;
 }
 
 void	init_values(t_mapdata *m)

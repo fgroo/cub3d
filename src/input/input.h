@@ -16,9 +16,9 @@
 # include "cub3d.h"
 # include "MLX42.h"
 
-# define MOVEMENT_SPEED 0.1
+# define MOVEMENT_SPEED 2.0
 
-void		moving(t_mapdata *map, char direction);
+void		moving(t_data *data, char direction);
 void		matrix_rotation(double *x, double *y, double rotspeed);
 void		init_values(t_mapdata *m);
 void		input_hook(void *param);
