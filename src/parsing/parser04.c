@@ -15,12 +15,16 @@
 
 static int	rev_floodfill(char **map, size_t row, size_t column)
 {
+	if (column >= ft_strlen(map[row]))
+		return (0);
 	map[row][column] = '0';
-	if (row && map[row - 1][column] == '2')
+	if (row && column < ft_strlen(map[row - 1])
+		&& map[row - 1][column] == '2')
 		rev_floodfill(map, row - 1, column);
 	if (column && map[row][column - 1] == '2')
 		rev_floodfill(map, row, column - 1);
-	if (map[row + 1] && map[row + 1][column] == '2')
+	if (map[row + 1] && column < ft_strlen(map[row + 1])
+		&& map[row + 1][column] == '2')
 		rev_floodfill(map, row + 1, column);
 	if (map[row][column + 1] && map[row][column + 1] == '2')
 		rev_floodfill(map, row, column + 1);
@@ -29,17 +33,21 @@ static int	rev_floodfill(char **map, size_t row, size_t column)
 
 static int	floodfill(char **map, size_t row, size_t column, int *err)
 {
-	if (!row || !column || !map[row + 1] || !map[row][column + 1]
+	if (!row || !column || !map[row + 1]
+		|| column >= ft_strlen(map[row]))
+		return (++(*err));
+	if (!map[row][column + 1]
 		|| !map[row][column] || ft_isspace(map[row][column]))
 		return ((map[row][column] && (map[row][column] = '2')), ++(*err));
 	map[row][column] = '2';
-	if (map[row - 1][column] == '0' || ft_isspace(map[row - 1][column]))
+	if (column < ft_strlen(map[row - 1])
+		&& (map[row - 1][column] == '0' || ft_isspace(map[row - 1][column])))
 		floodfill(map, row - 1, column, err);
 	if (map[row][column - 1] == '0'
 		|| ft_isspace(map[row][column - 1]))
 		floodfill(map, row, column - 1, err);
-	if (map[row + 1][column] == '0'
-		|| ft_isspace(map[row + 1][column]))
+	if (column < ft_strlen(map[row + 1])
+		&& (map[row + 1][column] == '0' || ft_isspace(map[row + 1][column])))
 		floodfill(map, row + 1, column, err);
 	if (map[row][column + 1] == '0'
 		|| ft_isspace(map[row][column + 1]))
