@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 19:39:36 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/27 13:40:28 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/30 21:27:28 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # define EAST_ID "EA"
 # define FLOOR_ID "F"
 # define CEILING_ID "C"
+# define MAX_ROW 100
+# define MAX_COLUMN 100
 
 int			parser(t_mapdata *map, char *file);
 int			validate_format(int fd, t_mapdata *mapdata, char **saved);

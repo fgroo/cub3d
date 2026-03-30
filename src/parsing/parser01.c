@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 19:41:45 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/27 15:34:27 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/30 21:27:43 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,9 @@ int	parser(t_mapdata *map, char *file)
 		return (close(fd), 1);
 	if (validate_map(fd, &map->map, saved))
 		return (close(fd), 1);
-	if (flood_map(map))
-		return (close(fd), 1);
 	if (map_size(map, &map->width, &map->height))
+		return (close(fd), 1);
+	if (flood_map(map))
 		return (close(fd), 1);
 	if (DEBUG)
 		print_mapdata(map);

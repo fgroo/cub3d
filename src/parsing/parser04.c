@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/03 15:37:00 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/25 00:54:04 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/30 21:28:49 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,10 @@ static int	rev_floodfill(char **map, size_t row, size_t column)
 
 static int	floodfill(char **map, size_t row, size_t column, int *err)
 {
-	if (!row || !column || !map[row + 1]
-		|| column >= ft_strlen(map[row]))
+	if (!row || !column || !map[row + 1] || !map[row - 1]
+		|| column >= ft_strlen(map[row])
+		|| column > ft_strlen(map[row + 1])
+		|| column > ft_strlen(map[row - 1]))
 		return (++(*err));
 	if (!map[row][column + 1]
 		|| !map[row][column] || ft_isspace(map[row][column]))
@@ -108,5 +110,7 @@ int	map_size(t_mapdata *map, int *width, int *height)
 			*width = len;
 		++(*height);
 	}
+	if (*height >= MAX_ROW || *width >= MAX_COLUMN)
+		return (pr_error("map to big\n"), 1);
 	return (0);
 }

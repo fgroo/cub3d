@@ -6,7 +6,7 @@
 /*   By: fgroo <student@42.eu>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 15:41:21 by fgroo             #+#    #+#             */
-/*   Updated: 2026/03/19 21:20:06 by fgroo            ###   ########.fr       */
+/*   Updated: 2026/03/30 21:28:10 by fgroo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	upscale(t_data *data)
 	if (!data->img->game || !data->img->game_upscld
 		|| !data->window_width || !data->window_height)
 		return ;
-	u.s = (uint32_t *)data->img->game->pixels;
-	u.d = (uint32_t *)data->img->game_upscld->pixels;
+	u.s = (uint32_t *)(void *)data->img->game->pixels;
+	u.d = (uint32_t *)(void *)data->img->game_upscld->pixels;
 	u.y = 0;
 	while (u.y < data->img->game_upscld->height)
 	{
